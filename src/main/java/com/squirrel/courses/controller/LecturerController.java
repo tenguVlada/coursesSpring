@@ -15,6 +15,7 @@ public class LecturerController {
 
     @Autowired
     public LecturerController(ICourseService courseService){
+
         this.courseService = courseService;
     }
 

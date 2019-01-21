@@ -19,4 +19,11 @@ public class CourseService implements ICourseService{
 
         return courseDAO.findCoursesByLecturer(lecturer);
     }
+
+    @Override
+    public List<String> getLecturerCourseThemes(String lecturer) {
+
+
+        return null;
+    }
 }

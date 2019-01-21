@@ -102,6 +102,16 @@ public class JdbcCourseDAO implements CourseDAO{
     }
 
     @Override
+    public List<String> findCoursesThemes() {
+        return null;
+    }
+
+    @Override
+    public List<String> findCoursesThemesByLecturer(String lecturer) {
+        return null;
+    }
+
+    @Override
     public Course findCourseByID(int id) {
         return null;
     }
