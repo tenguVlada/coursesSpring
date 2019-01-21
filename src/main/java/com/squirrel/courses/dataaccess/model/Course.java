@@ -7,6 +7,14 @@ public class Course {
     private String theme;
     private String description;
 
+    public Course(){
+        id = -1;
+        lecturer = null;
+        courseName = null;
+        theme = null;
+        description = null;
+    }
+
     public Course(int id, String lecturer, String courseName, String theme, String description) {
         this.id = id;
         this.lecturer = lecturer;
