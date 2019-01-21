@@ -4,7 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="userDAO" class="com.squirrel.courses.dataaccess.dao.JdbcUserDAO">
+    <bean id="userDAO" class="com.squirrel.courses.dataaccess.dao.user.JdbcUserDAO">
         <property name="dataSource" ref="dataSource" />
     </bean>
+
+    <bean id="courseDAO" class="com.squirrel.courses.dataaccess.dao.course.JdbcCourseDAO">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
 </beans>

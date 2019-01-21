@@ -3,11 +3,6 @@ package com.squirrel.courses;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.squirrel.courses.dataaccess.dao.UserDAO;
-import com.squirrel.courses.dataaccess.model.User;
-
 @SpringBootApplication
 public class CoursesApplication {
 

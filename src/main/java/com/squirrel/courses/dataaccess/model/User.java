@@ -1,13 +1,11 @@
 package com.squirrel.courses.dataaccess.model;
 
-import java.sql.Timestamp;
-
 public class User {
-    String login;
-    String hashPass;
-    String role;
-    String userName;
-    String description;
+    private String login;
+    private String hashPass;
+    private String role;
+    private String userName;
+    private String description;
 
     public User(String login, String hashPass, String role, String userName, String description) {
         this.login = login;

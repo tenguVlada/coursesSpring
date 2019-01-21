@@ -1,6 +1,6 @@
 package com.squirrel.courses.service;
 
-import com.squirrel.courses.dataaccess.dao.UserDAO;
+import com.squirrel.courses.dataaccess.dao.user.UserDAO;
 import com.squirrel.courses.dataaccess.model.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

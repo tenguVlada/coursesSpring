@@ -1,4 +1,4 @@
-package com.squirrel.courses.dataaccess.dao;
+package com.squirrel.courses.dataaccess.dao.user;
 
 import com.squirrel.courses.dataaccess.model.User;
 import java.sql.Connection;
