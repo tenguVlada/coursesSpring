@@ -5,9 +5,8 @@ body {
   /*background-image: url(../img/login/skyBackground.jpg);*/
   /*opacity: 0.9;*/
   /*background-size: cover;*/
-  link: #87CEFA;
+  link:#87CEFA;
 }
-
 
 .info {
 	border-radius: 10px;
