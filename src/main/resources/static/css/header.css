@@ -1,0 +1,387 @@
+a, a:visited {
+  text-decoration: none;
+  position: relative;
+  color: #ffffff;
+}
+
+a:after, a:visited:after {
+  content: '';
+  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  background: #ffffff;
+  transition: 0.4s;
+}
+
+a:hover:after, a:visited:hover:after {
+  width: 100%;
+}
+
+/*header*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /*justify-content: space-between;*/
+  padding: 5px;
+  background: #5682a3;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 20px;
+  border-bottom: 2px solid /*#000000*/#627F9E;
+  height: 70px;
+  min-width: 1300px;
+}
+
+header headercount {
+  display: flex;
+  /*justify-content: space-between;*/
+  width: 600px;
+  margin-left: 28%;
+}
+
+.logo {
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 8px;
+}
+
+.logo img{
+  height: 60px;
+}
+
+.item {
+  margin-top: 20px;
+  padding: 0px 30px;
+}
+
+.reg {
+  width: 200px;
+  display:inline;
+  font-size: 14px;
+  margin-left: 2%;
+  margin-top: 25px;
+}
+
+.log {
+  width: 80px;
+  display:inline;
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+#user_icon{
+  position: absolute;
+  display:inline;
+  height: 14px;
+  width: 14px;
+  margin-top: 2px;
+  margin-right: 20px;
+}
+
+input {
+  outline:none;
+}
+input:focus{
+  color: black;
+}
+form {
+  margin-top: 3px;
+  margin-left: 60px;
+  border: black 5px;
+  height: 28px;
+  border-radius: 5px;
+  width: 250px;
+  /*margin-left: 3px;*/
+  /*border-radius: 5px;*/
+}
+
+form input {
+  margin-top: 3px;
+  margin-left: 30px;
+  padding-left: 10px;
+  position: absolute;
+  top: 23px;
+  width: 230px;
+  height: 28px;
+  border: none;
+  background: #ffffff;
+  color: #9E9C9C;
+  border-radius: 5px 0 0 5px;
+}
+
+#buttonSearch{
+  background: white;
+  border-radius: 0 5px 5px 0;
+  margin-left: 230px;
+  height: 28px;
+  width: 28px;
+}
+
+/*lecturer*/
+
+.container{
+  margin-top: 100px;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f5f5;
+  /*background-image: url(logo061-1024x450.png);*/
+  /*background-image: url(../img/login/skyBackground.jpg);*/
+  /*opacity: 0.9;*/
+  /*background-size: cover;*/
+  link: #87CEFA;
+}
+
+
+.info {
+  border-radius: 10px;
+  position: relative;
+  background: #79c4fd;
+  width: 200px;
+  color: #fafafa;
+}
+
+.circle {
+  position: relative;
+  top: 5px;
+  background: #f5f5f5;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -khtml-border-radius: 50%;
+  width: 180px;
+  height: 180px;
+}
+
+.lecturer {
+  position: relative;
+  display: inline;
+  margin-top: 10px;
+  padding: 10px;
+  left: 12%;
+  color: black;
+  background-color: #2b4d68;
+  width: 200px;
+  color: #aaaaaa;
+}
+
+.lecturer h3{
+  color:white;
+}
+
+.lecturer h4{
+  color: white;
+}
+
+.lecturer_info{
+  /*border-radius: 10px;*/
+  padding: 10px;
+  line-height: 90%;
+  background: #ffffff;
+  color: #000000;
+  /*box-shadow: 0 7px 11px 0 rgba(0, 0, 0, 0.6), 0 9px 19px 0 rgba(0, 0, 0, 0.57);*/
+}
+
+.title {
+  margin-top: 5px;
+  height:22px;
+  width: auto;
+  background: linear-gradient(to right, #ffffff, #2b4d68, #ffffff);
+  font-size: 20px;
+  font-family: sans-serif;
+  color: white;
+  text-align: center;
+}
+
+.content{
+  display: flex;
+  width: 100%;
+}
+
+.courses_info {
+  /*border-radius: 10px;*/
+  width: 800px;
+  border: 3px solid #2b4d68;
+
+}
+
+.descript{
+  margin-top: 20px;
+}
+
+.hdr {
+  margin-top: 18px;
+  background-color:#2b4d68;
+  height: 25px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  width: 800px;
+}
+
+.courseH {
+  height: 25px;
+  text-align: left;
+  margin-left: 10px;
+  color: #2b4d68;
+  font-size: 20px;
+}
+
+.course_column {
+  display: inline;
+  position: relative;
+  margin-left: 12%;
+  padding-left: 5px;
+  top: 10px;
+}
+
+.foot {
+  font: 12px sans-serif;
+  padding: 1%;
+  border-top: 2px solid #08BFBB;
+  margin-top: 770px;
+  background-color:  #87CEFA;
+  border-radius: 0 0 5px 5px;
+}
+
+#butCheck{
+  display:inline;
+  margin: auto;
+  margin-left: 60%;
+  border: 2px solid #2b4d66;
+  color: #2b4d66;
+  font-size: 15px;
+  font-family: sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+  -webkit-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+  -moz-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+}
+
+.contact {
+  float: left;
+  margin-left: 50px;
+}
+
+.copyright {
+  float: right;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+.footcont {
+  overflow: hidden;
+}
+
+.course {
+  width: 700px;
+  font-size: 18px;
+  margin: 20px;
+}
+
+.course h4{
+  position: relative;
+  margin-top: 1%;
+  display:inline;
+  height: 20px;
+  width:300px;
+  line-height: 100%;
+}
+
+#mark{
+  display:inline;
+  margin: auto;
+  margin-right: 0;
+  float:right;
+}
+
+.course h4 a{
+  color: black;
+  text-decoration: none;
+}
+
+#persinfo{
+  text-align: justify;
+}
+
+.course_header {
+  margin-top: 5%;
+}
+
+.courselink {
+  color: #000000;
+  text-underline: black;
+  text-decoration: none;
+}
+
+#add_div{
+  color: black;
+  float: right;
+  /*height: 25px;
+  font-size: 18px;*/
+  font-family: Helvetica;
+  background: linear-gradient(to right, #ffffff, #2b4d68,#2b4d68);
+  text-align: right;
+  color: white;
+  padding-right: 3px;
+  width: 100px;
+}
+
+.checktestlink{
+  color: white;
+  margin-top: 25px;
+}
+
+.linktoadd{
+  color: white;
+}
+
+course h4 p a{
+  margin-left: 100px;
+  color: #87CEFA;
+}
+
+/*footer*/
+footer {
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  left: 6px; right:6px; bottom: 4px;
+  font: 12px sans-serif;
+  padding: 1%;
+  border-top: 2px solid #08BFBB;
+  background-color:  #7cacc9;
+  border-radius: 0 0 5px 5px;
+}
+
+.contact {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.copyright {
+  display: inline;
+}
+
+.copyright p{
+  float:right;
+  margin-top: 0px;
+}
+
+footer p {
+  display: inline;
+}
+
+.footcont {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 1000px;
+}

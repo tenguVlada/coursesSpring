@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcCourseDAO implements CourseDAO{
+public class JdbcCourseDAO implements ICourseDAO {
 
     private DataSource dataSource;
 
@@ -57,7 +57,30 @@ public class JdbcCourseDAO implements CourseDAO{
 
     @Override
     public boolean deleteCourse(int id) {
-        return false;
+        String sql = "DELETE FROM course WHERE id LIKE ?";
+        Connection conn = null;
+
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -78,8 +101,49 @@ public class JdbcCourseDAO implements CourseDAO{
             while (rs.next()){
                 course = new Course();
                 course.setId(rs.getInt("id"));
-                course.setCourseName(rs.getString("course_name"));
                 course.setTheme(rs.getString("theme"));
+                course.setCourseName(rs.getString("course_name"));
+                course.setDescription(rs.getString("description"));
+
+                courseList.add(course);
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+
+        return courseList;
+    }
+
+    @Override
+    public List<Course> findCoursesByTheme(String theme) {
+        String sql = "SELECT id, course_name, description FROM course WHERE theme = ? ";
+        Connection conn = null;
+        ResultSet rs = null;
+        List<Course> courseList = new ArrayList();
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, theme);
+
+            rs = ps.executeQuery();
+
+            Course course;
+            while (rs.next()){
+                course = new Course();
+                course.setId(rs.getInt("id"));
+                course.setCourseName(rs.getString("course_name"));
+                course.setTheme(theme);
                 course.setDescription(rs.getString("description"));
 
                 courseList.add(course);
@@ -103,7 +167,41 @@ public class JdbcCourseDAO implements CourseDAO{
 
     @Override
     public List<Course> findAllCourses() {
-        return null;
+        String sql = "SELECT id, course_name, theme, description FROM course";
+        Connection conn = null;
+        ResultSet rs = null;
+        List<Course> courseList = new ArrayList();
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            Course course;
+            while (rs.next()){
+                course = new Course();
+                course.setId(rs.getInt("id"));
+                course.setCourseName(rs.getString("course_name"));
+                course.setDescription(rs.getString("description"));
+                course.setTheme(rs.getString("theme"));
+
+                courseList.add(course);
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+
+        return courseList;
     }
 
     @Override
@@ -151,17 +249,69 @@ public class JdbcCourseDAO implements CourseDAO{
 
     @Override
     public List<String> findCoursesThemes() {
+        String sql = "SELECT DISTINCT theme FROM course";
+        Connection conn = null;
+        ResultSet rs = null;
+        List<String> themeList = new ArrayList();
 
-        return null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                themeList.add(rs.getString("theme"));
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+
+        return themeList;
     }
 
     @Override
     public List<String> findCoursesThemesByLecturer(String lecturer) {
-        return null;
-    }
+        String sql = "SELECT DISTINCT theme FROM course WHERE lecturer = ?";
+        Connection conn = null;
+        ResultSet rs = null;
+        List<String> themeList = new ArrayList();
 
-    @Override
-    public Course findCourseByID(int id) {
-        return null;
+        try {
+            conn = dataSource.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, lecturer);
+
+            rs = ps.executeQuery();
+
+            while (rs.next()){
+                themeList.add(rs.getString("theme"));
+            }
+
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                }
+            }
+        }
+
+        return themeList;
     }
 }
