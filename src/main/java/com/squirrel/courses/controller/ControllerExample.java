@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+//@Controller
 public class ControllerExample {
-    private ServiceInterfaceExample serviceIE;
+    /*private ServiceInterfaceExample serviceIE;
 
     @Autowired
     public ControllerExample(ServiceImplementationExample serviceIE){
@@ -20,5 +20,5 @@ public class ControllerExample {
     public String showString(Model model){
         model.addAttribute("description", serviceIE.getUserDescription("user"));
         return "htmlexample";
-    }
+    }*/
 }
