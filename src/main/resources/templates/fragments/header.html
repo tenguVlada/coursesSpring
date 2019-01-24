@@ -1,0 +1,39 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:fragment="header-css">
+        <link rel="stylesheet"  type="text/css" th:href="@{/css/header.css}" href="../../static/css/header.css">
+    </div>
+</head>
+<body>
+    <div th:fragment="header">
+        <div class="container">
+            <div class = "logo">
+                <img th:src="@{/img/header/logo.png}" alt="logo">
+            </div>
+            <headercount>
+                <div class="item"><a href="">Courses</a></div>
+                <div class="item"><a href="">About</a></div>
+
+                <form class="header_form" action="" method="post">
+                    <input type="search" name="q" placeholder="Search courses">
+                    <input type="image" id = "buttonSearch" th:src="@{/img/header/loupe.png}" alt="Search">
+                </form>
+            </headercount>
+            <div class="reg">
+                <!--<div id="adminimg"></div>-->
+                <img id="user_icon" th:src="@{/img/header/user_icon.png}" alt="">
+                <!--<%if (session.getAttribute("role").toString().equals("lecturer")){%>-->
+                <a href="" class="header_name">&emsp;&nbsp;User name<!--<%out.print(session.getAttribute("name"));%>--></a>
+                <!--<%}
+                else if (session.getAttribute("role").toString().equals("student")){%>
+                    <a href="student.jsp" class="header_name"><%out.print(session.getAttribute("name"));%></a>
+                <%}%>
+                <br>-->
+            </div>
+            <div class="log">
+              <a href="">Log Out</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
