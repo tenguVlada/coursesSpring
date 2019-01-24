@@ -1,13 +1,13 @@
 package com.squirrel.courses.dataaccess.model;
 
-public class User {
+public class AppUser {
     private String login;
     private String hashPass;
     private String role;
     private String userName;
     private String description;
 
-    public User(String login, String hashPass, String role, String userName, String description) {
+    public AppUser(String login, String hashPass, String role, String userName, String description) {
         this.login = login;
         this.hashPass = hashPass;
         this.role = role;

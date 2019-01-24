@@ -1,8 +1,10 @@
 package com.squirrel.courses.dataaccess.dao.user;
 
-import com.squirrel.courses.dataaccess.model.User;
+import com.squirrel.courses.dataaccess.model.AppUser;
 
 public interface UserDAO {
-    boolean addUser(User user);
-    User findByLogin(String login);
+
+    boolean addUser(AppUser appUser);
+
+    AppUser findByLogin(String login);
 }
