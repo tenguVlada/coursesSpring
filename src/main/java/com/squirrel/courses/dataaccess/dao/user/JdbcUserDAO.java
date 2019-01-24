@@ -1,6 +1,6 @@
 package com.squirrel.courses.dataaccess.dao.user;
 
-import com.squirrel.courses.dataaccess.model.User;
+import com.squirrel.courses.dataaccess.model.AppUser;
 import com.squirrel.courses.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -21,10 +21,10 @@ public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
     }
 
     @Override
-    public boolean addUser(User user) {
+    public boolean addUser(AppUser appUser) {
 
         String sql = UserMapper.INSERT_SQL + " VALUES(?, ?, ?, ?, ?)";
-        Object [] params = new Object[]{user.getLogin(), user.getHashPass(), user.getRole(), user.getUserName(), user.getDescription()};
+        Object [] params = new Object[]{appUser.getLogin(), appUser.getHashPass(), appUser.getRole(), appUser.getUserName(), appUser.getDescription()};
         try{
             this.getJdbcTemplate().update(sql, params);
             return true;
@@ -35,15 +35,15 @@ public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
     }
 
     @Override
-    public User findByLogin(String login) {
+    public AppUser findByLogin(String login) {
 
         String sql = UserMapper.BASE_SQL + " WHERE login = ?";
 
         Object[] params = new Object[]{login};
         UserMapper mapper = new UserMapper();
         try {
-            User user = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return user;
+            AppUser appUser = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            return appUser;
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -88,10 +88,10 @@ public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, login);
 
-            User user = null;
+            AppUser user = null;
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new User(
+                user = new AppUser(
                         rs.getString("login"),
                         rs.getString("hash_pass"),
                         rs.getString("role"),

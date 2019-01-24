@@ -8,7 +8,7 @@ public class CoursesApplication {
 
     public static void main(String[] args) {
 
-        /*User user = new User("user", "hashPass","lecturer", "userName", "it's me");
+        /*AppUser user = new AppUser("user", "hashPass","lecturer", "userName", "it's me");
         userDAO.addUser(user);*/
 
 

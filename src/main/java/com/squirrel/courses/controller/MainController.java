@@ -52,7 +52,7 @@ public class MainController {
         // Sau khi user login thanh cong se co principal
         String userName = principal.getName();
 
-        System.out.println("User Name: " + userName);
+        System.out.println("AppUser Name: " + userName);
 
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
 
