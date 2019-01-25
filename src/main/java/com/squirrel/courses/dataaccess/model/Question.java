@@ -1,10 +1,27 @@
 package com.squirrel.courses.dataaccess.model;
 
 public class Question {
+    private int id;
     private int test;
     private String questText;
     private int points;
     private byte isOpen;
+
+    public Question(int id, int test, String questText, int points, byte isOpen) {
+        this.id = id;
+        this.test = test;
+        this.questText = questText;
+        this.points = points;
+        this.isOpen = isOpen;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getTest() {
         return test;
