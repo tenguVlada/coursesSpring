@@ -1,96 +1,53 @@
 package com.squirrel.courses.dataaccess.dao.course;
 
 import com.squirrel.courses.dataaccess.model.Test;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.squirrel.courses.dataaccess.mapper.TestMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import javax.sql.DataSource;
 
 public class TestDAO implements ITestDAO{
 
     @Override
     public boolean addTest(Test test) {
-        String sql = "INSERT INTO test(lesson, evaluation, isExam) VALUES(?, ?, ?)";
-        Connection conn = null;
+        String sql = TestMapper.INSERT_SQL + " VALUES(?, ?, ?)";
 
-        try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, test.getLesson());
-            ps.setInt(2, test.getEvaluation());
-            ps.setByte(3, test.getIsExam());
-
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+        Object [] params = new Object[]{test.getLesson(), test.getEvaluation(), test.getIsExam()};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
         }
-
-        return true;
+        catch (DataAccessException e){
+            return false;
+        }
     }
 
     public boolean deleteTest(int testId){
-        String sql = "DELETE FROM test WHERE id = ?";
-        Connection conn = null;
+        String sql = TestMapper.DELETE_SQL + " WHERE id = ?";
 
-        try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, testId);
-
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+        Object[] params = new Object[]{testId};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
         }
-
-        return true;
+        catch (DataAccessException e){
+            return false;
+        }
     }
 
     public int getLastTest() {
-        int testId;
-
         String sql = "SELECT MAX(id) as testId FROM test";
-        Connection conn = null;
 
+        TestMapper mapper = new TestMapper();
         try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-            testId = 0;
-            if (rs.next()) {
-                testId = rs.getInt("testId");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+            int testId = this.getJdbcTemplate().queryForObject(sql, mapper);        //возможно неправильно
+            return testId;
+        } catch (EmptyResultDataAccessException e) {
+            return -1;
         }
-
-        return testId;
     }
 }
