@@ -4,9 +4,9 @@ public class Answer {
     private int id;
     private int question;
     private String ansText;
-    private int coef;
+    private double coef;
 
-    public Answer(int id, int question, String ansText, int coef) {
+    public Answer(int id, int question, String ansText, double coef) {
         this.id = id;
         this.question = question;
         this.ansText = ansText;
@@ -37,11 +37,11 @@ public class Answer {
         this.ansText = ansText;
     }
 
-    public int getCoef() {
+    public double getCoef() {
         return coef;
     }
 
-    public void setCoef(int coef) {
+    public void setCoef(double coef) {
         this.coef = coef;
     }
 }
