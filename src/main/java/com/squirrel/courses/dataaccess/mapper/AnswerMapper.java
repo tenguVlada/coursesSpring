@@ -16,6 +16,7 @@ public class AnswerMapper implements RowMapper<Answer> {
         int question = resultSet.getInt("question");
         String ansText = resultSet.getString("a_text");
         double coef = resultSet.getDouble("coefficient");
+
         return new Answer(id, question, ansText, coef);
     }
 }

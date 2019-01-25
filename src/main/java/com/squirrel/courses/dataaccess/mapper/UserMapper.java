@@ -17,6 +17,7 @@ public class UserMapper implements RowMapper<AppUser> {
         String role = resultSet.getString("role");
         String userName = resultSet.getString("user_name");
         String description = resultSet.getString("description");
+
         return new AppUser(login, hashPass, role, userName, description);
     }
 }
