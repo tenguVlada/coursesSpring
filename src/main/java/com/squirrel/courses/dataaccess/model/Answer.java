@@ -13,6 +13,12 @@ public class Answer {
         this.coef = coef;
     }
 
+    public Answer(int question, String ansText, double coef) {
+        this.question = question;
+        this.ansText = ansText;
+        this.coef = coef;
+    }
+
     public int getId() {
         return id;
     }

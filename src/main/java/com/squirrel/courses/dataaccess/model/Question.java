@@ -15,6 +15,13 @@ public class Question {
         this.isOpen = isOpen;
     }
 
+    public Question(int test, String questText, int points, byte isOpen) {
+        this.test = test;
+        this.questText = questText;
+        this.points = points;
+        this.isOpen = isOpen;
+    }
+
     public int getId() {
         return id;
     }

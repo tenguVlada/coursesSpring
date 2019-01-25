@@ -13,6 +13,12 @@ public class Test {
         this.isExam = isExam;
     }
 
+    public Test(int lesson, int evaluation, byte isExam) {
+        this.lesson = lesson;
+        this.evaluation = evaluation;
+        this.isExam = isExam;
+    }
+
     public int getId() {
         return id;
     }
