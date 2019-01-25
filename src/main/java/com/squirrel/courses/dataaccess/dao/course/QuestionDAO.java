@@ -10,7 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
-public class QuestionDAO implements IQuestionDAO{
+@Repository
+@Transactional
+public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
+
+    @Autowired
+    public QuestionDAO(DataSource dataSource){
+        this.setDataSource(dataSource);
+    }
 
     @Override
     public boolean addQuestion(Question quest) {
@@ -32,7 +39,7 @@ public class QuestionDAO implements IQuestionDAO{
 
         QuestionMapper mapper = new QuestionMapper();
         try {
-            int testId = this.getJdbcTemplate().queryForObject(sql, mapper);        //возможно неправильно
+            int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
             return testId;
         } catch (EmptyResultDataAccessException e) {
             return -1;

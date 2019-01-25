@@ -10,7 +10,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
-public class TestDAO implements ITestDAO{
+@Repository
+@Transactional
+public class TestDAO extends JdbcDaoSupport implements ITestDAO{
+
+    @Autowired
+    public TestDAO(DataSource dataSource){
+        this.setDataSource(dataSource);
+    }
 
     @Override
     public boolean addTest(Test test) {
@@ -42,9 +49,8 @@ public class TestDAO implements ITestDAO{
     public int getLastTest() {
         String sql = "SELECT MAX(id) as testId FROM test";
 
-        TestMapper mapper = new TestMapper();
         try {
-            int testId = this.getJdbcTemplate().queryForObject(sql, mapper);        //возможно неправильно
+            int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
             return testId;
         } catch (EmptyResultDataAccessException e) {
             return -1;

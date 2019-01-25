@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class CourseMapper implements RowMapper<Course> {
     public static final String BASE_SQL = "SELECT id, lecturer, course_name, theme, description FROM course";
     public static final String INSERT_SQL = "INSERT INTO course (lecturer, course_name, theme, description)";
+    public static final String DELETE_SQL = "DELETE FROM course";
 
     @Override
     public Course mapRow(ResultSet resultSet, int i) throws SQLException {
