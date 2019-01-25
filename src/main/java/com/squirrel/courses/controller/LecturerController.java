@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Controller
+//@Controller
 public class LecturerController {
-    private ICourseService courseService;
+    /*private ICourseService courseService;
 
     @Autowired
     public LecturerController(ICourseService courseService){
@@ -20,10 +20,10 @@ public class LecturerController {
         this.courseService = courseService;
     }
 
-    /*@RequestMapping("/")
+    @RequestMapping("/")
     public String home(){
         return "index";
-    }*/
+    }
 
     @GetMapping(value = {"/", "", "/lecturer"})
     public String showLecturerCourses(Model model){
@@ -31,5 +31,5 @@ public class LecturerController {
 
         model.addAttribute("courses", courses);
         return "lecturer";
-    }
+    }*/
 }

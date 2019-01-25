@@ -1,23 +1,55 @@
 package com.squirrel.courses.dataaccess.dao.user;
 
-import com.squirrel.courses.dataaccess.model.User;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.squirrel.courses.dataaccess.model.AppUser;
+import com.squirrel.courses.dataaccess.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.sql.DataSource;
 
-public class JdbcUserDAO implements UserDAO{
+@Repository
+@Transactional
+public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
 
-    private DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Autowired
+    public JdbcUserDAO(DataSource dataSource){
+        this.setDataSource(dataSource);
     }
 
     @Override
-    public boolean addUser(User user) {
-        String sql = "INSERT INTO `USER` " +
+    public boolean addUser(AppUser appUser) {
+
+        String sql = UserMapper.INSERT_SQL + " VALUES(?, ?, ?, ?, ?)";
+        Object [] params = new Object[]{appUser.getLogin(), appUser.getHashPass(), appUser.getRole(), appUser.getUserName(), appUser.getDescription()};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
+        }
+        catch (DataAccessException e){
+            return false;
+        }
+    }
+
+    @Override
+    public AppUser findByLogin(String login) {
+
+        String sql = UserMapper.BASE_SQL + " WHERE login = ?";
+
+        Object[] params = new Object[]{login};
+        UserMapper mapper = new UserMapper();
+        try {
+            AppUser appUser = this.getJdbcTemplate().queryForObject(sql, params, mapper);
+            return appUser;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    /*String sql = "INSERT INTO `USER` " +
                 "(login, hash_pass, role, user_name, description) VALUES (?, ?, ?, ?, ?)";
         Connection conn = null;
 
@@ -45,11 +77,9 @@ public class JdbcUserDAO implements UserDAO{
         }
 
         return true;
-    }
+    }*/
 
-    @Override
-    public User findByLogin(String login) {
-        String sql = "SELECT * FROM `USER` WHERE login = ?";
+        /*String sql = "SELECT * FROM `USER` WHERE login = ?";
 
         Connection conn = null;
 
@@ -58,10 +88,10 @@ public class JdbcUserDAO implements UserDAO{
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, login);
 
-            User user = null;
+            AppUser user = null;
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new User(
+                user = new AppUser(
                         rs.getString("login"),
                         rs.getString("hash_pass"),
                         rs.getString("role"),
@@ -80,8 +110,5 @@ public class JdbcUserDAO implements UserDAO{
                     conn.close();
                 } catch (SQLException e) {}
             }
-        }
-    }
-
-
+        }*/
 }
