@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+/*@Service
 public class CourseService implements ICourseService{
 
     private ICourseDAO courseDAO;
@@ -19,7 +19,7 @@ public class CourseService implements ICourseService{
         this.courseDAO = courseDAO;
     }*/
 
-    public CourseService(){
+    /*public CourseService(){
         ApplicationContext context =
                 new ClassPathXmlApplicationContext("database/SpringModule.xml");
         courseDAO = (ICourseDAO) context.getBean("courseDAO");
@@ -69,4 +69,4 @@ public class CourseService implements ICourseService{
     public List<Course> getCoursesByLecturer(String lecturer) {
         return courseDAO.findCoursesByLecturer(lecturer);
     }
-}
+}*/

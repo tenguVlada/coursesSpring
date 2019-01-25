@@ -1,6 +1,7 @@
 package com.squirrel.courses.service.user;
 
 import com.squirrel.courses.dataaccess.dao.user.JdbcUserDAO;
+import com.squirrel.courses.dataaccess.dao.user.UserDAO;
 import com.squirrel.courses.dataaccess.model.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,12 +19,12 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private JdbcUserDAO jdbcUserDAO;
+    private UserDAO userDAO;
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
-        AppUser appUser = this.jdbcUserDAO.findByLogin(login);
+        AppUser appUser = this.userDAO.findByLogin(login);
 
         if (appUser == null) {
             System.out.println("AppUser not found! " + login);

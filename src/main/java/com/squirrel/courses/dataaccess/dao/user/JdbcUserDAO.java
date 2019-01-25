@@ -1,7 +1,7 @@
 package com.squirrel.courses.dataaccess.dao.user;
 
 import com.squirrel.courses.dataaccess.model.AppUser;
-import com.squirrel.courses.mapper.UserMapper;
+import com.squirrel.courses.dataaccess.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;

@@ -1,4 +1,4 @@
-package com.squirrel.courses.mapper;
+package com.squirrel.courses.dataaccess.mapper;
 
 import com.squirrel.courses.dataaccess.model.AppUser;
 import org.springframework.jdbc.core.RowMapper;
