@@ -92,6 +92,21 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
     }
 
     @Override
+    public Course findCourseByID(int id) {
+        String sql = CourseMapper.BASE_SQL + " WHERE id = ?";
+
+        Object[] params = new Object[]{id};
+        CourseMapper mapper = new CourseMapper();
+
+        try {
+            Course course = getJdbcTemplate().queryForObject(sql, params, mapper);                        //возможно неправильно
+            return course;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+    @Override
     public List<Course> findAllCourses() {
         String sql = CourseMapper.BASE_SQL;
 
