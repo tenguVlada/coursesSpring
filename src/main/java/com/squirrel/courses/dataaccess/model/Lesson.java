@@ -15,6 +15,13 @@ public class Lesson {
         this.material = material;
     }
 
+    public Lesson(int course, String lessName, String description, String material) {
+        this.course = course;
+        this.lessName = lessName;
+        this.description = description;
+        this.material = material;
+    }
+
     public int getId() {
         return id;
     }

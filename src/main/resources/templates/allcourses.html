@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Main page</title>
+    <!--<link rel="stylesheet" href="css/page_with_courses.css">
+    <link rel="stylesheet" href="header/my.css">-->
+
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/allcourses.css}">
+    <script th:src="@{/js/allcourses.js}"></script>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="content">
+
+        <div class="leftMainCol">
+            <div id="specs">
+                <h2>Specializations</h2>
+                <div th:each="theme: ${themes}">
+                    <a href="" th:text="${'- ' + theme}"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="rightMainCol" th:each="course: ${courses}">
+            <!--<%
+                for (int i = 1; i < n; i++){
+            %>-->
+            <div id="courseCard">
+                <div class="centerPart">
+                    <h2 id="courseNameAndDescr" th:text="${course.getCourseName() + ': ' + course.getTheme()}"></h2>
+                    <div id="descr" th:text="${course.getDescription()}"></div>
+                    <br/>
+                </div>
+
+                    <!--Subscribers-->
+                <!--
+                <div class="rightPart">
+                    <div id="rate">
+                        <div id="voice">228 subscribers</div>
+                    </div>
+                </div>
+                -->
+
+                <hr class="cardSplit">
+
+                <div class="lectAuthor">
+                    <img id="lecturerIcon" th:src="@{img/allcourses/avatar.png}" alt="">
+                    <label id="lecturerName" th:text="${'Lecturer: ' + course.getLecturer()}"><b></b></label>
+                </div>
+                <div class = "pageButt">
+                    <button id="showMoreButt" type="button"  name="button">Show more</button>
+                </div>
+            </div>
+
+            <div class="popupcont" id="popupcont">
+                <div class="popup" id="popup">
+                    <div class="operstatus"><%=request.getAttribute("textMsg")%></div>
+                    <button class="close" onclick="closePopUp()">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
