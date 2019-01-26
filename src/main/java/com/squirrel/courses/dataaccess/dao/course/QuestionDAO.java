@@ -1,71 +1,48 @@
 package com.squirrel.courses.dataaccess.dao.course;
 
 import com.squirrel.courses.dataaccess.model.Question;
+import com.squirrel.courses.dataaccess.mapper.QuestionMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import javax.sql.DataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+@Repository
+@Transactional
+public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
 
-public class QuestionDAO implements IQuestionDAO{
+    @Autowired
+    public QuestionDAO(DataSource dataSource){
+        this.setDataSource(dataSource);
+    }
 
     @Override
     public boolean addQuestion(Question quest) {
-        String sql = "INSERT INTO question(test, q_text, points, isOpen) VALUES(?, ?, ?, ?)";
-        Connection conn = null;
+        String sql = QuestionMapper.INSERT_SQL + " VALUES(?, ?, ?, ?)";
 
-        try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, quest.getTest());
-            ps.setString(2, quest.getQuestText());
-            ps.setInt(3, quest.getPoints());
-            ps.setByte(4, quest.getIsOpen());
-
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+        Object [] params = new Object[]{quest.getTest(), quest.getQuestText(), quest.getPoints(), quest.getIsOpen()};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
         }
-
-        return true;
+        catch (DataAccessException e){
+            return false;
+        }
     }
 
     @Override
     public int getLastQuestion() {
-        int questId;
+        String sql = "SELECT MAX(id) as testId FROM test";
 
-        String sql = "SELECT MAX(id) as questId FROM question";
-        Connection conn = null;
-
+        QuestionMapper mapper = new QuestionMapper();
         try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-            questId = 0;
-            if (rs.next()) {
-                questId = rs.getInt("questId");
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+            int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
+            return testId;
+        } catch (EmptyResultDataAccessException e) {
+            return -1;
         }
-
-        return questId;
     }
 }

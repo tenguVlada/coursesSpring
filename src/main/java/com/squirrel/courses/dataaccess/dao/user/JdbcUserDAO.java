@@ -8,7 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import javax.sql.DataSource;
 
 @Repository
@@ -22,8 +21,8 @@ public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
 
     @Override
     public boolean addUser(AppUser appUser) {
-
         String sql = UserMapper.INSERT_SQL + " VALUES(?, ?, ?, ?, ?)";
+
         Object [] params = new Object[]{appUser.getLogin(), appUser.getHashPass(), appUser.getRole(), appUser.getUserName(), appUser.getDescription()};
         try{
             this.getJdbcTemplate().update(sql, params);
@@ -36,7 +35,6 @@ public class JdbcUserDAO extends JdbcDaoSupport implements UserDAO{
 
     @Override
     public AppUser findByLogin(String login) {
-
         String sql = UserMapper.BASE_SQL + " WHERE login = ?";
 
         Object[] params = new Object[]{login};
