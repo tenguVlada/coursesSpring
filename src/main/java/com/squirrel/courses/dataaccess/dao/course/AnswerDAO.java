@@ -1,19 +1,17 @@
 package com.squirrel.courses.dataaccess.dao.course;
 
 import com.squirrel.courses.dataaccess.model.Answer;
+import com.squirrel.courses.dataaccess.mapper.AnswerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
-
 @Repository
-@Transactional
+@javax.transaction.Transactional
 public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
 
     @Autowired
@@ -23,31 +21,16 @@ public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
 
     @Override
     public boolean addAnswer(Answer answer){
-        String sql = "INSERT INTO answer(question, a_text, coefficient) VALUES(?, ?, ?)";
-        Connection conn = null;
+        String sql = AnswerMapper.INSERT_SQL + " VALUES(?, ?, ?)";
 
-        try {
-            //conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, answer.getQuestion());
-            ps.setString(2, answer.getAnsText());
-            ps.setDouble(3, answer.getCoef());
-
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                }
-            }
+        Object [] params = new Object[]{answer.getQuestion(), answer.getAnsText(), answer.getCoef()};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
         }
-
-        return true;
+        catch (DataAccessException e){
+            return false;
+        }
     }
 }
+
