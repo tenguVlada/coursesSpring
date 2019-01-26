@@ -1,0 +1,42 @@
+body {
+  background-color: #2b4d66;
+}
+
+.errorGif {
+  width: 50%;
+  float: left;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  margin-left: 7%;
+}
+
+.errorText {
+  margin-left: 51%;
+  text-align: center;
+  margin-right: 7%;
+  margin-top: 20%;
+}
+
+.errorText > h3{
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+.errorText > h1{
+  font-family: sans-serif;
+  color: #ffffff;
+}
+
+.button {
+  display: block;
+  height: 25px;
+  background: #4E9CAF;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  width: 200px;
+  border-radius: 3px;
+}
+
