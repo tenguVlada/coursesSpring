@@ -37,7 +37,6 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
     public int getLastQuestion() {
         String sql = "SELECT MAX(id) as testId FROM test";
 
-        QuestionMapper mapper = new QuestionMapper();
         try {
             int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
             return testId;
