@@ -4,6 +4,7 @@ import com.squirrel.courses.dataaccess.model.Course;
 import java.util.List;
 
 public interface ICourseDAO {
+    Course findCourseByID(int id);
     List<Course> findAllCourses();
     List<Course> findCoursesByName(String name);
     List<Course> findCoursesByLecturer(String lecturer);
