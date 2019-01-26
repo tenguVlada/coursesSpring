@@ -1,0 +1,220 @@
+html body {
+  background-color: #F9F9F9
+}
+
+/*content*/
+.content{
+  margin-top: 100px;
+  display: flex;
+}
+
+.leftMainCol {
+  display: inline;
+  float: left;
+  width: 18%;
+  min-width: 18%;
+  padding: 10px 10px 10px 6%;
+}
+
+.rightMainCol {
+  display: block;
+  width: 70%;
+  min-width: 70%;
+  padding: 10px 6% 10px 10px;
+}
+
+#specs {
+  /*padding: 20px;*/
+  background: #ffffff;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  border: 1px solid #5682a3;
+  padding-bottom: 10px;
+}
+
+#specs h2 {
+  text-align: center;
+  font-size: 22px;
+}
+
+#specs a {
+  color: black;
+  text-decoration: none;
+  padding: 40px;
+}
+
+
+#courseCard {
+  margin-bottom: 15px;
+  position: relative;
+  padding-top: 0px;
+  background: #ffffff;
+  border: 1px solid #5682a3;
+  min-height: 200px;
+  height: auto;
+  width: 100%;
+  /*max-height: 350px;*/
+}
+
+.leftPart {
+  position: absolute;
+  width: 20%;
+}
+
+.centerPart {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  width: 75%;
+  height: 100%;
+  margin-left: 4%;
+}
+
+#descr{
+  text-align: justify;
+  margin-bottom: 60px;
+}
+
+#rate{
+  color: black;
+  height: 25px;
+  font-size: 18px;
+  font-family: Helvetica;
+  background: linear-gradient(to right, #ffffff, #5682a3,#5682a3);
+  text-align: right;
+  color: white;
+  padding-right: 3px;
+  opacity: 0.8;
+}
+
+/*h4{
+  line-height: 20%;
+  font-size: 18px;
+  text-align: left;
+}*/
+
+.rightPart {
+  position: absolute;
+  width: 20%;
+  top: 30px;
+  right: 0;
+}
+
+.cardSplit{
+  position: absolute;
+  bottom: 50px;
+
+  width: 100%;
+  height: 1px;
+  border: 0px;
+  background-color: #5682a3;
+}
+
+.lectAuthor{
+  font-family: Helvetica;
+  position: absolute;
+  bottom: 0;
+  padding-bottom: 10px;
+  margin-left: 35px;
+  color: black;
+  width: 280px;
+}
+
+#lecturerIcon{
+  position: absolute;
+  /*display:inline;*/
+  height: 40px;
+  width: 40px;
+  bottom: 10px;
+}
+
+#lecturerName{
+  font-size: 14px;
+  margin-left: 50px;
+  padding-top: 14px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+#showMoreButt {
+  height: 35px;
+  width: 120px;
+  margin-left: 150px;
+  border: 2px solid #5682a3;
+  background-color: #5682a3;
+  color: white;
+  font-size: 18px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  cursor: pointer;
+}
+
+.pageButt{
+  position: absolute;
+  bottom: 2px;
+  right: 0px;
+  display: flex;
+  padding: 10px;
+  width: 280px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.popupcont{
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 16px;
+  background-color: rgba(1, 1, 1, 0.725);
+  z-index: 100;
+  overflow: auto;
+}
+
+.popup{
+  display: none;
+  width: 300px;
+  height: 150px;
+  margin: 200px auto;
+  background: #fff;
+  z-index: 200;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.operstatus {
+  text-align: center;
+  font-size: 26px;
+  font-family: sans-serif;
+}
+
+.close{
+  width: 140px;
+  height: 40px;
+  margin-left: 80px;
+  margin-top: 80px;
+  cursor: pointer;
+  font-size: 18px;
+  border: 0;
+  background-color: #78c4ff;
+  color: white;
+}
+
+#lessCount {
+  height: 20%;
+  position: absolute;
+  display: flex;
+}
+
+#lessCount h4{
+  text-align: center;
+}
+
+#lessCount a{
+  color: black;
+}

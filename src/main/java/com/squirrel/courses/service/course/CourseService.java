@@ -9,20 +9,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/*@Service
+@Service
 public class CourseService implements ICourseService{
 
     private ICourseDAO courseDAO;
 
-    /*@Autowired
+    @Autowired
     public void setCourseDAO(ICourseDAO courseDAO) {
         this.courseDAO = courseDAO;
-    }*/
-
-    /*public CourseService(){
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext("database/SpringModule.xml");
-        courseDAO = (ICourseDAO) context.getBean("courseDAO");
     }
 
     @Override
@@ -38,6 +32,11 @@ public class CourseService implements ICourseService{
     @Override
     public boolean deleteCourse(int id) {
         return courseDAO.deleteCourse(id);
+    }
+
+    @Override
+    public Course getCourseById(int id) {
+        return courseDAO.findCourseByID(id);
     }
 
     @Override
@@ -69,4 +68,4 @@ public class CourseService implements ICourseService{
     public List<Course> getCoursesByLecturer(String lecturer) {
         return courseDAO.findCoursesByLecturer(lecturer);
     }
-}*/
+}
