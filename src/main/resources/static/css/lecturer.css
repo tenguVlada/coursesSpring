@@ -8,6 +8,10 @@ body {
   link:#87CEFA;
 }
 
+.container{
+    margin-top: 100px;
+}
+
 .info {
 	border-radius: 10px;
 	position: relative;

@@ -1,23 +1,31 @@
 package com.squirrel.courses.controller;
 
+import com.squirrel.courses.dataaccess.model.AppUser;
 import com.squirrel.courses.dataaccess.model.Course;
 import com.squirrel.courses.service.course.ICourseService;
+import com.squirrel.courses.service.user.IUserService;
+import com.squirrel.courses.service.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
 public class CourseController {
     private ICourseService courseService;
+    private IUserService userService;
 
     @Autowired
-    public CourseController(ICourseService courseService){
-
+    public CourseController(ICourseService courseService, IUserService userService){
+        this.userService = userService;
         this.courseService = courseService;
     }
 
@@ -49,14 +57,17 @@ public class CourseController {
     }*/
 
     @GetMapping(value = {"/lecturer"})
-    public String showLecturerInfo(Model model){
-        List<Course> courses = courseService.getLecturerCourses("brett1973@hotmail.com");
-        List<String> lecturerThemes = courseService.getLecturerCourseThemes("brett1973@hotmail.com");
-        //String lectureDescription = userService.getUserDescription("brett1973@hotmail.com");
+    public String showLecturerInfo(Model model, Principal principal){
+        List<Course> courses = courseService.getLecturerCourses(principal.getName());
+        List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
+        AppUser user = userService.findByLogin(principal.getName());
 
+        String lecturerName = user.getUserName();
+        String lecturerDesc = user.getDescription();
         model.addAttribute("specializations", lecturerThemes);
         model.addAttribute("courses", courses);
-        //model.addAttribute("lectureDesc", lectureDescription);
+        model.addAttribute("lecturerName", lecturerName);
+        model.addAttribute("lecturerDesc", lecturerDesc);
 
         return "lecturer";
     }
