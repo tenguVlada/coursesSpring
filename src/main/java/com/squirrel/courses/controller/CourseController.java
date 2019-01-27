@@ -58,7 +58,7 @@ public class CourseController {
                 return "mockPage";
             }
             else if (auth.equals("ROLE_LECTURER")){
-                return showLecturerInfo(model, userName);
+                return showLecturerInfo(model, principal);
             }
             else if (auth.equals("ROLE_STUDENT")){
                 return "mockPage";
@@ -76,23 +76,7 @@ public class CourseController {
         return "course";
     }
 
-    //@GetMapping({"/lecturer"})
-    public String showLecturerInfo(Model model, String userName){
-        List<Course> courses = courseService.getLecturerCourses(userName);
-        List<String> lecturerThemes = courseService.getLecturerCourseThemes(userName);
-        //String lectureDescription = userService.getUserDescription("brett1973@hotmail.com");
-
-        String lecturerName = user.getUserName();
-        String lecturerDesc = user.getDescription();
-        model.addAttribute("specializations", lecturerThemes);
-        model.addAttribute("courses", courses);
-        model.addAttribute("lecturerName", lecturerName);
-        model.addAttribute("lecturerDesc", lecturerDesc);
-
-        return "lecturer";
-    }
-
-    /*@GetMapping(value = {"/lecturer"})
+    //@GetMapping(value = {"/lecturer"})
     public String showLecturerInfo(Model model, Principal principal){
         List<Course> courses = courseService.getLecturerCourses(principal.getName());
         List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
@@ -106,7 +90,7 @@ public class CourseController {
         model.addAttribute("lecturerDesc", lecturerDesc);
 
         return "lecturer";
-    }*/
+    }
 
     @GetMapping({"/about"})
     public String showAboutPage(){
