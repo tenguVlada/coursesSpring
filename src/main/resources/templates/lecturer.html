@@ -3,7 +3,7 @@
 <head>
     <title>Lecturer page</title>
     <div th:replace="fragments/header :: header-css"/>
-    <!--<link rel="stylesheet" type="text/css" href="css/lecturer.css">-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/lecturer.css}">
 </head>
 <body>
   <div th:replace="fragments/header :: header"/>
@@ -12,22 +12,18 @@
       <div class="title">Lecturer Page</div>
       <div class="content">
       <div class="lecturer">
-          <h3><p align="center">Lecturer name<!--<%=request.getAttribute("lecturer_name")%>--></p></h3>
+          <h3><p align="center" th:text="${lecturerName}"></p></h3>
           <h4><p align="center">lecturer</p></h4>
           <div id="personal_info">
               <div class="lecturer_info">Specializations:
-                      <!--<%
-                          for (int i = 1; i < t; i++){
-                      %>
-                      <p align="center">- <%=request.getAttribute("theme"+i)%></p>
-                      <%
-                          }
-                      %>-->
+                  <div th:each="spec: ${specializations}">
+                       <p th:text="${'- ' + spec}"></p>
+                  </div>
               </div>
               <div class="lecturer_info" >
                   <details>
                       <summary>Personal information</summary>
-                      <p id="persinfo"><!--<%=request.getAttribute("lecturer_description")%>--></p>
+                      <p id="persinfo" th:text="${lecturerDesc}"></p>
                   </details>
               </div>
               <div>
