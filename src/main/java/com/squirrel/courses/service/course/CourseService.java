@@ -35,9 +35,7 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public Course getCourseById(int id) {
-        return courseDAO.findCourseByID(id);
-    }
+    public Course getCourseById(int id) { return courseDAO.findCourseByID(id); }
 
     @Override
     public List<Course> getAllCourses() {
@@ -55,8 +53,7 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public List<String> getLecturerCourseThemes(String lecturer) {
-        return courseDAO.findCoursesThemesByLecturer(lecturer);
+    public List<String> getLecturerCourseThemes(String lecturer) { return courseDAO.findCoursesThemesByLecturer(lecturer);
     }
 
     @Override
