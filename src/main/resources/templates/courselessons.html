@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${course}">Template title</title>
+</head>
+<body>
+<style>
+    .description {
+        width: 60%;
+        margin-left: 20%;
+    }
+</style>
+
+<h2><p align="center" th:text="${'Course: '+course}"></p></h2>
+<h3><p align="center" >Lessons</p></h3>
+
+<ul th:each="lesson : ${lessons}">
+
+    <div class="lesson">
+            <p class="description" th:text="${lesson.getLessName()+': '+lesson.getDescription()}"></p>
+    </div>
+</ul>
+</body>
+</html>
