@@ -9,7 +9,7 @@ html body {
 }
 
 .leftMainCol {
-  display: inline;
+  display: block;
   float: left;
   width: 18%;
   min-width: 18%;

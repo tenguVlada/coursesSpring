@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, IUserService {
 
     @Autowired
     private IUserDAO userDAO;
@@ -50,5 +50,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDetails userDetails = (UserDetails) new User(appUser.getLogin(), appUser.getHashPass(), grantList);
 
         return userDetails;
+    }
+
+    @Override
+    public boolean addUser(AppUser appUser) {
+        return userDAO.addUser(appUser);
+    }
+
+    @Override
+    public AppUser findByLogin(String login) {
+        return this.userDAO.findByLogin(login);
     }
 }
