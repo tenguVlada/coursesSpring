@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 @javax.transaction.Transactional
@@ -17,6 +18,22 @@ public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
     @Autowired
     public AnswerDAO(DataSource dataSource){
         this.setDataSource(dataSource);
+    }
+
+    @Override
+    public List<Answer> findAnswersByQuestion(int quest) {
+        System.out.println("!!!!!!!!!!! " + quest);
+        String sql = AnswerMapper.BASE_SQL + " WHERE question = ?";
+
+        Object [] params = new Object[]{quest};
+        AnswerMapper mapper = new AnswerMapper();
+
+        try {
+            List<Answer> answers = getJdbcTemplate().query(sql, params, mapper);                                //возможно неправильно
+            return answers;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     @Override
@@ -33,5 +50,3 @@ public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
         }
     }
 }
-
-//meow
