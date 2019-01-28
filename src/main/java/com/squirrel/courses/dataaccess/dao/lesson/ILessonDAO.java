@@ -11,4 +11,5 @@ public interface ILessonDAO{
     List<Lesson> getLessonsByName(String name);
     boolean addLesson(Lesson lesson);
     boolean deleteLesson(int id);
+    String getLessonName(int id);
 }

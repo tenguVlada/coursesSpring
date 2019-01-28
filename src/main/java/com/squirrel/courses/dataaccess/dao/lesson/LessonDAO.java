@@ -61,6 +61,22 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
     }
 
     @Override
+    public String getLessonName(int id){
+        String sql = LessonMapper.BASE_SQL + " WHERE id = ?";
+
+        Object[] params = new Object[]{id};
+        LessonMapper mapper = new LessonMapper();
+
+        try {
+            String lessonName = getJdbcTemplate().queryForObject(sql, params, mapper).getLessName();                        //возможно неправильно
+            return lessonName;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
+
+
+    @Override
     public Lesson getLessonByID(int id) {
         String sql = LessonMapper.BASE_SQL + " WHERE id = ?";
 

@@ -52,7 +52,10 @@
                     <label id="lecturerName" th:text="${'Lecturer: ' + course.getLecturer()}"><b></b></label>
                 </div>
                 <div class = "pageButt">
-                    <button id="showMoreButt" type="button"  name="button">Show more</button>
+                    <form class="showMoreButton" action="coursePage">
+                            <input type="hidden" name="idCourse" th:value="${course.getId()}">
+                            <button type="submit" id="showMoreButt">Show more</button>
+                    </form>
                 </div>
             </div>
 
