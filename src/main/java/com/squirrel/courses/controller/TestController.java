@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class TestController {
         byte lessonId = 7;
         Test test;
         List<Question> quests;
-        List<Answer> answers = null;
+        List<Answer> answers = new ArrayList();
 
         if(isExam == 0) {
             test = testService.findTestByLesson(lessonId);
@@ -59,7 +60,7 @@ public class TestController {
             if(quest.getIsOpen() == 0) {
                 List<Answer> ans = testService.findAnswersByQuestion(quest.getId());
 
-                if(ans != null){                        //если ответы есть, то добавляются
+                if(ans.size() > 0 && ans != null){                        //если ответы есть, то добавляются
                     answers.addAll(ans);
                 }
             }

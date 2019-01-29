@@ -3,7 +3,6 @@
 <head>
     <title>Test page</title>
     <div th:replace="fragments/header :: header-css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/addtest.css}">        //не факт, что ксс подходит
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
@@ -14,28 +13,27 @@
         <div class = "testQuestion">
             <ol>
                 <div th:each="quest: ${questions}">
-                    <p th:text="${'- ' + spec}"></p>
                     <div th:switch="${quest.getIsOpen()}">
                     <div th:case="0">
-                        <li><b th:text="${'Question' + questions.indexOf(quest) + '. ' + quest.getQuestText()}"></b><br/>
+                        <b th:text="${(questions.indexOf(quest)+1) + '. Question' + '. ' + quest.getQuestText()}"></b><br/>
                             <div class="answers">
-                                <%
+                                <!--<%
                                 String countS = request.getAttribute("count" + i).toString();
                                 int count = Integer.parseInt(countS);
-                                for (int j = 1; j < count; j++){%>
+                                for (int j = 1; j < count; j++){%>-->
                                 <div th:each="ans: ${answers}">
-                                    <div th:if="${ans.getQuestion() == quest.getId()}">                             //если ответ относится к этому вопросу
-                                        <input type="radio" name="answer" th:text="${ans.getAnsText()}"/><br/>      //можно добавить th:value="${ans.getId()}"
+                                    <div th:if="${ans.getQuestion() == quest.getId()}">                             <!--если ответ относится к этому вопросу-->
+                                        <input type="radio" name="answer" th:text="${ans.getAnsText()}"/><br/>      <!--можно добавить th:value="${ans.getId()}"-->
                                     </div>
                                 </div>
                             </div>
-                        <br/></li>
+                        <br/>
                     </div>
                     <div th:case="1">
-                        <li><div class="textQuestion">
-                            <b th:text="${'Question' + questions.indexOf(quest) + '. ' + quest.getQuestText()}"></b><br/>
-                            <TEXTAREA name="answer" rows="4" cols="118"> </TEXTAREA>        //можно добавить номера ответов в название
-                        </div></li>
+                        <div class="textQuestion">
+                            <b th:text="${(questions.indexOf(quest)+1) + '. Question' + '. ' + quest.getQuestText()}"></b><br/>
+                            <TEXTAREA name="answer" rows="4" cols="118"> </TEXTAREA>
+                        </div>
                     </div>
                     </div>
                 </div>

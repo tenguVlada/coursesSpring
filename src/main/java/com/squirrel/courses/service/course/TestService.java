@@ -26,6 +26,11 @@ public class TestService implements ITestService{
         this.testDAO = testDAO;
     }
 
+    @Autowired
+    public void setAnswerDAO(IAnswerDAO answerDAO) {
+        this.answerDAO = answerDAO;
+    }
+
     @Override
     public Test findTestByLesson(int lesson) {
         return testDAO.findTestByLesson(lesson);
