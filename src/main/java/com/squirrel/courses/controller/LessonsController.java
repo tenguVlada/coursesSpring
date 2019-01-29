@@ -30,28 +30,8 @@ public class LessonsController {
         this.lessonService = lessonService;
     }
 
-    @GetMapping(value = {"/coursePage"})
-    public String test(Model model, @RequestParam(value = "idCourse", required=false) int id, Principal principal){
-        int courseId = id;
-        if(principal==null){
-            return"login";
-        }else{
-        List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
-        Course course = lessonService.getCourse(courseId);
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
-        String userName = "";
-
-
-
-        if (authorities != null) {
-            String auth = authorities.iterator().next().getAuthority();
-            if (auth.equals("ROLE_LECTURER")) {
-                if(loginedUser.getUsername().equals(course.getLecturer()))
-                userName = loginedUser.getUsername();
-            }
-        }
+    @GetMapping(value = {"/courselessons"})
+    public String test(Model model) {
 
         model.addAttribute("userName",userName);
         model.addAttribute("lessons", lessons);
@@ -60,3 +40,32 @@ public class LessonsController {
         }
     }
 }
+
+/*@GetMapping(value = {"/coursePage"})
+public String test(Model model, @RequestParam(value = "idCourse", required=false) int id, Principal principal){
+    int courseId = id;
+    if(principal==null){
+        return"login";
+    }else{
+    List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
+    Course course = lessonService.getCourse(courseId);
+    User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+    Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
+    String userName = "";
+
+
+
+    if (authorities != null) {
+        String auth = authorities.iterator().next().getAuthority();
+        if (auth.equals("ROLE_LECTURER")) {
+            if(loginedUser.getUsername().equals(course.getLecturer()))
+            userName = loginedUser.getUsername();
+        }
+    }
+    model.addAttribute("userName",userName);
+    model.addAttribute("lessons", lessons);
+    model.addAttribute("course", course.getCourseName());
+    return "coursePage";
+    }
+}*/

@@ -22,10 +22,11 @@ public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
     }
 
     @Override
+
     public boolean addAnswer(Answer answer){
         String sql = "INSERT INTO answer(question, a_text, coefficient) VALUES(?, ?, ?)";
         Connection conn = null;
-
+        
         try {
             //conn = dataSource.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);

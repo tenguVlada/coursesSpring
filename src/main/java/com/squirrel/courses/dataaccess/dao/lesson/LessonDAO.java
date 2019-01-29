@@ -120,7 +120,6 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
         } catch (DataAccessException e) {
             return false;
         }
-
     }
 
     @Override
