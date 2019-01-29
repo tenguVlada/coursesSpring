@@ -71,7 +71,7 @@ public class CourseController {
         return null;
     }
 
-    @GetMapping({"/course"})
+   // @GetMapping({"/course"})
     public String showCourseInfo(Model model, @RequestParam("course_id") int courseId){
         Course course = courseService.getCourseById(courseId);
 
