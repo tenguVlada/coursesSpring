@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Lecturer page</title>
-    <div th:replace="fragments/header :: header-css"/>
-    <link rel="stylesheet" type="text/css" th:href="@{css/lecturer.css}">
-</head>
-<body>
-  <div th:replace="fragments/header :: header"/>
+                  <head>
+                      <title>Lecturer page</title>
+                      <div th:replace="fragments/header :: header-css"/>
+                      <link rel="stylesheet" type="text/css" th:href="@{css/lecturer.css}">
+                  </head>
+                  <body>
+                  <div th:replace="fragments/header :: header"/>
 
   <div class="container">
       <div class="title">Lecturer Page</div>
@@ -34,7 +34,7 @@
       <div class = "course_column">
           <div class="courses_info">
               <div id="add_div">
-                  <a class="linktoadd" href="addcourse.jsp">+ Add</a>
+                  <a class="linktoadd" th:href="@{/addcourse}">+ Add</a>
               </div>
               <div class="hdr">My courses:</div><br/>
               <ul th:each="course : ${courses}">

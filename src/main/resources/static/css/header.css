@@ -83,10 +83,10 @@ header headercount {
   margin-right: 20px;
 }
 
-input {
+.input_header {
   outline:none;
 }
-input:focus{
+.input_header:focus{
   color: black;
 }
 form {
@@ -100,7 +100,7 @@ form {
   /*border-radius: 5px;*/
 }
 
-form input {
+form .input_header {
   margin-top: 3px;
   margin-left: 30px;
   padding-left: 10px;
