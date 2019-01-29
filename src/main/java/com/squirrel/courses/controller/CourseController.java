@@ -50,11 +50,6 @@ public class CourseController {
         return "addcourse";
     }
 
-    @GetMapping("/addlecture")
-    public String addLecturePage(Model model){
-        return "addlecture";
-    }
-
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -76,7 +71,6 @@ public class CourseController {
         return null;
     }
 
-
     @GetMapping({"/course"})
     public String showCourseInfo(Model model, @RequestParam("course_id") int courseId){
         Course course = courseService.getCourseById(courseId);
@@ -97,6 +91,12 @@ public class CourseController {
             model.addAttribute("message", "Course adding failed!");
 
         return new ModelAndView("redirect:/profile", model);
+    }
+
+    @GetMapping(value = {"/addtest"})
+    public String showNewTest(Model model, Principal principal){
+
+        return "addtest";
     }
 
     //@GetMapping(value = {"/lecturer"})

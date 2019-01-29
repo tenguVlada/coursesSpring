@@ -20,7 +20,7 @@ public class LessonsController {
         this.lessonService = lessonService;
     }
 
-    @GetMapping(value = {"/", "", "/lessons"})
+    @GetMapping(value = {"/courselessons"})
     public String test(Model model) {
 
         List<Lesson> lessons = lessonService.getLessonsByCourse(1);
