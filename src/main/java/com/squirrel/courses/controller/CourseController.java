@@ -4,17 +4,16 @@ import com.squirrel.courses.dataaccess.model.AppUser;
 import com.squirrel.courses.dataaccess.model.Course;
 import com.squirrel.courses.service.course.ICourseService;
 import com.squirrel.courses.service.user.IUserService;
-import com.squirrel.courses.service.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.Collection;
@@ -46,6 +45,11 @@ public class CourseController {
         return "login";
     }
 
+    @GetMapping("/addcourse")
+    public String addCoursePage(Model model){
+        return "addcourse";
+    }
+
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -67,13 +71,32 @@ public class CourseController {
         return null;
     }
 
-
     @GetMapping({"/course"})
     public String showCourseInfo(Model model, @RequestParam("course_id") int courseId){
         Course course = courseService.getCourseById(courseId);
 
         model.addAttribute("isAuthor", (course.getLecturer().equals("brett1973@hotmail.com")));
         return "course";
+    }
+
+    @PostMapping({"/postcourse"})
+    public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("course_title") String title, @RequestParam("theme") String theme,
+                                      @RequestParam("description") String description) {
+        Course course = new Course(principal.getName(), title, theme, description);
+        boolean success = courseService.addCourse(course);
+
+        if (success)
+            model.addAttribute("message", "Course is added!");
+        else
+            model.addAttribute("message", "Course adding failed!");
+
+        return new ModelAndView("redirect:/profile", model);
+    }
+
+    @GetMapping(value = {"/addtest"})
+    public String showNewTest(Model model, Principal principal){
+
+        return "addtest";
     }
 
     //@GetMapping(value = {"/lecturer"})

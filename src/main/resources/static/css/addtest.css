@@ -1,7 +1,7 @@
 .main_layer {
     /*background-color: black;*/
     color: #F5F5F5;
-    margin-top: 10px;
+    margin-top: 100px;
     margin-left: 10%;
     margin-right: 10%;
     color: black;
@@ -23,7 +23,7 @@
     text-align: center;
 }
 
-#button_main{
+.button_main{
     padding: 5px;
     border: 2px solid #2b4d66;
     color: #2b4d66;

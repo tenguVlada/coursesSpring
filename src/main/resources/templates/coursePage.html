@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${course}">Template title</title>
+</head>
+<body>
+<style>
+    .content{
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .leftcolumn{
+        display: inline-block;
+        width: 30%;
+        margin-left: 10%;
+    }
+    .rightcolumn{
+        display: inline-block;
+        margin-right: 10%;
+    }
+</style>
+
+<h2><p align="center" th:text="${'Course: '+course}"></p></h2>
+<div class="content">
+<div class="leftcolumn">
+<h3><p align="center" >Education Plan</p></h3>
+<ul th:each="lesson : ${lessons}">
+    <a th:href="${'lesson?idLesson='+lesson.getId()}" th:text="${lesson.getLessName()}"></a>
+</ul>
+</div>
+
+<div class="rightcolumn">
+    <ul th:each="lesson : ${lessons}">
+        <div class="lesson">
+            <p>
+                <a th:href="${'lesson?idLesson='+lesson.getId()}" th:text="${lesson.getLessName()}"></a>
+                <div class = "description" th:text="${lesson.getDescription()}"></div>
+            </p>
+        </div>
+    </ul>
+</div>
+    <p th:text="${userName}"></p>
+    <div th:if="${userName!=''}">
+        <form action="addLesson">
+            <button>Add lesson</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

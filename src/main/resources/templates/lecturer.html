@@ -8,42 +8,42 @@
                   <body>
                   <div th:replace="fragments/header :: header"/>
 
-                  <div class="container">
-                      <div class="title">Lecturer Page</div>
-                      <div class="content">
-                          <div class="lecturer">
-                              <h3><p align="center" th:text="${lecturerName}"></p></h3>
-                              <h4><p align="center">lecturer</p></h4>
-                              <div id="personal_info">
-                                  <div class="lecturer_info">Specializations:
-                                      <div th:each="spec: ${specializations}">
-                                          <p th:text="${'- ' + spec}"></p>
-                                      </div>
-                                  </div>
-                                  <div class="lecturer_info" >
-                                      <details>
-                                          <summary>Personal information</summary>
-                                          <p id="persinfo" th:text="${lecturerDesc}"></p>
-                                      </details>
-                                  </div>
-                                  <div>
-                                      <p align="center"><a class="checktestlink" href="lecturertocheck.jsp">Check tests</a></p>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class = "course_column">
-                              <div class="courses_info">
-                                  <div id="add_div">
-                                      <a class="linktoadd" href="addcourse.jsp">+ Add</a>
-                                  </div>
-                                  <div class="hdr">My courses:</div><br/>
-                                  <ul th:each="course : ${courses}">
-                                      <div class="course">
-                                          <a class="courselink" href="<!--course.jsp?course_id=<%=request.getAttribute('course_id'+i)%>-->">
-                                              <h4><p align="center" th:text="${course.getCourseName() + ': ' + course.getTheme()}"></p></h4>
-                                          </a>
-                                          <div class = "descript"> <p th:text="${course.getDescription()}"></p></div>
-                                      </div>
+  <div class="container">
+      <div class="title">Lecturer Page</div>
+      <div class="content">
+      <div class="lecturer">
+          <h3><p align="center" th:text="${lecturerName}"></p></h3>
+          <h4><p align="center">lecturer</p></h4>
+          <div id="personal_info">
+              <div class="lecturer_info">Specializations:
+                  <div th:each="spec: ${specializations}">
+                       <p th:text="${'- ' + spec}"></p>
+                  </div>
+              </div>
+              <div class="lecturer_info" >
+                  <details>
+                      <summary>Personal information</summary>
+                      <p id="persinfo" th:text="${lecturerDesc}"></p>
+                  </details>
+              </div>
+              <div>
+                  <p align="center"><a class="checktestlink" href="lecturertocheck.jsp">Check tests</a></p>
+              </div>
+          </div>
+      </div>
+      <div class = "course_column">
+          <div class="courses_info">
+              <div id="add_div">
+                  <a class="linktoadd" th:href="@{/addcourse}">+ Add</a>
+              </div>
+              <div class="hdr">My courses:</div><br/>
+              <ul th:each="course : ${courses}">
+                <div class="course">
+                    <a class="courselink" href="<!--course.jsp?course_id=<%=request.getAttribute('course_id'+i)%>-->">
+                        <h4><p align="center" th:text="${course.getCourseName() + ': ' + course.getTheme()}"></p></h4>
+                    </a>
+                    <div class = "descript"> <p th:text="${course.getDescription()}"></p></div>
+                </div>
               </ul>
           </div>
       </div>
