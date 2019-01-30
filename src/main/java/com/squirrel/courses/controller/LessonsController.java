@@ -26,7 +26,6 @@ import java.util.Map;
 public class LessonsController {
     private ICourseService courseService;
     private ILessonService lessonService;
-    private ICourseService courseService;
     private ITestService testService;
 
     @Autowired

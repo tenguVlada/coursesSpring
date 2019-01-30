@@ -110,9 +110,4 @@ public class CourseController {
     public String showAboutPage(){
         return "aboutPage";
     }
-
-    //@GetMapping({"/error"}) разкоментируйте чтоб винсент не вылетал
-    public String showErrorPage(){
-        return "error/errorPage";
-    }
 }
