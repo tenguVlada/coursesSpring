@@ -7,8 +7,8 @@ import com.squirrel.courses.dataaccess.model.Test;
 import com.squirrel.courses.service.course.ICourseService;
 import com.squirrel.courses.service.course.ITestService;
 import com.squirrel.courses.service.lesson.ILessonService;
-import com.squirrel.courses.service.user.IUserService;
-
+import com.squirrel.courses.service.course.ITestService;
+import com.squirrel.courses.service.course.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +24,7 @@ import java.util.Map;
 
 @Controller
 public class LessonsController {
+    private ICourseService courseService;
     private ILessonService lessonService;
     private ICourseService courseService;
     private ITestService testService;
