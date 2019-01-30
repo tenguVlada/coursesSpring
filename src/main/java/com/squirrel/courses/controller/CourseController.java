@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CourseController {
@@ -61,9 +62,10 @@ public class CourseController {
     }
 
     @GetMapping({"/", "/allcourses"})
-    public String showAllCourses(Model model){
+    public String showAllCourses(Model model, @RequestParam("course_name") Optional<String> courseName){
         List<Course> courses = courseService.getAllCourses();
         List<String> themes = courseService.getAllThemes();
+
 
         model.addAttribute("themes", themes);
         model.addAttribute("courses", courses);

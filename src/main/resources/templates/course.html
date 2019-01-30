@@ -76,7 +76,7 @@
                 <div th:switch="${isAuthor}">
                     <h3 id="lectureInfoTitle">
                         <a th:case="true" class="lecture_link" th:text="${testlesson.getKey().getLessName()}" th:href="@{/lecture(lecture_id=${testlesson.getKey().getId()})}"></a>
-                        <a th:case="false" class="lecture_link" th:text="${testlesson.getKey().getLessName()}" th:href="@{/editlecture(course_id=${lesson.getId()})}"></a>
+                        <a th:case="false" class="lecture_link" th:text="${testlesson.getKey().getLessName()}" th:href="@{/editlecture(course_id=${testlesson.getKey().getId()})}"></a>
                     </h3>
                 </div>
             </div>
@@ -91,7 +91,7 @@
                         th:action="@{/passtest(course_id=${course.getId()}, test_id='null')}">Test
                 </button>
                 <button th:case="false" type="button" id="buttontest" th:if="${isAuthor}"
-                        th:action="@{/edittest(course_id=${course.getId()}, test_id=${testlesson.getValue().getId())}">Edit test
+                        th:action="@{/edittest(course_id=${course.getId()}, test_id=${testlesson.getValue().getId()})}">Edit test
                 </button>
 
                 <div id="buttOfLectureInfo" th:if="${isAuthor}">
