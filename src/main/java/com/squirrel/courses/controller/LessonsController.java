@@ -1,14 +1,15 @@
 package com.squirrel.courses.controller;
 
+import com.squirrel.courses.dataaccess.model.AppUser;
 import com.squirrel.courses.dataaccess.model.Lesson;
 import com.squirrel.courses.dataaccess.model.Course;
+import com.squirrel.courses.dataaccess.model.Test;
+import com.squirrel.courses.service.course.ICourseService;
+import com.squirrel.courses.service.course.ITestService;
 import com.squirrel.courses.service.lesson.ILessonService;
-import com.squirrel.courses.service.user.IUserService;
-
+import com.squirrel.courses.service.course.ITestService;
+import com.squirrel.courses.service.course.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,29 +17,44 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.security.Principal;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LessonsController {
+    private ICourseService courseService;
     private ILessonService lessonService;
-    private IUserService userService;
+    private ICourseService courseService;
+    private ITestService testService;
 
     @Autowired
-    public LessonsController(ILessonService lessonService, IUserService userService){
-        this.userService = userService;
+    public LessonsController(ILessonService lessonService, ICourseService courseService, ITestService testService){
         this.lessonService = lessonService;
+        this.courseService = courseService;
+        this.testService = testService;
     }
 
-    @GetMapping(value = {"/courselessons"})
-    public String test(Model model) {
+    @GetMapping(value = {"/course"})
+    public String test(Model model, Principal principal, @RequestParam("course_id") int courseId, @RequestParam("edit") boolean edit) {
+        Course course = courseService.getCourseById(courseId);
+        List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
 
-        model.addAttribute("userName",userName);
-        model.addAttribute("lessons", lessons);
-        model.addAttribute("course", course.getCourseName());
-        return "coursePage";
+        Map<Lesson, Test> testLesson = new HashMap();
+
+        for (Lesson lesson: lessons) {
+            testLesson.put(lesson, testService.findTestByLesson(lesson.getId()));
         }
+
+        model.addAttribute("exam", lessonService.getLessonsByCourse(courseId));
+        model.addAttribute("edit", edit);
+        model.addAttribute("isAuthor", course.getLecturer().equals(principal.getName()));
+        model.addAttribute("testlessons", testLesson);
+        model.addAttribute("course", course);
+        return "course";
     }
+
 }
 
 /*@GetMapping(value = {"/coursePage"})

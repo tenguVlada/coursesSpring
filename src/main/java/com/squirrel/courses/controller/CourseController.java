@@ -29,17 +29,6 @@ public class CourseController {
         this.userService = userService;
         this.courseService = courseService;
     }
-
-    @GetMapping({"/", "/allcourses"})
-    public String showAllCourses(Model model){
-        List<Course> courses = courseService.getAllCourses();
-        List<String> themes = courseService.getAllThemes();
-
-        model.addAttribute("themes", themes);
-        model.addAttribute("courses", courses);
-        return "allcourses";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
         return "login";
@@ -71,12 +60,14 @@ public class CourseController {
         return null;
     }
 
-    @GetMapping({"/course"})
-    public String showCourseInfo(Model model, @RequestParam("course_id") int courseId){
-        Course course = courseService.getCourseById(courseId);
+    @GetMapping({"/", "/allcourses"})
+    public String showAllCourses(Model model){
+        List<Course> courses = courseService.getAllCourses();
+        List<String> themes = courseService.getAllThemes();
 
-        model.addAttribute("isAuthor", (course.getLecturer().equals("brett1973@hotmail.com")));
-        return "course";
+        model.addAttribute("themes", themes);
+        model.addAttribute("courses", courses);
+        return "allcourses";
     }
 
     @PostMapping({"/postcourse"})
