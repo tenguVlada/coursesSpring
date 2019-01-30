@@ -54,6 +54,6 @@ public class LessonController {
         else
             model.addAttribute("message", "Lesson adding failed!");
 
-        return new ModelAndView("redirect:/course?idCourse=" + courseId, model);
+        return new ModelAndView("redirect:/course?courseId=" + courseId, model);
     }
 }

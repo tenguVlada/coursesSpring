@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class LessonsController {
@@ -35,19 +33,25 @@ public class LessonsController {
     }
 
     @GetMapping(value = {"/course"})
-    public String test(Model model, Principal principal, @RequestParam("course_id") int courseId, @RequestParam("edit") boolean edit) {
+    public String test(Model model, Principal principal, @RequestParam("courseId") int courseId,
+                       @RequestParam("edit") Optional<Boolean> edit) {
         Course course = courseService.getCourseById(courseId);
         List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
-        List<Test> tests = new ArrayList();
+
+        Map<Lesson, Test> testLesson = new HashMap();
 
         for (Lesson lesson: lessons) {
-            tests.add(testService.findTestByLesson(lesson.getId()));
+            testLesson.put(lesson, testService.findTestByLesson(lesson.getId()));
         }
 
-        model.addAttribute("edit", edit);
+        boolean isEdit = false;
+        if (course.getLecturer().equals(principal.getName()))
+            isEdit = edit.orElse(false);
+
+        model.addAttribute("exam", lessonService.getLessonsByCourse(courseId));
+        model.addAttribute("edit", isEdit);
         model.addAttribute("isAuthor", course.getLecturer().equals(principal.getName()));
-        model.addAttribute("lessons", lessons);
-        model.addAttribute("tests", tests);
+        model.addAttribute("testlessons", testLesson);
         model.addAttribute("course", course);
         return "course";
     }

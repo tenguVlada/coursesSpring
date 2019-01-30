@@ -29,10 +29,10 @@
     </div>
 </div>
 <form method="post" id="data_send" th:action="@{/postlesson}">
-    <input type="hidden" id="course_title_form" name="course_title" value="">
-    <input type="hidden" id="lecture_title_form" name="lecture_title" value="">
+    <input type="hidden" id="course_title_form" name="courseId" th:attr="value=${course.getId()}">
+    <input type="hidden" id="lecture_title_form" name="lessName" value="">
     <input type="hidden" id="description_form" name="description" value="">
-    <input type="hidden" id="text_form" name="text" value="">
+    <input type="hidden" id="text_form" name="material" value="">
 </form>
 
 <div class="popupcont" id="popupcont">

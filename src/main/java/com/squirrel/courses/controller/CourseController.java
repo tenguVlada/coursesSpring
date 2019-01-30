@@ -71,8 +71,8 @@ public class CourseController {
         return null;
     }
 
-   // @GetMapping({"/course"})
-    public String showCourseInfo(Model model, @RequestParam("course_id") int courseId){
+    //@GetMapping({"/course"})
+    public String showCourseInfo(Model model, @RequestParam("courseId") int courseId){
         Course course = courseService.getCourseById(courseId);
 
         model.addAttribute("isAuthor", (course.getLecturer().equals("brett1973@hotmail.com")));
