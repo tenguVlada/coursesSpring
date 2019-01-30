@@ -57,6 +57,11 @@ public class CourseService implements ICourseService{
     }
 
     @Override
+    public List<Course> getCoursesByName(String name) {
+        return courseDAO.findCoursesByName(name);
+    }
+
+    @Override
     public List<Course> getCoursesByTheme(String theme) {
         return courseDAO.findCoursesByTheme(theme);
     }
