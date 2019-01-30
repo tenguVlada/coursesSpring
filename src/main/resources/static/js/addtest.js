@@ -211,7 +211,7 @@ function add_answers(elem){
         for (var i = cnt; i <= cnt_new; i=i+4) {
             if (flag == true) {
                 var answer_div = document.createElement("div");
-                answer_div.name = cur_q_num + "ans" + ((i-1)/4);
+                answer_div.name = ((i-1)/4) + "ans" + cur_q_num;
                 answer_div.setAttribute("id", "answer_id");
                 answer_div.setAttribute("class", "answer");
                 answer_div.setAttribute("contenteditable", "true");
@@ -220,7 +220,7 @@ function add_answers(elem){
                 answer_div.setAttribute("aria-multiline", "false");
 
                 var answer_area = document.createElement("textarea");
-                answer_area.name = cur_q_num + "ans" + ((i-1)/4);
+                answer_area.name = ((i-1)/4) + "ans" + cur_q_num;
                 answer_area.setAttribute("class", "answer_area"/* + q_num*/);
                 answer_area.setAttribute("id", "ans" + q_num);
                 answer_area.setAttribute("style", "display:none;");
@@ -232,7 +232,7 @@ function add_answers(elem){
                 lbl2.innerHTML = "Coef (0..1):&nbsp;";
 
                 var coef = document.createElement("input");
-                coef.name = i + "coef" + q_num;
+                coef.name = ((i-1)/4) + "coef" + cur_q_num;
                 coef.setAttribute("class","num_input");
                 coef.setAttribute("id","number_id");
                 coef.setAttribute("type", "number");

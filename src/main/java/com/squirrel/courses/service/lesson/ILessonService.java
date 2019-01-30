@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ILessonService {
     List<Lesson> getLessonsByCourse(int course);
-    Course getCourse(int course);
-    Lesson findLessonById(int lessonId);
+    boolean addLesson(Lesson lesson);
+    Lesson getLessonById(int lessonId);
 }
