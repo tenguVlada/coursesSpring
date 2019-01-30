@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Test page</title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<center><b><h2>Test</h2></b></center>
+<div class="content" id="content">
+    <form method="post" name="test">        //здесь была action
+        <div class = "testQuestion">
+            <ol>
+                <div th:each="quest: ${questions}">
+                    <div th:switch="${quest.getIsOpen()}">
+                    <div th:case="0">
+                        <b th:text="${(questions.indexOf(quest)+1) + '. Question' + '. ' + quest.getQuestText()}"></b><br/>
+                            <div class="answers">
+                                <!--<%
+                                String countS = request.getAttribute("count" + i).toString();
+                                int count = Integer.parseInt(countS);
+                                for (int j = 1; j < count; j++){%>-->
+                                <div th:each="ans: ${answers}">
+                                    <div th:if="${ans.getQuestion() == quest.getId()}">                             <!--если ответ относится к этому вопросу-->
+                                        <input type="radio" name="answer" th:text="${ans.getAnsText()}"/><br/>      <!--можно добавить th:value="${ans.getId()}"-->
+                                    </div>
+                                </div>
+                            </div>
+                        <br/>
+                    </div>
+                    <div th:case="1">
+                        <div class="textQuestion">
+                            <b th:text="${(questions.indexOf(quest)+1) + '. Question' + '. ' + quest.getQuestText()}"></b><br/>
+                            <TEXTAREA name="answer" rows="4" cols="118"> </TEXTAREA>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </ol>
+        </div>
+        <CENTER>
+            <button type="submit">Send answers</button>
+        </CENTER>
+    </form>
+</div>
+</body>
+</html>

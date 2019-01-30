@@ -144,6 +144,12 @@ html body {
   cursor: pointer;
 }
 
+.showMoreButton{
+  position: relative;
+  margin-left: 0;
+  height: auto;
+}
+
 .pageButt{
   position: absolute;
   bottom: 2px;

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add course</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/addcourse.css}">
+    <script th:src="@{js/addcourse.js}"></script>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"/>
+
+    <div class="main_layer">
+        <div class="title" id="course_title">New course</div>
+        <hr>
+        <!--<div class="leftcol"></div>-->
+        <div class = "rightcol" id="rightcol_id">
+            <div class="edit_input_title" id="edit_input_title_id" contenteditable="true" data-placeholder="Enter course title..." spellcheck="true"
+                 data-medium-editor-element="true" role="textbox"></div>
+            <div class="material_title" data-medium-editor-element="true">Theme</div>
+            <div class="edit_input_text" id = "edit_input_text" name="editable_input" contenteditable="true" data-placeholder="Enter text..." spellcheck="true"
+                 data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
+            <div class="material_title" data-medium-editor-element="true">Description</div>
+            <div class="edit_description" id = "edit_description_id" name="editable_desc" contenteditable="true" data-placeholder="Enter description..." spellcheck="true"
+                 data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
+            <button class="button" id="buttonMain" onclick="save_course();">Save course</button>
+        </div>
+    </div>
+    <form method="post" id="data_send" th:action="@{/postcourse}">
+        <input hidden="true" id="course_title_form" name="course_title" value="">
+        <input hidden="true" id="theme_form" name="theme" value="">
+        <input hidden="true" id="description_form" name="description" value="">
+    </form>
+</body>
+</html>
