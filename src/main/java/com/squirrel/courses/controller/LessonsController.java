@@ -33,7 +33,7 @@ public class LessonsController {
     }
 
     @GetMapping(value = {"/course"})
-    public String test(Model model, Principal principal, @RequestParam("course_id") int courseId,
+    public String test(Model model, Principal principal, @RequestParam("courseId") int courseId,
                        @RequestParam("edit") Optional<Boolean> edit) {
         Course course = courseService.getCourseById(courseId);
         List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
