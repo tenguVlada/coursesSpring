@@ -18,9 +18,9 @@
 
         <div class="leftMainCol">
             <div id="specs">
-                <h2>Specializations</h2>K
+                <h2>Specializations</h2>
                 <div th:each="theme: ${themes}">
-                    <a href="" th:text="${'- ' + theme}"></a>
+                    <a th:href="@{/allcourses(theme=${theme})}" th:text="${'- ' + theme}"></a>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <label id="lecturerName" th:text="${'Lecturer: ' + course.getLecturer()}"><b></b></label>
                 </div>
                 <div class = "pageButt">
-                    <form class="showMoreButton" th:action="@{/course(course_id=${course.getId()})}">
+                    <form class="showMoreButton" th:action="@{/course(courseId=${course.getId()})}">
                             <input type="hidden" name="course_id" th:value="${course.getId()}">
                             <button type="submit" id="showMoreButt">Show more</button>
                     </form>
