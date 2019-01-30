@@ -31,12 +31,12 @@ public class CourseController {
         this.courseService = courseService;
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
+    public String loginPage() {
         return "login";
     }
 
     @GetMapping("/addcourse")
-    public String addCoursePage(Model model){
+    public String addCoursePage(){
         return "addcourse";
     }
 
@@ -78,7 +78,7 @@ public class CourseController {
     }
 
     @PostMapping({"/postcourse"})
-    public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("course_title") String title, @RequestParam("theme") String theme,
+    public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("courseTitle") String title, @RequestParam("theme") String theme,
                                       @RequestParam("description") String description) {
         Course course = new Course(principal.getName(), title, theme, description);
         boolean success = courseService.addCourse(course);
@@ -89,12 +89,6 @@ public class CourseController {
             model.addAttribute("message", "Course adding failed!");
 
         return new ModelAndView("redirect:/profile", model);
-    }
-
-    @GetMapping(value = {"/addtest"})
-    public String showNewTest(Model model, Principal principal){
-
-        return "addtest";
     }
 
     //@GetMapping(value = {"/lecturer"})

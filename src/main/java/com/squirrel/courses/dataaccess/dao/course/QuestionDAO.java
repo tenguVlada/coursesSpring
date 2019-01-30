@@ -51,7 +51,7 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
 
     @Override
     public int getLastQuestion() {
-        String sql = "SELECT MAX(id) as testId FROM test";
+        String sql = "SELECT MAX(id) as questId FROM question";
 
         try {
             int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
