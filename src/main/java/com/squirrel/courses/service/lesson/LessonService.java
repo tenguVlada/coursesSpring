@@ -27,10 +27,10 @@ public class LessonService implements ILessonService{
     }
 
     @Override
-    public Course getCourse(int courseId){
-        return courseDAO.findCourseByID(courseId);
+    public boolean addLesson(Lesson lesson){
+        return lessonDAO.addLesson(lesson);
     }
 
     @Override
-    public Lesson findLessonById(int lessonId) {return lessonDAO.getLessonByID(lessonId);}
+    public Lesson getLessonById(int lessonId) {return lessonDAO.getLessonByID(lessonId);}
 }
