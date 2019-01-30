@@ -26,24 +26,12 @@
         </div>
 
         <div class="rightMainCol" th:each="course: ${courses}">
-            <!--<%
-                for (int i = 1; i < n; i++){
-            %>-->
             <div id="courseCard">
                 <div class="centerPart">
                     <h2 id="courseNameAndDescr" th:text="${course.getCourseName() + ': ' + course.getTheme()}"></h2>
                     <div id="descr" th:text="${course.getDescription()}"></div>
                     <br/>
                 </div>
-
-                    <!--Subscribers-->
-                <!--
-                <div class="rightPart">
-                    <div id="rate">
-                        <div id="voice">228 subscribers</div>
-                    </div>
-                </div>
-                -->
 
                 <hr class="cardSplit">
 
