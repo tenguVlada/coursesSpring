@@ -61,9 +61,14 @@ public class CourseController {
         return null;
     }
 
-    @GetMapping({"/", "/allcourses"})
+    @RequestMapping({"/", "/allcourses"})
     public String showAllCourses(Model model, @RequestParam("course_name") Optional<String> courseName){
-        List<Course> courses = courseService.getAllCourses();
+        List<Course> courses;
+        if(!courseName.isPresent())
+            courses = courseService.getAllCourses();
+        else
+            courses = courseService.getCoursesByName(courseName.get());
+
         List<String> themes = courseService.getAllThemes();
 
 
