@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CourseController {
@@ -60,10 +61,16 @@ public class CourseController {
         return null;
     }
 
-    @GetMapping({"/", "/allcourses"})
-    public String showAllCourses(Model model){
-        List<Course> courses = courseService.getAllCourses();
+    @RequestMapping({"/", "/allcourses"})
+    public String showAllCourses(Model model, @RequestParam("course_name") Optional<String> courseName){
+        List<Course> courses;
+        if(!courseName.isPresent())
+            courses = courseService.getAllCourses();
+        else
+            courses = courseService.getCoursesByName(courseName.get());
+
         List<String> themes = courseService.getAllThemes();
+
 
         model.addAttribute("themes", themes);
         model.addAttribute("courses", courses);
