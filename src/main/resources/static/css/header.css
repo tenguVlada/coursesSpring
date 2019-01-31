@@ -41,12 +41,12 @@ header headercount {
   display: flex;
   /*justify-content: space-between;*/
   width: 600px;
-  margin-left: 28%;
+  margin-left: 23%;
 }
 
 .logo {
   position: absolute;
-  margin-left: 100px;
+  margin-left: 8%;
   margin-top: 8px;
 }
 
@@ -56,6 +56,7 @@ header headercount {
 
 .item {
   margin-top: 20px;
+  margin-left: 10%;
   padding: 0px 30px;
 }
 
@@ -63,7 +64,7 @@ header headercount {
   width: 200px;
   display:inline;
   font-size: 14px;
-  margin-left: 2%;
+  margin-left: 35%;
   margin-top: 25px;
 }
 
@@ -103,7 +104,7 @@ header headercount {
 
 form .input_header {
   margin-top: 3px;
-  margin-left: 30px;
+  margin-left: 23%;
   padding-left: 10px;
   position: absolute;
   top: 23px;
@@ -118,7 +119,7 @@ form .input_header {
 #buttonSearch{
   background: white;
   border-radius: 0 5px 5px 0;
-  margin-left: 230px;
+  margin-left: 34%;
   height: 28px;
   width: 28px;
 }
