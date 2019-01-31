@@ -119,6 +119,7 @@ public class TestController {
 
         int evaluation = 0;
 
+
         for (int i = 0; i < Integer.parseInt(questCount); i++) {
             evaluation += Integer.parseInt(params.get("mark"+i).toString());
         }
@@ -154,4 +155,29 @@ public class TestController {
 
         return new ModelAndView("redirect:/course?courseId=" + courseId, model);
     }
+
+    @GetMapping("/edittest")
+    public String showTest(Model model, @RequestParam("courseId") int courseId,
+                              @RequestParam("testId") int testId)
+    {
+        Course course = courseService.getCourseById(courseId);
+        Test test = testService.findTestById(testId);
+        Lesson lesson = lessonService.getLessonById(test.getLesson());
+
+        List<Question> questions = testService.findQuestionsByTest(testId);
+        Map<Question, List<Answer>> questionMap = new HashMap<>();
+        for(Question question: questions){
+            questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
+        }
+
+        model.addAttribute("isExam", test.getIsExam());
+        model.addAttribute("testId", test.getId());
+        model.addAttribute("course", course);
+        model.addAttribute("lesson", lesson);
+        model.addAttribute("questionMap", questionMap);
+
+        return "edittest";
+    }
+
+
 }
