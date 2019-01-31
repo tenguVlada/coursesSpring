@@ -25,7 +25,7 @@ function save_lecture(){
         if(str.charAt(i) == '\'')
             str = '|';
     }*/
-    document.getElementById("course_title_form").setAttribute("value", document.getElementById("course_title").innerHTML.replace("'", "|"));
+    //document.getElementById("course_title_form").setAttribute("value", document.getElementById("course_title").innerHTML.replace("'", "|"));
     document.getElementById("lecture_title_form").setAttribute("value", document.getElementById("edit_input_title_id").innerHTML.replace("'", "|"));
     document.getElementById("description_form").setAttribute("value", document.getElementById("edit_description_id").innerHTML.replace("'", "|"));
     document.getElementById("text_form").setAttribute("value", str);

@@ -11,7 +11,6 @@
     <div th:replace="fragments/header :: header"/>
 
     <div class="main_layer">
-        <input name="q_num" id="q_num" type="number" value="0" style="display:none;">
         <div class="title" id="course_title" th:text="${course.getCourseName()}"></div>
         <hr>
 
@@ -19,29 +18,19 @@
             <button class="button_main" id="button_close" onclick="add_close();">+ Add close question</button>
             <button class="button_main" id="button_open" onclick="add_open();">+ Add open question</button>
         </div>
-        <!--<%if (isExam == 1){%>action="addtestprocess.jsp?course_id=<%=c_id%>"<%} else{%> action="addtestprocess.jsp?course_id=<%=c_id%>&lesson_id=<%=l_id%>" <%}%>-->
-        <form class = "rightcol" id="rightcol_id">
-        <div class="material_title" data-medium-editor-element="true">Questions</div>
-        <br>
-
-        <input type="text" name="course_id" id="course_id" value="<%=c_id%>" style="display:none;"/>
-        <input type="text" name="lesson_id" id="lesson_id" value="<%=l_id%>" style="display:none;"/>
-        <input type="text" name="quest_count" id="quest_count_id" style="display:none;"/>
-        <div id="questContent"></div>
-        <div class="testButtons">
-            <button class="button_main" onclick="save_test();">Save Test</button>
-            <button class="button_main" name="button_cancel" onclick="openPopUpConf()">Cancel</button>
-        </div>
-        </form>
-    </div>
-    <div class="popupconfcont" id="popupconfcont">
-        <div class="popupconf" id="popupconf">
-            <div class="operstatus">All information will be lost. Continue?</div>
-            <div class="popUpButtons">
-                <button id="confirm" onclick="statusPressed('confirm');closePopUpConf();pageRedirect('course.jsp?course_id=<%=c_id%>')">OK</button>
-                <button id="cancel" onclick="statusPressed('close');closePopUpConf()">Cancel</button>
+        <form class = "rightcol" id="rightcol_id" th:action="@{/posttest}">
+            <div class="material_title" data-medium-editor-element="true">Questions</div>
+            <br>
+            <input type="text" name="isExam" id="is_exam" th:value="${isExam}" style="display:none;"/>
+            <input type="text" name="courseId" id="course_id" th:value="${course.getId()}" style="display:none;"/>
+            <input type="text" name="lessonId" id="lesson_id" th:value="${lesson.getId()}" style="display:none;"/>
+            <input type="text" name="questCount" id="quest_count_id" style="display:none;"/>
+            <div id="questContent"></div>
+            <div class="testButtons">
+                <button class="button_main" onclick="save_test();">Save Test</button>
+                <button class="button_main" name="button_cancel" onclick="openPopUpConf()">Cancel</button>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 </html>

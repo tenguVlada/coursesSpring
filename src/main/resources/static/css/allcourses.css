@@ -2,24 +2,24 @@ html body {
   background-color: #F9F9F9
 }
 
+/*content*/
 .content{
   margin-top: 100px;
-  display: flex;
+  display: inline-block;
 }
 
 .leftMainCol {
-  display: block;
   float: left;
   width: 18%;
   min-width: 18%;
-  padding: 10px 10px 10px 6%;
+  padding: 10px 10px 10px 5%;
 }
 
 .rightMainCol {
-  display: block;
-  width: 70%;
-  min-width: 70%;
-  padding: 10px 6% 10px 10px;
+  margin-left: 25%;
+  width: 69%;
+  min-width: 69%;
+  padding: 10px 5% 10px 10px;
 }
 
 #specs {
@@ -38,7 +38,8 @@ html body {
 #specs a {
   color: black;
   text-decoration: none;
-  padding: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 

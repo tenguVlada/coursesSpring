@@ -32,11 +32,6 @@ public class TestService implements ITestService{
     }
 
     @Override
-    public Test findTestById(int id) {
-        return testDAO.findTestById(id);
-    }
-
-    @Override
     public Test findTestByLesson(int lesson) {
         return testDAO.findTestByLesson(lesson);
     }

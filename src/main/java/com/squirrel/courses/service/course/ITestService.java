@@ -6,7 +6,6 @@ import com.squirrel.courses.dataaccess.model.Test;
 import java.util.List;
 
 public interface ITestService {
-    Test findTestById(int id);
     Test findTestByLesson(int lesson);
     Test findExamByCourse(int course);
     boolean addTest(Test test);

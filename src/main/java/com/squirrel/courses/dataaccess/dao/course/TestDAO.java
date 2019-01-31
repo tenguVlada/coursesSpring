@@ -23,21 +23,6 @@ public class TestDAO extends JdbcDaoSupport implements ITestDAO{
     }
 
     @Override
-    public Test findTestById(int id) {
-        String sql = TestMapper.BASE_SQL + " WHERE id = ?";
-
-        Object [] params = new Object[]{id};
-        TestMapper mapper = new TestMapper();
-
-        try {
-            Test test = getJdbcTemplate().queryForObject(sql, params, mapper);                                //возможно неправильно
-            return test;
-        } catch (EmptyResultDataAccessException e){
-            return null;
-        }
-    }
-
-    @Override
     public Test findTestByLesson(int lesson) {
         String sql = TestMapper.BASE_SQL + " WHERE lesson = ? AND isExam = 0";
 
