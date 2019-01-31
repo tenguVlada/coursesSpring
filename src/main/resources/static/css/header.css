@@ -90,7 +90,8 @@ header headercount {
 .input_header:focus{
   color: black;
 }
-form {
+
+.header_form {
   margin-top: 3px;
   margin-left: 60px;
   border: black 5px;

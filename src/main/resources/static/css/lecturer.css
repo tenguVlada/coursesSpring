@@ -165,6 +165,14 @@ img {
   margin: 20px;
 }
 
+.course a{
+    color: black;
+}
+
+.course a:after{
+    color: black;
+}
+
 .course h4{
   position: relative;
   margin-top: 1%;
