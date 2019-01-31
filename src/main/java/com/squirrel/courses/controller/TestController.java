@@ -1,10 +1,9 @@
 package com.squirrel.courses.controller;
 
-import com.squirrel.courses.dataaccess.model.AppUser;
-import com.squirrel.courses.dataaccess.model.Answer;
-import com.squirrel.courses.dataaccess.model.Question;
-import com.squirrel.courses.dataaccess.model.Test;
+import com.squirrel.courses.dataaccess.model.*;
+import com.squirrel.courses.service.course.ICourseService;
 import com.squirrel.courses.service.course.ITestService;
+import com.squirrel.courses.service.lesson.ILessonService;
 import com.squirrel.courses.service.user.IUserService;
 import com.squirrel.courses.service.user.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,25 +12,27 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class TestController {
     private ITestService testService;
-    private IUserService userService;
+    private ILessonService lessonService;
+    private ICourseService courseService;
 
     @Autowired
-    public TestController(ITestService testService, IUserService userService) {
-        this.userService = userService;
+    public TestController(ITestService testService, ICourseService courseService, ILessonService lessonService) {
         this.testService = testService;
+        this.lessonService = lessonService;
+        this.courseService = courseService;
     }
 
     @GetMapping({"/test"})
@@ -72,15 +73,15 @@ public class TestController {
     }
 
     @GetMapping("/addtest")
-        public String showNewTest(Model model, @RequestParam("courseId") int courseId,
-                                  @RequestParam("lessonId") Optional<Integer> lessonId,
-                                  @RequestParam("testId") Optional<Integer> testId,
-                                  @RequestParam("isExam") int isExam)
-        {
-            Lesson lesson = null;
-            if (lessonId.isPresent())
-                lesson = lessonService.getLessonById(lessonId.get());
-            Course course = courseService.getCourseById(courseId);
+    public String showNewTest(Model model, @RequestParam("courseId") int courseId,
+                              @RequestParam("lessonId") Optional<Integer> lessonId,
+                              @RequestParam("testId") Optional<Integer> testId,
+                              @RequestParam("isExam") int isExam)
+    {
+        Lesson lesson = null;
+        if (lessonId.isPresent())
+            lesson = lessonService.getLessonById(lessonId.get());
+        Course course = courseService.getCourseById(courseId);
 
         model.addAttribute("isExam", isExam);
         model.addAttribute("course", course);
@@ -157,7 +158,7 @@ public class TestController {
 
     @GetMapping("/edittest")
     public String showTest(Model model, @RequestParam("courseId") int courseId,
-                              @RequestParam("testId") int testId)
+                           @RequestParam("testId") int testId)
     {
         Course course = courseService.getCourseById(courseId);
         Test test = testService.findTestById(testId);
