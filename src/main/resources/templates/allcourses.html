@@ -18,32 +18,20 @@
 
         <div class="leftMainCol">
             <div id="specs">
-                <h2>Specializations</h2>K
+                <h2>Specializations</h2>
                 <div th:each="theme: ${themes}">
-                    <a href="" th:text="${'- ' + theme}"></a>
+                    <a th:href="@{/allcourses(theme=${theme})}" th:text="${'- ' + theme}"></a>
                 </div>
             </div>
         </div>
 
         <div class="rightMainCol" th:each="course: ${courses}">
-            <!--<%
-                for (int i = 1; i < n; i++){
-            %>-->
             <div id="courseCard">
                 <div class="centerPart">
                     <h2 id="courseNameAndDescr" th:text="${course.getCourseName() + ': ' + course.getTheme()}"></h2>
                     <div id="descr" th:text="${course.getDescription()}"></div>
                     <br/>
                 </div>
-
-                    <!--Subscribers-->
-                <!--
-                <div class="rightPart">
-                    <div id="rate">
-                        <div id="voice">228 subscribers</div>
-                    </div>
-                </div>
-                -->
 
                 <hr class="cardSplit">
 
@@ -52,8 +40,8 @@
                     <label id="lecturerName" th:text="${'Lecturer: ' + course.getLecturer()}"><b></b></label>
                 </div>
                 <div class = "pageButt">
-                    <form class="showMoreButton" action="coursePage">
-                            <input type="hidden" name="idCourse" th:value="${course.getId()}">
+                    <form class="showMoreButton" th:action="@{/course(courseId=${course.getId()})}">
+                            <input type="hidden" name="course_id" th:value="${course.getId()}">
                             <button type="submit" id="showMoreButt">Show more</button>
                     </form>
                 </div>

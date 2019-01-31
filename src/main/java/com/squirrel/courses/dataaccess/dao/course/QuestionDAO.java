@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -17,6 +18,21 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
     @Autowired
     public QuestionDAO(DataSource dataSource){
         this.setDataSource(dataSource);
+    }
+
+    @Override
+    public List<Question> findQuestionsByTest(int test) {
+        String sql = QuestionMapper.BASE_SQL + " WHERE test = ?";
+
+        Object [] params = new Object[]{test};
+        QuestionMapper mapper = new QuestionMapper();
+
+        try {
+            List<Question> quests = getJdbcTemplate().query(sql, params, mapper);                                //возможно неправильно
+            return quests;
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
     @Override
@@ -35,7 +51,7 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
 
     @Override
     public int getLastQuestion() {
-        String sql = "SELECT MAX(id) as testId FROM test";
+        String sql = "SELECT MAX(id) as questId FROM question";
 
         try {
             int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно

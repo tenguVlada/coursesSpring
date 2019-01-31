@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add course</title>
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/addlesson.css}">
+    <script th:src="@{js/addlesson.js}"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+<div class="main_layer">
+    <div class="title" id="course_title" th:text="${course.getCourseName()}"></div>
+    <hr>
+
+    <div class="leftcol">
+        <button class="button" id="button_main" onclick="save_lecture();">Save lecture</button>
+        <button class="button" id="button_main" onclick="add_input();">+ Add text</button>
+        <button class="button" id="button_main" onclick="add_photo();">+ Add picture</button>
+    </div>
+    <div class = "rightcol" id="rightcol_id">
+        <div class="edit_input_title" id="edit_input_title_id" contenteditable="true" data-placeholder="Enter lecture title..." spellcheck="true"
+             data-medium-editor-element="true" role="textbox"></div>
+        <div class="edit_description" id = "edit_description_id" name="editable_desc" contenteditable="true" data-placeholder="Enter description..." spellcheck="true"
+             data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
+        <div class="material_title" data-medium-editor-element="true">Lecture material</div>
+        <div class="edit_input_text" id = "edit_input_text" name="editable_input" contenteditable="true" data-placeholder="Enter text..." spellcheck="true"
+             data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
+    </div>
+</div>
+<form method="post" id="data_send" th:action="@{/postlesson}">
+    <input type="hidden" id="course_title_form" name="courseId" th:attr="value=${course.getId()}">
+    <input type="hidden" id="lecture_title_form" name="lessName" value="">
+    <input type="hidden" id="description_form" name="description" value="">
+    <input type="hidden" id="text_form" name="material" value="">
+</form>
+
+<div class="popupcont" id="popupcont">
+    <div class="popup" id="popup">
+        <div class="operstatus">Fill all fields!</div>
+        <button class="close" onclick="closePopUp()">OK</button>
+    </div>
+</div>
+
+
+<!--<div th:if="${ans.getQuestion() == quest.getId()}">
+    <script type="text/javascript">
+        openPopUp();
+    </script>
+</div>>
+-->
+
+
+</body>
+</html>

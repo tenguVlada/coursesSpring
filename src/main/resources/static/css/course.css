@@ -1,0 +1,382 @@
+#title {
+    margin-top: 5px;
+    height:22px;
+    width: auto;
+    background: linear-gradient(to right, #ffffff, #2b4d68, #ffffff);
+    font-size: 20px;
+    font-family: sans-serif;
+    color: white;
+    text-align: center;
+}
+
+.content{
+    margin-top: 100px;
+    display: inline-flex;
+    width: 100%;
+}
+
+.leftCol {
+    float: left;
+    width: 22%;
+    padding-left: 3%;
+}
+
+#navig {
+    font-family: Helvetica;
+    font-size: 15px;
+    padding: 20px;
+    background: #ffffff;
+    border: 2px solid #2b4d68;
+}
+
+#navTitle {
+    text-align: center;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#addLect button{
+    padding: 5px;
+    float: left;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    height: 35px;
+    width: 100%;
+    text-align: center;
+    box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -webkit-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -moz-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+}
+
+#addExam button{
+    padding: 5px;
+    float: left;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 25px;
+    height: 35px;
+    width: 100%;
+    text-align: center;
+    box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -webkit-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -moz-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+}
+
+#buttontest{
+    padding: 5px;
+    float: left;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 15px;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+}
+
+.rightCol {
+    margin-left: 26%;
+    padding-right: 3%;
+}
+
+#courseInfo {
+    font-family: Helvetica;
+    font-size: 15px;
+    padding: 20px;
+    background: #ffffff;
+    border: 2px solid #2b4d68;
+}
+
+#courseInfoTitle{
+    text-align: center;
+}
+
+#themeBlock {
+
+}
+
+#theme {
+    padding-right: 15px;
+    font-weight:bold
+}
+
+#desc {
+    padding-right: 15px;
+    font-weight:bold
+}
+
+.ddesc{
+    word-wrap: break-word;
+    width: 70%;
+}
+
+#buttOfCourseInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#buttOfCourseInfo button {
+    padding: 5px;
+    float: left;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 15px;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+}
+
+#lessonsTitle {
+    text-align: center;
+    font-family: Helvetica;
+}
+
+#lessonNum {
+    margin-right: auto;
+}
+
+#lectureHead {
+    display: flex;
+    justify-content: center;
+}
+
+#testRef{
+    font-size: 18px;
+    width: 200px;
+    height: 20px;
+    margin-left: 0;
+    margin-top: 3%;
+    color: white;
+    background: linear-gradient(to left, #ffffff, #2b4d68,#2b4d68);
+    text-decoration: none;
+}
+
+#lecturer{
+    padding-right: 15px;
+    font-weight:bold
+}
+
+#lecturerBlock{
+
+}
+
+.blockRow{
+    font-family: Helvetica;
+    font-size: 18px;
+    display: flex;
+    margin-left:20px;
+    margin-right: 20px;
+}
+
+#lectureInfo {
+    font-family: Helvetica;
+    font-size: 18px;
+    padding: 20px;
+    background: #ffffff;
+    border: 2px solid #2b4d66;
+    margin-bottom: 20px;
+}
+
+#lectureInfoTitle {
+    margin-right: 44%;
+}
+
+#bottom {
+    display: flex;
+}
+
+#buttOfLectureInfo {
+    margin-left: auto;
+}
+
+#buttOfLectureInfo button{
+    padding: 5px;
+    float: left;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 15px;
+    height: 35px;
+    width: 100px;
+    text-align: center;
+}
+
+.popupconfcont{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    background-color: rgba(1, 1, 1, 0.725);
+    z-index: 100;
+    overflow: auto;
+}
+
+.popupconf{
+    display: none;
+    width: 300px;
+    height: 150px;
+    margin: 200px auto;
+    background: #fff;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.popupconfless{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    background-color: rgba(1, 1, 1, 0.725);
+    z-index: 100;
+    overflow: auto;
+}
+
+.popupless{
+    display: none;
+    width: 300px;
+    height: 150px;
+    margin: 200px auto;
+    background: #fff;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.operstatus {
+    text-align: center;
+    font-size: 26px;
+    font-family: sans-serif;
+}
+
+#confirm{
+    float: left;
+    width: 140px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    border: 0;
+    background-color: #78c4ff;
+    color: white;
+    margin-top: 15%;
+}
+
+#cancel{
+    float: right;
+    width: 140px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    border: 0;
+    background-color: #78c4ff;
+    color: white;
+    margin-top: 15%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.lecture_link{
+    color: black;
+}
+
+.popupcont{
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    background-color: rgba(1, 1, 1, 0.725);
+    z-index: 100;
+    overflow: auto;
+}
+
+.popup{
+    display: none;
+    width: 300px;
+    height: 150px;
+    margin: 200px auto;
+    background: #fff;
+    z-index: 200;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.operstatus {
+    text-align: center;
+    font-size: 26px;
+    font-family: sans-serif;
+}
+
+.close{
+    width: 140px;
+    height: 40px;
+    margin-left: 80px;
+    margin-top: 80px;
+    cursor: pointer;
+    font-size: 18px;
+    border: 0;
+    background-color: #78c4ff;
+    color: white;
+}
+
+#subscribeCourse {
+    margin-top: 10px;
+    height: 35px;
+    width: 100%;
+    border: 2px solid #2b4d66;
+    color: #2b4d66;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -webkit-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+    -moz-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
+}
