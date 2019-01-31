@@ -12,12 +12,6 @@
 <div class="main_layer">
     <div class="title" id="course_title" th:text="${course.getCourseName()}"></div>
     <hr>
-
-    <div class="leftcol">
-        <button class="button" id="button_main" onclick="save_lecture();">Save lecture</button>
-        <button class="button" id="button_main" onclick="add_input();">+ Add text</button>
-        <button class="button" id="button_main" onclick="add_photo();">+ Add picture</button>
-    </div>
     <div class = "rightcol" id="rightcol_id">
         <div class="edit_input_title" id="edit_input_title_id" contenteditable="true" data-placeholder="Enter lecture title..." spellcheck="true"
              data-medium-editor-element="true" role="textbox"></div>
@@ -26,6 +20,7 @@
         <div class="material_title" data-medium-editor-element="true">Lecture material</div>
         <div class="edit_input_text" id = "edit_input_text" name="editable_input" contenteditable="true" data-placeholder="Enter text..." spellcheck="true"
              data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
+        <button class="button" id="button_main" onclick="save_lecture();">Save lecture</button>
     </div>
 </div>
 <form method="post" id="data_send" th:action="@{/postlesson}">
