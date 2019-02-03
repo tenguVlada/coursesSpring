@@ -117,3 +117,17 @@ function openPopUp(){
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 }
+
+function openPopUpLess(){
+    var backPopUp = document.getElementById("popupconfless");
+    var popUp = document.getElementById("popupless");
+    backPopUp.style.display = "inline";
+    popUp.style.display = "inline";
+};
+
+function closePopUpLess(){
+    var backPopUp = document.getElementById("popupconfless");
+    var popUp = document.getElementById("popupless");
+    backPopUp.style.display = "none";
+    popUp.style.display = "none";
+};

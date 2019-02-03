@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/course.css}">
     <script th:src="@{/js/addcourse.js}"></script>
     <title th:text="${course.getCourseName()}">Template title</title>
+    <script th:src="@{js/course.js}"></script>
 </head>
 <body>
 <div th:replace="fragments/header :: header"/>
@@ -93,10 +94,37 @@
                     <button>Edit</button>
                 </form>
 
-                <form method="post" th:action="@{/deletecourse}">
+                <form id="deleteCourseForm" method="post" th:action="@{/deletecourse}">
                     <input type="hidden" name="courseId" th:value="${course.getId()}">
-                    <button>Delete</button>
+                    <button onclick="openPopUpLessC()">Delete</button>
                 </form>
+            </div>
+        </div>
+        <div class="popupconflessc" id="popupconflessc">
+        <div class="popuplessc" id="popuplessc">
+            <div class="operstatus">Course will be deleted. Continue?</div>
+            <div class="popUpButtons">
+                <button class="confirm" onclick="deleteCourse()">OK</button>
+                <button class="cancel" onclick="closePopUpLessC()">Cancel</button>
+            </div>
+        </div>
+    </div>
+        <div class="popupconflessl" id="popupconflessl">
+            <div class="popuplessl" id="popuplessl">
+                <div class="operstatus">Lecture will be deleted. Continue?</div>
+                <div class="popUpButtons">
+                    <button class="confirm" onclick="deleteCourse()">OK</button>
+                    <button class="cancel" onclick="closePopUpLessL()">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="popupconflesst" id="popupconflesst">
+            <div class="popuplesst" id="popuplesst">
+                <div class="operstatus">Test will be deleted. Continue?</div>
+                <div class="popUpButtons">
+                    <button class="confirm" onclick="deleteCourse()">OK</button>
+                    <button class="cancel" onclick="closePopUpLessT()">Cancel</button>
+                </div>
             </div>
         </div>
 
@@ -137,6 +165,12 @@
                     <button type="button" id = "editB"
                             th:action="@{/editlecture(course_id=${course.getId()}, lecture_id=${testlesson.getKey().getId()})}"
                             name="button">Edit</button>
+                    ///
+                    <form id="deleteLectureForm" method="post" th:action="@{/deletelesson}">
+                        <input type="hidden" name="courseId" th:value="${course.getId()}">
+                        <button onclick="openPopUpLessL()">Delete</button>
+                    </form>
+                    ///
                     <button type="button" onclick="openPopUpLess(${lesson.getId()})" name="button">Delete</button>
                 </div>
             </div>
