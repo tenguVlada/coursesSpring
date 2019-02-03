@@ -36,9 +36,7 @@ public class TestController {
     }
 
     @GetMapping({"/test"})
-    public String showTestInfo(Model model){            //, @RequestParam("lessonId") int lessonId, @RequestParam("isExam") byte isExam
-        int isExam = 0;
-        byte lessonId = 7;
+    public String showTestInfo(Model model, @RequestParam("lessonId") int lessonId, @RequestParam("isExam") byte isExam){
         Test test;
         List<Question> quests;
         List<Answer> answers = new ArrayList();
@@ -74,13 +72,18 @@ public class TestController {
 
     @GetMapping("/addtest")
     public String showNewTest(Model model, @RequestParam("courseId") int courseId,
-                              @RequestParam("lessonId") Optional<Integer> lessonId,
-                              @RequestParam("testId") Optional<Integer> testId,
-                              @RequestParam("isExam") int isExam)
+                              @RequestParam("lessonId") Optional<Integer> lessonId/*,
+                              @RequestParam("isExam") int isExam*/)
     {
+        byte isExam;
         Lesson lesson = null;
-        if (lessonId.isPresent())
+
+        if (lessonId.isPresent()) {
+            isExam = 0;
             lesson = lessonService.getLessonById(lessonId.get());
+        }else{
+            isExam = 1;
+        }
         Course course = courseService.getCourseById(courseId);
 
         model.addAttribute("isExam", isExam);
@@ -89,6 +92,8 @@ public class TestController {
 
         return "addtest";
     }
+
+
 
     @RequestMapping({"/posttest"})
     public ModelAndView addTest(ModelMap model, @RequestParam Map<String, String> params)
@@ -153,5 +158,28 @@ public class TestController {
         }
 
         return new ModelAndView("redirect:/course?courseId=" + courseId, model);
+    }
+
+    @GetMapping("/edittest")
+    public String showTest(Model model, @RequestParam("courseId") int courseId,
+                           @RequestParam("testId") int testId)
+    {
+        Course course = courseService.getCourseById(courseId);
+        Test test = testService.findTestById(testId);
+        Lesson lesson = lessonService.getLessonById(test.getLesson());
+
+        List<Question> questions = testService.findQuestionsByTest(testId);
+        Map<Question, List<Answer>> questionMap = new HashMap<>();
+        for(Question question: questions){
+            questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
+        }
+
+        model.addAttribute("isExam", test.getIsExam());
+        model.addAttribute("testId", test.getId());
+        model.addAttribute("course", course);
+        model.addAttribute("lesson", lesson);
+        model.addAttribute("questionMap", questionMap);
+
+        return "edittest";
     }
 }

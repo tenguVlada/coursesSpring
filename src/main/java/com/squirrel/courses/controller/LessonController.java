@@ -31,10 +31,9 @@ public class LessonController {
     }
 
     @GetMapping(value = {"/lesson"})
-    public String test(Model model, @RequestParam(value = "idLesson", required = false) int id) {
-        int lessonId = id;
+    public String test(Model model, @RequestParam("lessonId") int id) {
 
-        Lesson lesson = lessonService.getLessonById(lessonId);
+        Lesson lesson = lessonService.getLessonById(id);
         model.addAttribute("lesson", lesson);
         return "lesson";
     }
@@ -44,6 +43,16 @@ public class LessonController {
         Course course = courseService.getCourseById(courseId);
         model.addAttribute("course", course);
         return "addlesson";
+    }
+
+    @GetMapping({"/editlesson"})
+    public String editlesson(Model model, @RequestParam("courseId") int courseId,
+                             @RequestParam("lessonId") int lessonId)
+    {
+        Course course = courseService.getCourseById(courseId);
+        model.addAttribute("course", course);
+        model.addAttribute("lesson", lessonService.getLessonById(lessonId));
+        return "editlesson";
     }
 
     @PostMapping({"/postlesson"})

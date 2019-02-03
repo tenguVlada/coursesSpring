@@ -9,7 +9,7 @@
         <p th:text = "${lesson.getDescription()}"></p>
         <p th:text = "${lesson.getMaterial()}"></p>
 
-        <p><a th:href= "'coursePage?idCourse='+${lesson.getCourse()}">Back to course</a></p>
+        <p><a th:href= "'course?courseId='+${lesson.getCourse()}">Back to course</a></p>
 
 </body>
 </html>
