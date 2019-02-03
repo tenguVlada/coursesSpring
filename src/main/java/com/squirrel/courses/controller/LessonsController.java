@@ -48,7 +48,7 @@ public class LessonsController {
         if (course.getLecturer().equals(principal.getName()))
             isEdit = edit.orElse(false);
 
-        model.addAttribute("exam", lessonService.getLessonsByCourse(courseId));
+        model.addAttribute("exam", testService.findExamByCourse(courseId));
         model.addAttribute("edit", isEdit);
         model.addAttribute("isAuthor", course.getLecturer().equals(principal.getName()));
         model.addAttribute("testlessons", testLesson);

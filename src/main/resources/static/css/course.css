@@ -11,8 +11,26 @@
 
 .content{
     margin-top: 100px;
-    display: inline-flex;
+    /*display: inline-flex;*/
     width: 100%;
+}
+
+.leftCol a{
+    color: black;
+}
+
+.leftCol a:visited {
+    color: black;
+}
+
+.leftCol form{
+    margin-top: 5px;
+    border: black 5px;
+    height: 28px;
+    border-radius: 5px;
+    float: none;
+    margin-left: 0;
+    width: auto;
 }
 
 .leftCol {
@@ -73,7 +91,7 @@ button:hover {
     -moz-box-shadow:5px 8px 9px 0px rgba(0,0,0,0.51);
 }
 
-#buttontest{
+.buttontest{
     padding: 5px;
     float: left;
     border: 2px solid #2b4d66;
@@ -98,6 +116,7 @@ button:hover {
     font-size: 15px;
     padding: 20px;
     background: #ffffff;
+    margin-bottom: 10px;
     border: 2px solid #2b4d68;
 }
 
@@ -196,9 +215,14 @@ button:hover {
     margin-bottom: 20px;
 }
 
-#lectureInfoTitle {
-    margin-right: 44%;
+#lectureInfo form{
+    height: auto;
 }
+
+#lectureInfoTitle a{
+    color: black;
+}
+
 
 #bottom {
     display: flex;
