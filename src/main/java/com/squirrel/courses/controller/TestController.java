@@ -100,15 +100,16 @@ public class TestController {
     {
         String testId = params.get("testId");
         int courseId = Integer.parseInt(params.get("courseId"));
-        int lessonId = Integer.parseInt(params.get("lessonId"));
+        int lessonId;
         byte isExam;
 
-        if ((params.get("lessonId") == null)||(params.get("lessonId").equals("null"))){
+        if ((params.get("lessonId").equals("null"))){
             isExam = 1;
             lessonId=courseId;
         }
         else {
             isExam = 0;
+            lessonId = Integer.parseInt(params.get("lessonId"));
         }
 
         if (testId != null){
@@ -124,36 +125,51 @@ public class TestController {
 
         int evaluation = 0;
 
-        for (int i = 0; i < Integer.parseInt(questCount); i++) {
-            evaluation += Integer.parseInt(params.get("mark"+i).toString());
+        int i = 0;
+        while (i < Integer.parseInt(questCount)){
+             String grade = params.get("mark"+i);
+             if (grade != null){
+                 evaluation += Integer.parseInt(grade);
+                 i++;
+             }
         }
+
+        /*for (int i = 0; i < Integer.parseInt(questCount); i++) {
+            evaluation += Integer.parseInt(params.get("mark"+i).toString());
+        }*/
 
         testService.addTest(new Test(lessonId, evaluation, isExam));
 
         int addedTestId = testService.getLastTest();
         byte questType;
 
-        for (int i = 0; i < Integer.parseInt(questCount); i++) {
+        i = 0;
+        while (i < Integer.parseInt(questCount))
+        {
             questText = params.get("quest" + i);
-            points = Integer.parseInt(params.get("mark" + i));
-            ansCount = params.get("ans_cnt" + i);
+            if (questText != null)
+            {
+                points = Integer.parseInt(params.get("mark" + i));
+                ansCount = params.get("ans_cnt" + i);
 
-            if (ansCount == null) {
-                questType = 1;
-            } else {
-                questType = 0;
-            }
-
-            testService.addQuestion(new Question(addedTestId, questText, points, questType));
-
-            if(questType == 0){
-                for (int j = 0; j < Integer.parseInt(ansCount); j++) {
-                    ansText = params.get(j + "ans" + i);
-                    ansCoef = Double.parseDouble(params.get(j + "coef" + i));
-
-                    int addedQuestId = testService.getLastQuestion();
-                    testService.addAnswer(new Answer(addedQuestId, ansText, ansCoef));
+                if (ansCount == null) {
+                    questType = 1;
+                } else {
+                    questType = 0;
                 }
+
+                testService.addQuestion(new Question(addedTestId, questText, points, questType));
+
+                if(questType == 0){
+                    for (int j = 0; j < Integer.parseInt(ansCount); j++) {
+                        ansText = params.get(j + "ans" + i);
+                        ansCoef = Double.parseDouble(params.get(j + "coef" + i));
+
+                        int addedQuestId = testService.getLastQuestion();
+                        testService.addAnswer(new Answer(addedQuestId, ansText, ansCoef));
+                    }
+                }
+                i++;
             }
         }
 
@@ -166,10 +182,14 @@ public class TestController {
     {
         Course course = courseService.getCourseById(courseId);
         Test test = testService.findTestById(testId);
-        Lesson lesson = lessonService.getLessonById(test.getLesson());
+        Lesson lesson = null;
+
+        if (test.getIsExam() == 0)
+            lesson = lessonService.getLessonById(test.getLesson());
 
         List<Question> questions = testService.findQuestionsByTest(testId);
-        Map<Question, List<Answer>> questionMap = new HashMap<>();
+        Map<Question, List<Answer>> questionMap = new TreeMap<>();
+
         for(Question question: questions){
             questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
         }

@@ -6,6 +6,7 @@ html body {
 .content{
   margin-top: 100px;
   display: inline-block;
+  z-index: 0;
 }
 
 .leftMainCol {

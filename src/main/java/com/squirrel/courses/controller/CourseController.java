@@ -43,7 +43,6 @@ public class CourseController {
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userName = loginedUser.getUsername();
         Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
 
         if (authorities != null){
@@ -59,6 +58,21 @@ public class CourseController {
             }
         }
         return null;
+    }
+
+    public String showLecturerInfo(Model model, Principal principal){
+        List<Course> courses = courseService.getLecturerCourses(principal.getName());
+        List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
+        AppUser user = userService.findByLogin(principal.getName());
+
+        String lecturerName = user.getUserName();
+        String lecturerDesc = user.getDescription();
+        model.addAttribute("specializations", lecturerThemes);
+        model.addAttribute("courses", courses);
+        model.addAttribute("lecturerName", lecturerName);
+        model.addAttribute("lecturerDesc", lecturerDesc);
+
+        return "lecturer";
     }
 
     @RequestMapping({"/", "/allcourses"})
@@ -82,8 +96,8 @@ public class CourseController {
     @PostMapping({"/postcourse"})
     public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("courseTitle") String title, @RequestParam("theme") String theme,
                                       @RequestParam("description") String description) {
-        Course course = new Course(principal.getName(), title, theme, description);
-        boolean success = courseService.addCourse(course);
+
+        boolean success = courseService.addCourse(principal.getName(), title, theme, description);
 
         if (success)
             model.addAttribute("message", "Course is added!");
@@ -91,22 +105,6 @@ public class CourseController {
             model.addAttribute("message", "Course adding failed!");
 
         return new ModelAndView("redirect:/profile", model);
-    }
-
-    //@GetMapping(value = {"/lecturer"})
-    public String showLecturerInfo(Model model, Principal principal){
-        List<Course> courses = courseService.getLecturerCourses(principal.getName());
-        List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
-        AppUser user = userService.findByLogin(principal.getName());
-
-        String lecturerName = user.getUserName();
-        String lecturerDesc = user.getDescription();
-        model.addAttribute("specializations", lecturerThemes);
-        model.addAttribute("courses", courses);
-        model.addAttribute("lecturerName", lecturerName);
-        model.addAttribute("lecturerDesc", lecturerDesc);
-
-        return "lecturer";
     }
 
     @GetMapping({"/about"})

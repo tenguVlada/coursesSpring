@@ -38,7 +38,7 @@ public class LessonsController {
         Course course = courseService.getCourseById(courseId);
         List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
 
-        Map<Lesson, Test> testLesson = new HashMap();
+        Map<Lesson, Test> testLesson = new TreeMap();
 
         for (Lesson lesson: lessons) {
             testLesson.put(lesson, testService.findTestByLesson(lesson.getId()));

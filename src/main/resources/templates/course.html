@@ -29,15 +29,16 @@
         <div id="addExam" th:if="${isAuthor}" th:switch="${exam}">
             <form th:case="null" th:action="addtest">
                 <input type="hidden" name="courseId" th:value="${course.getId()}">
-                <input type="hidden" name="lessonId" th:value="${course.getId()}">
-                <input type="hidden" name="isExam" th:value='true' >
-                <button th:action="@{/addtest(courseId=${course.getId()})}">Add Exam</button>
+                <!--<input type="hidden" name="lessonId" th:value="${course.getId()}">
+                <input type="hidden" name="isExam" th:value='true' >-->
+                <button th:action="@{/addtest}">Add Exam</button>
             </form>
-            <form th:case="*" th:action="addtest"> "edittest"
+            <form th:case="*" th:action="@{/edittest}">
                 <input type="hidden" name="courseId" th:value="${course.getId()}">
-                <input type="hidden" name="lessonId" th:value="${course.getId()}">
-                <input type="hidden" name="isExam" th:value='true' >
-                <button th:action="@{/edittest(courseId=${course.getId()})}">Edit Exam</button>
+                <input type="hidden" name="testId" th:value="${exam.getId()}">
+                <!--<input type="hidden" name="lessonId" th:value="${course.getId()}">
+                <input type="hidden" name="isExam" th:value='true' >-->
+                <button type="submit">Edit Exam</button>
             </form>
         </div>
 

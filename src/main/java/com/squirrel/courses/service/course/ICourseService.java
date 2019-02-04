@@ -4,7 +4,7 @@ import com.squirrel.courses.dataaccess.model.Course;
 import java.util.List;
 
 public interface ICourseService {
-    boolean addCourse(Course course);
+    boolean addCourse(String name, String title, String theme, String description);
     boolean editCourse(Course course);
     boolean deleteCourse(int id);
     Course getCourseById(int id);
