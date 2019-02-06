@@ -1,28 +1,8 @@
-var less= "";
-function closePopUp(){
-    var backPopUp = document.getElementById("popupcont");
-    var popUp = document.getElementById("popup");
-    backPopUp.style.display = "none";
-    popUp.style.display = "none";
-};
-
-function openPopUp(){
-    var backPopUp = document.getElementById("popupcont");
-    var popUp = document.getElementById("popup");
+function openPopUpLessC(){
+    var backPopUp = document.getElementById("popupconflessc");
+    var popUp = document.getElementById("popuplessc");
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
-};
-
-function pageRedirect(ref){
-    window.location.href = ref;
-};
-
-function pageRedirectLecture(ref){
-    window.location.href = ref+less;
-};
-
-function getValue(id){
-    return document.getElementById(id);
 };
 
 function updateCourse(){
@@ -48,48 +28,49 @@ function save_course(){
     document.getElementById("data_send").submit();
 }
 
-function closePopUpConf(){
-    var backPopUp = document.getElementById("popupconfcont");
-    var popUp = document.getElementById("popupconf");
+function closePopUpLessC(){
+    var backPopUp = document.getElementById("popupconflessc");
+    var popUp = document.getElementById("popuplessc");
     backPopUp.style.display = "none";
     popUp.style.display = "none";
 };
 
-function openPopUpLess(id){
-    less = id;
-    var backPopUp = document.getElementById("popupconfless");
-    var popUp = document.getElementById("popupless");
+function openPopUpLessL(){
+    var backPopUp = document.getElementById("popupconflessl");
+    var popUp = document.getElementById("popuplessl");
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 };
 
-function openPopUpLessEx(){
-    var backPopUp = document.getElementById('popupconfless');
-    var popUp = document.getElementById('popupless');
-    backPopUp.style.display = "inline";
-    popUp.style.display = "inline";
-};
-
-function closePopUpLess(){
-    var backPopUp = document.getElementById("popupconfless");
-    var popUp = document.getElementById("popupless");
+function closePopUpLessL(){
+    var backPopUp = document.getElementById("popupconflessl");
+    var popUp = document.getElementById("popuplessl");
     backPopUp.style.display = "none";
     popUp.style.display = "none";
 };
 
-function openPopUpConf(){
-    var backPopUp = document.getElementById("popupconfcont");
-    var popUp = document.getElementById("popupconf");
+function openPopUpLessT(){
+    var backPopUp = document.getElementById("popupconflesst");
+    var popUp = document.getElementById("popuplesst");
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 };
 
-function statusPressed(button){
-    if (button == "confirm"){
-        return true;
-    }
-    else{
-        return false;
-    }
+function closePopUpLessT(){
+    var backPopUp = document.getElementById("popupconflesst");
+    var popUp = document.getElementById("popuplesst");
+    backPopUp.style.display = "none";
+    popUp.style.display = "none";
 };
 
+function deleteCourse() {
+    document.getElementById("deleteCourseForm").submit();
+}
+
+function deleteLesson() {
+    document.getElementById("deleteLessonForm").submit();
+}
+
+function deleteTest() {
+    document.getElementById("deleteTestForm").submit();
+}
