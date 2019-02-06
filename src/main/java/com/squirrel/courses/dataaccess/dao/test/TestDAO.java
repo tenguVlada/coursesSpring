@@ -1,9 +1,7 @@
-package com.squirrel.courses.dataaccess.dao.course;
+package com.squirrel.courses.dataaccess.dao.test;
 
 import com.squirrel.courses.dataaccess.mapper.TestMapper;
 import com.squirrel.courses.dataaccess.model.Test;
-import com.squirrel.courses.dataaccess.model.Test;
-import com.squirrel.courses.dataaccess.mapper.TestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,7 +9,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
-import java.util.List;
 
 @Repository
 @Transactional

@@ -3,8 +3,6 @@ package com.squirrel.courses.service.course;
 import com.squirrel.courses.dataaccess.dao.course.ICourseDAO;
 import com.squirrel.courses.dataaccess.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,8 +18,7 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public boolean addCourse(String name, String title, String theme, String description) {
-        Course course = new Course(name, title, theme, description);
+    public boolean addCourse(Course course) {
         return courseDAO.addCourse(course);
     }
 

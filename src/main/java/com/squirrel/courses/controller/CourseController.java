@@ -1,38 +1,55 @@
 package com.squirrel.courses.controller;
 
-import com.squirrel.courses.dataaccess.model.AppUser;
 import com.squirrel.courses.dataaccess.model.Course;
+import com.squirrel.courses.dataaccess.model.Lesson;
+import com.squirrel.courses.dataaccess.model.Test;
 import com.squirrel.courses.service.course.ICourseService;
-import com.squirrel.courses.service.user.IUserService;
+import com.squirrel.courses.service.test.ITestService;
+import com.squirrel.courses.service.lesson.ILessonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class CourseController {
     private ICourseService courseService;
-    private IUserService userService;
+    private ILessonService lessonService;
+    private ITestService testService;
 
     @Autowired
-    public CourseController(ICourseService courseService, IUserService userService){
-        this.userService = userService;
+    public CourseController(ILessonService lessonService, ICourseService courseService, ITestService testService){
+        this.lessonService = lessonService;
         this.courseService = courseService;
+        this.testService = testService;
     }
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage() {
-        return "login";
+
+    @GetMapping(value = {"/course"})
+    public String test(Model model, Principal principal, @RequestParam("courseId") int courseId,
+                       @RequestParam("edit") Optional<Boolean> edit) {
+        Course course = courseService.getCourseById(courseId);
+        List<Lesson> lessons = lessonService.getLessonsByCourse(courseId);
+
+        Map<Lesson, Test> testLesson = new TreeMap();
+        for (Lesson lesson: lessons) {
+            testLesson.put(lesson, testService.findTestByLesson(lesson.getId()));
+        }
+
+        boolean isEdit = false;
+        if (course.getLecturer().equals(principal.getName()))
+            isEdit = edit.orElse(false);
+
+        model.addAttribute("exam", testService.findExamByCourse(courseId));
+        model.addAttribute("edit", isEdit);
+        model.addAttribute("isAuthor", course.getLecturer().equals(principal.getName()));
+        model.addAttribute("testlessons", testLesson);
+        model.addAttribute("course", course);
+        return "course";
     }
 
     @GetMapping("/addcourse")
@@ -40,40 +57,6 @@ public class CourseController {
         return "addcourse";
     }
 
-    @GetMapping({"/profile"})
-    public String profilePage(Model model, Principal principal){
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
-
-        if (authorities != null){
-            String auth = authorities.iterator().next().getAuthority();
-            if (auth.equals("ROLE_ADMIN")){
-                return "mockPage";
-            }
-            else if (auth.equals("ROLE_LECTURER")){
-                return showLecturerInfo(model, principal);
-            }
-            else if (auth.equals("ROLE_STUDENT")){
-                return "mockPage";
-            }
-        }
-        return null;
-    }
-
-    public String showLecturerInfo(Model model, Principal principal){
-        List<Course> courses = courseService.getLecturerCourses(principal.getName());
-        List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
-        AppUser user = userService.findByLogin(principal.getName());
-
-        String lecturerName = user.getUserName();
-        String lecturerDesc = user.getDescription();
-        model.addAttribute("specializations", lecturerThemes);
-        model.addAttribute("courses", courses);
-        model.addAttribute("lecturerName", lecturerName);
-        model.addAttribute("lecturerDesc", lecturerDesc);
-
-        return "lecturer";
-    }
 
     @RequestMapping({"/", "/allcourses"})
     public String showAllCourses(Model model, @RequestParam("courseName") Optional<String> courseName, @RequestParam("theme") Optional<String> theme){
@@ -97,7 +80,7 @@ public class CourseController {
     public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("courseTitle") String title, @RequestParam("theme") String theme,
                                       @RequestParam("description") String description) {
 
-        boolean success = courseService.addCourse(principal.getName(), title, theme, description);
+        boolean success = courseService.addCourse(new Course(principal.getName(), title, theme, description));
 
         if (success)
             model.addAttribute("message", "Course is added!");
