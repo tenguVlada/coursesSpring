@@ -31,19 +31,18 @@ public class CourseController {
         this.courseService = courseService;
     }
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
+    public String loginPage() {
         return "login";
     }
 
     @GetMapping("/addcourse")
-    public String addCoursePage(Model model){
+    public String addCoursePage(){
         return "addcourse";
     }
 
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userName = loginedUser.getUsername();
         Collection<GrantedAuthority> authorities = loginedUser.getAuthorities();
 
         if (authorities != null){
@@ -61,67 +60,6 @@ public class CourseController {
         return null;
     }
 
-    @RequestMapping({"/", "/allcourses"})
-    public String showAllCourses(Model model, @RequestParam("course_name") Optional<String> courseName){
-        List<Course> courses;
-        if(!courseName.isPresent())
-            courses = courseService.getAllCourses();
-        else
-            courses = courseService.getCoursesByName(courseName.get());
-
-        List<String> themes = courseService.getAllThemes();
-
-
-        model.addAttribute("themes", themes);
-        model.addAttribute("courses", courses);
-        return "allcourses";
-    }
-
-    @PostMapping({"/postcourse"})
-    public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("course_title") String title, @RequestParam("theme") String theme,
-                                      @RequestParam("description") String description) {
-        Course course = new Course(principal.getName(), title, theme, description);
-        boolean success = courseService.addCourse(course);
-
-        if (success)
-            model.addAttribute("message", "Course is added!");
-        else
-            model.addAttribute("message", "Course adding failed!");
-
-        return new ModelAndView("redirect:/profile", model);
-    }
-
-    @PostMapping({"/editcourse"})
-    public ModelAndView editCourse(ModelMap model, Principal principal, @RequestParam("courseId") int id,
-                                   @RequestParam("course_title") String title,
-                                        @RequestParam("theme") String theme,
-                                                @RequestParam("description") String description) {
-        Course course = new Course(id, principal.getName(), title, theme, description);
-        boolean success = courseService.editCourse(course);
-
-        if (success)
-            model.addAttribute("message", "Course is edited!");
-        else
-            model.addAttribute("message", "Course editing failed!");
-
-        return new ModelAndView("redirect:/course?courseId="+course.getId(), model);
-    }
-
-    @PostMapping({"/deletecourse"})
-    public ModelAndView deleteCourse(ModelMap model, Principal principal, @RequestParam("courseId") int id)
-    {
-        boolean success = courseService.deleteCourse(id);
-
-        if (success)
-            model.addAttribute("message", "Course is deleted!");
-        else
-            model.addAttribute("message", "Course deleting failed!");
-
-        return new ModelAndView("redirect:/profile", model);
-    }
-
-
-    //@GetMapping(value = {"/lecturer"})
     public String showLecturerInfo(Model model, Principal principal){
         List<Course> courses = courseService.getLecturerCourses(principal.getName());
         List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());
@@ -137,13 +75,40 @@ public class CourseController {
         return "lecturer";
     }
 
+    @RequestMapping({"/", "/allcourses"})
+    public String showAllCourses(Model model, @RequestParam("courseName") Optional<String> courseName, @RequestParam("theme") Optional<String> theme){
+        List<Course> courses;
+        if((!courseName.isPresent()) && (!theme.isPresent())) {
+            courses = courseService.getAllCourses();
+        } else if(!theme.isPresent()) {
+            courses = courseService.getCoursesByName(courseName.get());
+        } else {
+            courses = courseService.getCoursesByTheme(theme.get());
+        }
+
+        List<String> themes = courseService.getAllThemes();
+
+        model.addAttribute("themes", themes);
+        model.addAttribute("courses", courses);
+        return "allcourses";
+    }
+
+    @PostMapping({"/postcourse"})
+    public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("courseTitle") String title, @RequestParam("theme") String theme,
+                                      @RequestParam("description") String description) {
+
+        boolean success = courseService.addCourse(principal.getName(), title, theme, description);
+
+        if (success)
+            model.addAttribute("message", "Course is added!");
+        else
+            model.addAttribute("message", "Course adding failed!");
+
+        return new ModelAndView("redirect:/profile", model);
+    }
+
     @GetMapping({"/about"})
     public String showAboutPage(){
         return "aboutPage";
-    }
-
-    //@GetMapping({"/error"}) разкоментируйте чтоб винсент не вылетал
-    public String showErrorPage(){
-        return "error/errorPage";
     }
 }

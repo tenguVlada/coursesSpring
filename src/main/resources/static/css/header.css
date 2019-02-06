@@ -35,6 +35,7 @@ header {
   border-bottom: 2px solid /*#000000*/#627F9E;
   height: 70px;
   min-width: 1300px;
+  z-index: 2;
 }
 
 header headercount {
@@ -89,8 +90,7 @@ header headercount {
 .input_header:focus{
   color: black;
 }
-
-.header_form {
+form {
   margin-top: 3px;
   margin-left: 60px;
   border: black 5px;

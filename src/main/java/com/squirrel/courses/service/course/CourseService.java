@@ -20,7 +20,8 @@ public class CourseService implements ICourseService{
     }
 
     @Override
-    public boolean addCourse(Course course) {
+    public boolean addCourse(String name, String title, String theme, String description) {
+        Course course = new Course(name, title, theme, description);
         return courseDAO.addCourse(course);
     }
 

@@ -34,13 +34,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        // The pages does not require login
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
-        // /userInfo page requires login as ROLE_USER or ROLE_ADMIN.
-        // If no login, it will redirect to /login page.
-
         http.authorizeRequests().antMatchers("/profile").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
+
         //http.authorizeRequests().antMatchers("/userInfo").hasAnyRole("admin", "lecturer", "student");
         http.authorizeRequests().antMatchers("/course").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
 
@@ -48,21 +45,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
         //http.authorizeRequests().antMatchers("/admin").hasRole("admin");
 
-        // When the user has logged in as XX.
-        // But access a page that requires role YY,
-        // AccessDeniedException will be thrown.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        // For ROLE only.
+        //http.authorizeRequests().antMatchers("/mockPage").access("hasRole('ROLE_STUDENT')");
 
-        // Config for Login Form
-        http.authorizeRequests().and().formLogin()//
-                // Submit URL of login page.
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login")//
-                .defaultSuccessUrl("/allcourses")//
-                .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
+        http.authorizeRequests().and().formLogin()
+                .loginProcessingUrl("/j_spring_security_check")
+                .loginPage("/login")
+                .defaultSuccessUrl("/allcourses")
+                .failureUrl("/login?error=true")
+                .usernameParameter("username")
                 .passwordParameter("password")
-                // Config for Logout Page
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/allcourses");
 
     }

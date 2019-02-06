@@ -1,6 +1,6 @@
-var q_num = 0;
-
 function save_test(){
+    var q_num = document.getElementById("q_num").value;
+
     var elem_from = document.getElementsByClassName("question");
     var elem_to = document.getElementsByClassName("question_area");
 
@@ -31,6 +31,8 @@ function save_test(){
 }*/
 
 function add_open(){
+    var q_num = document.getElementById("q_num").value;
+
     var p = document.getElementById("questContent");
     var new_open = document.createElement("div");
     new_open.setAttribute("id", "edit_open_id");
@@ -51,7 +53,7 @@ function add_open(){
     btn_del.setAttribute("type", "image");
     btn_del.setAttribute("id", "buttonDel");
     btn_del.setAttribute("alt", "Delete");
-    btn_del.setAttribute("onclick", "this.parentNode.parentNode.removeChild(this.parentNode);");
+    btn_del.setAttribute("onclick", "this.parentNode.parentNode.removeChild(this.parentNode);delQuest();");
 
     var question_area = document.createElement("textarea");
     question_area.name = "quest" + q_num;
@@ -80,9 +82,12 @@ function add_open(){
     new_open.appendChild(question_area);
 
     q_num++;
+    document.getElementById("q_num").value = q_num;
 };
 
 function add_close() {
+    var q_num = document.getElementById("q_num").value;
+
     var p = document.getElementById("questContent");
     var new_test = document.createElement("div");
     new_test.name = "test" + q_num;
@@ -103,7 +108,7 @@ function add_close() {
     btn_del.setAttribute("type", "image");
     btn_del.setAttribute("id", "buttonDel");
     btn_del.setAttribute("alt", "Delete");
-    btn_del.setAttribute("onclick", "this.parentNode.parentNode.removeChild(this.parentNode);");
+    btn_del.setAttribute("onclick", "this.parentNode.parentNode.removeChild(this.parentNode);delQuest();");
 
     var question_area = document.createElement("textarea");
     question_area.name = "quest" + q_num;
@@ -191,7 +196,14 @@ function add_close() {
     p.appendChild(new_test);
 
     q_num++;
+    document.getElementById("q_num").value = q_num;
 } ;
+
+function delQuest() {
+    var q_num = document.getElementById("q_num").value;
+    q_num--;
+    document.getElementById("q_num").value = q_num;
+}
 
 function add_answers(elem){
     var par = elem.parentElement;
@@ -211,7 +223,7 @@ function add_answers(elem){
         for (var i = cnt; i <= cnt_new; i=i+4) {
             if (flag == true) {
                 var answer_div = document.createElement("div");
-                answer_div.name = cur_q_num + "ans" + ((i-1)/4);
+                answer_div.name = ((i-1)/4) + "ans" + cur_q_num;
                 answer_div.setAttribute("id", "answer_id");
                 answer_div.setAttribute("class", "answer");
                 answer_div.setAttribute("contenteditable", "true");
@@ -220,7 +232,7 @@ function add_answers(elem){
                 answer_div.setAttribute("aria-multiline", "false");
 
                 var answer_area = document.createElement("textarea");
-                answer_area.name = cur_q_num + "ans" + ((i-1)/4);
+                answer_area.name = ((i-1)/4) + "ans" + cur_q_num;
                 answer_area.setAttribute("class", "answer_area"/* + q_num*/);
                 answer_area.setAttribute("id", "ans" + q_num);
                 answer_area.setAttribute("style", "display:none;");
@@ -232,7 +244,7 @@ function add_answers(elem){
                 lbl2.innerHTML = "Coef (0..1):&nbsp;";
 
                 var coef = document.createElement("input");
-                coef.name = i + "coef" + q_num;
+                coef.name = ((i-1)/4) + "coef" + cur_q_num;
                 coef.setAttribute("class","num_input");
                 coef.setAttribute("id","number_id");
                 coef.setAttribute("type", "number");

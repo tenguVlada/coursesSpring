@@ -10,6 +10,7 @@ body {
 
 .container{
     margin-top: 100px;
+    z-index: 0;
 }
 
 .info {
@@ -163,14 +164,6 @@ img {
   width: 700px;
   font-size: 18px;
   margin: 20px;
-}
-
-.course a{
-    color: black;
-}
-
-.course a:after{
-    color: black;
 }
 
 .course h4{
