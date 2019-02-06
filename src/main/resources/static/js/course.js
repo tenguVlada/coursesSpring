@@ -21,25 +21,32 @@ function pageRedirectLecture(ref){
     window.location.href = ref+less;
 };
 
-function doSubmit() {
-    window.transer("editsavecourse.jsp");
-};
-
 function getValue(id){
     return document.getElementById(id);
 };
 
-function call(course_id, edit){
-    if (edit.localeCompare("true") == 0) {
-        var course_lecturer = document.getElementById("lecturerOfCourse").innerHTML;
-        var course_name = document.getElementById("courseInfoTitle").innerHTML;
-        var course_theme = document.getElementById("themeOfCourse").innerHTML;
-        var course_description = document.getElementById("lorem").innerHTML;
-        window.location.href = 'editsavecourse.jsp?course_id=' + course_id + '&edit=' + edit + '&course_lecturer=' + course_lecturer + '&course_name=' + course_name + '&course_theme=' + course_theme + '&course_description=' + course_description;
-    }
-    else
-        window.location.href = 'editsavecourse.jsp?course_id=' + course_id + '&edit=' + edit;
+function updateCourse(){
+    document.getElementById("courseTitle").setAttribute("value",
+        document.getElementById("courseInfoTitle").innerHTML
+            .replace("'", "|"));
+    document.getElementById("courseTheme").setAttribute("value",
+        document.getElementById("themeOfCourse").innerHTML
+            .replace("'", "|"));
+    document.getElementById("courseDescription").setAttribute("value",
+        document.getElementById("courseDesc").innerHTML
+            .replace("'", "|"));
+    document.getElementById("data_send1").submit();
 };
+
+function save_course(){
+    document.getElementById("course_title_form").setAttribute("value",
+             document.getElementById("edit_input_title_id").innerHTML.replace("'", "|"));
+    document.getElementById("theme_form").setAttribute("value",
+        document.getElementById("edit_input_text").innerHTML.replace("'", "|"));
+    document.getElementById("description_form").setAttribute("value",
+        document.getElementById("edit_description_id").innerHTML.replace("'", "|"));
+    document.getElementById("data_send").submit();
+}
 
 function closePopUpConf(){
     var backPopUp = document.getElementById("popupconfcont");
@@ -85,3 +92,4 @@ function statusPressed(button){
         return false;
     }
 };
+

@@ -90,6 +90,22 @@ public class CourseController {
         return new ModelAndView("redirect:/profile", model);
     }
 
+    @PostMapping({"/editcourse"})
+    public ModelAndView editCourse(ModelMap model, Principal principal, @RequestParam("courseId") int id,
+                                   @RequestParam("courseTitle") String title,
+                                   @RequestParam("theme") String theme,
+                                   @RequestParam("description") String description) {
+        Course course = new Course(id, principal.getName(), title, theme, description);
+        boolean success = courseService.editCourse(course);
+
+        if (success)
+            model.addAttribute("message", "Course is edited!");
+        else
+            model.addAttribute("message", "Course editing failed!");
+
+        return new ModelAndView("redirect:/course?courseId="+course.getId(), model);
+    }
+
     @GetMapping({"/about"})
     public String showAboutPage(){
         return "aboutPage";

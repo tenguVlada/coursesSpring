@@ -225,7 +225,12 @@ text-decoration: none;
 
 course h4 p a{
     margin-left: 100px;
-	color: #87CEFA;
+	color: black;
+}
+
+course h4 p a:after{
+    margin-left: 100px;
+    color: black;
 }
 
 h4 {
