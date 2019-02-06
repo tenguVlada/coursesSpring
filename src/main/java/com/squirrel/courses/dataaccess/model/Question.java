@@ -1,6 +1,6 @@
 package com.squirrel.courses.dataaccess.model;
 
-public class Question {
+public class Question implements Comparable<Question>{
     private int id;
     private int test;
     private String questText;
@@ -60,5 +60,18 @@ public class Question {
 
     public void setIsOpen(byte isOpen) {
         this.isOpen = isOpen;
+    }
+
+    @Override
+    public int compareTo(Question question) {
+        if (this.id < question.getId()) {
+            return -1;
+        }
+        else if (this.id == question.getId()){
+            return 0;
+        }
+        else {
+            return 1;
+        }
     }
 }

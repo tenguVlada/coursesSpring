@@ -44,8 +44,18 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
 
     @Override
     public boolean editCourse(Course course) {
-        return false;
+        String sql = "UPDATE course SET course_name = ?, theme = ?, description = ? WHERE id=?";
+
+        Object [] params = new Object[]{course.getCourseName(), course.getTheme(), course.getDescription(), course.getId()};
+        try{
+            this.getJdbcTemplate().update(sql, params);
+            return true;
+        }
+        catch (DataAccessException e){
+            return false;
+        }
     }
+
 
     @Override
     public boolean deleteCourse(int courseId) {

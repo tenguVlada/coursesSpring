@@ -1,7 +1,7 @@
 package com.squirrel.courses.controller;
 
 import com.squirrel.courses.dataaccess.model.*;
-import com.squirrel.courses.service.course.ITestService;
+import com.squirrel.courses.service.test.ITestService;
 import com.squirrel.courses.service.lesson.ILessonService;
 import com.squirrel.courses.service.course.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.security.Principal;
-import java.util.Map;
-import java.util.Optional;
 
 
 @Controller
@@ -31,10 +26,9 @@ public class LessonController {
     }
 
     @GetMapping(value = {"/lesson"})
-    public String test(Model model, @RequestParam(value = "idLesson", required = false) int id) {
-        int lessonId = id;
+    public String test(Model model, @RequestParam("lessonId") int id) {
 
-        Lesson lesson = lessonService.getLessonById(lessonId);
+        Lesson lesson = lessonService.getLessonById(id);
         model.addAttribute("lesson", lesson);
         return "lesson";
     }
@@ -44,6 +38,17 @@ public class LessonController {
         Course course = courseService.getCourseById(courseId);
         model.addAttribute("course", course);
         return "addlesson";
+    }
+
+    @GetMapping({"/editlesson"})
+    public String editlesson(Model model, @RequestParam("courseId") int courseId,
+                             @RequestParam("lessonId") int lessonId)
+    {
+        Course course = courseService.getCourseById(courseId);
+
+        model.addAttribute("course", course);
+        model.addAttribute("lesson", lessonService.getLessonById(lessonId));
+        return "editlesson";
     }
 
     @PostMapping({"/postlesson"})

@@ -1,4 +1,4 @@
-package com.squirrel.courses.dataaccess.dao.course;
+package com.squirrel.courses.dataaccess.dao.test;
 
 import com.squirrel.courses.dataaccess.model.Question;
 import com.squirrel.courses.dataaccess.mapper.QuestionMapper;

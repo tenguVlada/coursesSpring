@@ -4,6 +4,7 @@
   margin-top: 100px;
   margin-left: 10%;
   margin-right: 10%;
+  z-index: 0;
 }
 
 .title {
@@ -188,4 +189,57 @@ hr {
   border: 0;
   background-color: #78c4ff;
   color: white;
+}
+
+.popupconfless{
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 16px;
+  background-color: rgba(1, 1, 1, 0.725);
+  z-index: 100;
+  overflow: auto;
+}
+
+.popupless{
+  display: none;
+  width: 300px;
+  height: 150px;
+  margin: 200px auto;
+  background: #fff;
+  z-index: 200;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+#confirm{
+  float: left;
+  width: 140px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  border: 0;
+  background-color: #78c4ff;
+  color: white;
+  margin-top: 15%;
+}
+
+#cancel{
+  float: right;
+  width: 140px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+  border: 0;
+  background-color: #78c4ff;
+  color: white;
+  margin-top: 15%;
 }

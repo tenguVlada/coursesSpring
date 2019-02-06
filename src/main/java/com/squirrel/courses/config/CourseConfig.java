@@ -1,7 +1,7 @@
 package com.squirrel.courses.config;
 
-import com.squirrel.courses.service.course.ITestService;
-import com.squirrel.courses.service.course.TestService;
+import com.squirrel.courses.service.test.ITestService;
+import com.squirrel.courses.service.test.TestService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
