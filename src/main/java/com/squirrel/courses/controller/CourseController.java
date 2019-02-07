@@ -40,6 +40,7 @@ public class CourseController {
         return "addcourse";
     }
 
+    /*user account page*/
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -48,13 +49,13 @@ public class CourseController {
 
         if (authorities != null){
             String auth = authorities.iterator().next().getAuthority();
-            if (auth.equals("ROLE_ADMIN")){
+            if (auth.equals("ROLE_ADMIN")){ //admin page
                 return "mockPage";
             }
-            else if (auth.equals("ROLE_LECTURER")){
+            else if (auth.equals("ROLE_LECTURER")){ //lecturer page
                 return showLecturerInfo(model, principal);
             }
-            else if (auth.equals("ROLE_STUDENT")){
+            else if (auth.equals("ROLE_STUDENT")){ //student page
                 return "mockPage";
             }
         }
@@ -109,6 +110,7 @@ public class CourseController {
         return "lecturer";
     }
 
+    /*about page*/
     @GetMapping({"/about"})
     public String showAboutPage(){
         return "aboutPage";

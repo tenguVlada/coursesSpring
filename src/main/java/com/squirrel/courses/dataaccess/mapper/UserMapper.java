@@ -6,6 +6,9 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/*
+* class transform result from DB to AppUser class object
+ */
 public class UserMapper implements RowMapper<AppUser> {
     public static final String BASE_SQL = "SELECT login, hash_pass, role, user_name, description FROM user";
     public static final String INSERT_SQL = "INSERT INTO user (login, hash_pass, role, user_name, description)";

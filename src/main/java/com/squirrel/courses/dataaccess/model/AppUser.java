@@ -1,5 +1,8 @@
 package com.squirrel.courses.dataaccess.model;
 
+/*
+*user entity class
+ */
 public class AppUser {
     private String login;
     private String hashPass;
