@@ -34,12 +34,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/about", "/allcourses").permitAll();
 
         http.authorizeRequests().antMatchers("/profile").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
 
-        //http.authorizeRequests().antMatchers("/userInfo").hasAnyRole("admin", "lecturer", "student");
-        http.authorizeRequests().antMatchers("/course").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
+        http.authorizeRequests()
+                .antMatchers("/course", "/lesson", "/test")
+                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
+
+        http.authorizeRequests()
+                .antMatchers("/addcourse", "/editcourse", "/postcourse",
+                        "/addtest", "/edittest", "/posttest",
+                        "/addlesson", "/editlesson", "/postlesson")
+                .access("hasAnyRole('ROLE_LECTURER')");
+
 
         // For ADMIN only.
         //http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");

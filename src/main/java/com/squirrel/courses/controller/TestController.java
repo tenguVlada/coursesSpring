@@ -28,13 +28,16 @@ public class TestController {
         this.courseService = courseService;
     }
 
+    /**
+     * Controller method to get access and show information for test.
+     */
     @GetMapping({"/test"})
     public String showTestInfo(Model model, @RequestParam("lessonId") int lessonId, @RequestParam("isExam") byte isExam){
         Test test;
         List<Question> quests;
         List<Answer> answers = new ArrayList();
 
-        if(isExam == 0) {
+        if(isExam == 0) {                                               //if test isn't exam
             test = testService.findTestByLesson(lessonId);
         } else {
             test = testService.findExamByCourse(lessonId);
@@ -48,11 +51,11 @@ public class TestController {
         quests = testService.findQuestionsByTest(test.getId());
         model.addAttribute("questions", quests);
 
-        for (Question quest: quests) {                  //добавление ответов ко всем закрытым вопросам
+        for (Question quest: quests) {                                  //loop for adding answers to close questions
             if(quest.getIsOpen() == 0) {
                 List<Answer> ans = testService.findAnswersByQuestion(quest.getId());
 
-                if(ans.size() > 0 && ans != null){                        //если ответы есть, то добавляются
+                if(ans.size() > 0 && ans != null){                      //if question contains answers, then add it
                     answers.addAll(ans);
                 }
             }
@@ -63,6 +66,10 @@ public class TestController {
         return "test";
     }
 
+
+    /**
+     * Controller method to get access and show information for test.
+     */
     @GetMapping("/addtest")
     public String showNewTest(Model model, @RequestParam("courseId") int courseId,
                               @RequestParam("lessonId") Optional<Integer> lessonId)
@@ -70,7 +77,7 @@ public class TestController {
         byte isExam;
         Lesson lesson = null;
 
-        if (lessonId.isPresent()) {
+        if (lessonId.isPresent()) {                                     //if test isn't exam
             isExam = 0;
             lesson = lessonService.getLessonById(lessonId.get());
         }else{
@@ -85,6 +92,9 @@ public class TestController {
         return "addtest";
     }
 
+    /**
+     * Controller method to get access and show information for test.
+     */
     @GetMapping("/edittest")
     public String showTest(Model model, @RequestParam("courseId") int courseId,
                            @RequestParam("testId") int testId)
@@ -93,11 +103,11 @@ public class TestController {
         Test test = testService.findTestById(testId);
         Lesson lesson = null;
 
-        if (test.getIsExam() == 0)
+        if (test.getIsExam() == 0)                                      //if test isn't exam
             lesson = lessonService.getLessonById(test.getLesson());
 
         List<Question> questions = testService.findQuestionsByTest(testId);
-        Map<Question, List<Answer>> questionMap = new TreeMap<>();
+        Map<Question, List<Answer>> questionMap = new TreeMap<>();      //Collection of questions and lists of answers for every question
 
         for(Question question: questions){
             questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
@@ -112,6 +122,11 @@ public class TestController {
         return "edittest";
     }
 
+    /**
+     * Controller method to receive query from user to delete course.
+     *
+     * @param params contains all parameters for adding new test from page addtest or edittest.
+     */
     @RequestMapping({"/posttest"})
     public ModelAndView addTest(ModelMap model, @RequestParam Map<String, String> params)
     {
@@ -120,7 +135,7 @@ public class TestController {
         int lessonId;
         byte isExam;
 
-        if ((params.get("lessonId").equals("null"))){
+        if ((params.get("lessonId").equals("null"))){                   //if test is exam
             isExam = 1;
             lessonId=courseId;
         }
@@ -130,20 +145,20 @@ public class TestController {
         }
 
         if (testId != null){
-            testService.deleteTest(Integer.parseInt(testId));
+            testService.deleteTest(Integer.parseInt(testId));           //if test already exists, delete it and create new one (editing old test).
         }
 
         String questCount = params.get("questCount");
-        String questText;//"quest" + q_num
-        String ansCount; //"ans_cnt" + q_num
-        int points; //"mark" + q_num //баллы за вопрос
-        String ansText;  //i + "ans" + q_num
-        double ansCoef;  //i + "coef" + q_num
+        String questText;                                               //questText - var for text of question
+        String ansCount;                                                //ansCount - var for number of answers on question
+        int points;                                                     //points - var for grade for question
+        String ansText;                                                 //ansText - var for text of answer
+        double ansCoef;                                                 //ansCoef - var for coefficient of answer
 
-        int evaluation = 0;
+        int evaluation = 0;                                             //evaluation - var for total grade of test
 
         int i = 0;
-        while (i < Integer.parseInt(questCount)){
+        while (i < Integer.parseInt(questCount)){                       //loop for calculating evaluation
              String grade = params.get("mark"+i);
              if (grade != null){
                  evaluation += Integer.parseInt(grade);
@@ -154,10 +169,10 @@ public class TestController {
         testService.addTest(new Test(lessonId, evaluation, isExam));
 
         int addedTestId = testService.getLastTest();
-        byte questType;
+        byte questType;                                                 //var questType - type of question (1 - open, 0 - close)
 
         i = 0;
-        while (i < Integer.parseInt(questCount))
+        while (i < Integer.parseInt(questCount))                        //loop for adding questions to test
         {
             questText = params.get("quest" + i);
             if (questText != null)
@@ -165,7 +180,7 @@ public class TestController {
                 points = Integer.parseInt(params.get("mark" + i));
                 ansCount = params.get("ans_cnt" + i);
 
-                if (ansCount == null) {
+                if (ansCount == null) {                                 //if no param with number of answer is presented - it's open question
                     questType = 1;
                 } else {
                     questType = 0;
@@ -173,8 +188,8 @@ public class TestController {
 
                 testService.addQuestion(new Question(addedTestId, questText, points, questType));
 
-                if(questType == 0){
-                    for (int j = 0; j < Integer.parseInt(ansCount); j++) {
+                if(questType == 0){                                                 //if question is close (with answers)
+                    for (int j = 0; j < Integer.parseInt(ansCount); j++) {          //loop for adding answers
                         ansText = params.get(j + "ans" + i);
                         ansCoef = Double.parseDouble(params.get(j + "coef" + i));
 

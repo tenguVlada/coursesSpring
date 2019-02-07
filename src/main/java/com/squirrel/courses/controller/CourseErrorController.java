@@ -17,6 +17,9 @@ public class CourseErrorController implements ErrorController {
         return "/error";
     }
 
+    /**
+     * Controller method to show error page.
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request){
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

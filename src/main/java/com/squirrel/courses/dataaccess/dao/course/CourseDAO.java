@@ -109,7 +109,7 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
         CourseMapper mapper = new CourseMapper();
 
         try {
-            Course course = getJdbcTemplate().queryForObject(sql, params, mapper);                        //возможно неправильно
+            Course course = getJdbcTemplate().queryForObject(sql, params, mapper);
             return course;
         } catch (EmptyResultDataAccessException e){
             return null;
@@ -123,7 +123,7 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
         CourseMapper mapper = new CourseMapper();
 
         try {
-            List<Course> courses = getJdbcTemplate().query(sql, mapper);                                //возможно неправильно
+            List<Course> courses = getJdbcTemplate().query(sql, mapper);
             return courses;
         } catch (EmptyResultDataAccessException e){
             return null;
@@ -138,7 +138,7 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
         CourseMapper mapper = new CourseMapper();
 
         try {
-            List<Course> courses = getJdbcTemplate().query(sql, params,  mapper);                       //возможно неправильно
+            List<Course> courses = getJdbcTemplate().query(sql, params,  mapper);
             return courses;
         } catch (EmptyResultDataAccessException e){
             return null;
@@ -150,7 +150,7 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
         String sql = CourseMapper.THEME_SQL;
 
         try {
-            List<String> themes = this.getJdbcTemplate().queryForList(sql, String.class);               //возможно неправильно
+            List<String> themes = this.getJdbcTemplate().queryForList(sql, String.class);
             return themes;
         } catch (EmptyResultDataAccessException e) {
             return null;
@@ -164,7 +164,7 @@ public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {
         Object[] params = new Object[]{lecturer};
 
         try {
-            List<String> themes = this.getJdbcTemplate().queryForList(sql, params, String.class);       //возможно неправильно
+            List<String> themes = this.getJdbcTemplate().queryForList(sql, params, String.class);
             return themes;
         } catch (EmptyResultDataAccessException e) {
             return null;
