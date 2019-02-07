@@ -9,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+/**
+ * Class LessonService is a interlayer between controller and data-access classes for working with lessons.
+ *
+ * @author    Vladislava Prokopenko
+ */
 @Service
 public class LessonService implements ILessonService{
 

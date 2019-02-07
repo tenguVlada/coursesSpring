@@ -16,6 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.*;
 
+/**
+ * Class CourseController realizes controller's methods related to working with course/courses.
+ *
+ * @author    Vladislava Prokopenko
+ */
 @Controller
 public class CourseController {
     private ICourseService courseService;

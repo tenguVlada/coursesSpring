@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Class TestService is a interlayer between controller and data-access classes for working with tests.
+ *
+ * @author    Natalie Tkachenko
+ */
 @Service
 public class TestService implements ITestService{
 

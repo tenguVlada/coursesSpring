@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Class CourseService is a interlayer between controller and data-access classes for working with courses.
+ *
+ * @author    Maxim Tytskiy
+ */
 @Service
 public class CourseService implements ICourseService{
 
