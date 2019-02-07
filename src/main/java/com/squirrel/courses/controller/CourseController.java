@@ -106,6 +106,13 @@ public class CourseController {
         return new ModelAndView("redirect:/course?courseId="+course.getId(), model);
     }
 
+    @PostMapping({"/deletecourse"})
+    public ModelAndView deleteCourse(@RequestParam("courseId") int id){
+        courseService.deleteCourse(id);
+
+        return new ModelAndView("redirect:/profile");
+    }
+
     @GetMapping({"/about"})
     public String showAboutPage(){
         return "aboutPage";
