@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
+/**
+ * Class TestDAO realizes data-access methods related to working with table Test.
+ *
+ * @author    Natalie Tkachenko
+ */
 @Repository
 @Transactional
 public class TestDAO extends JdbcDaoSupport implements ITestDAO{

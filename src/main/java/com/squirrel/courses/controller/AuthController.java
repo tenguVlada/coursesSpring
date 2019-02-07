@@ -16,6 +16,11 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Class AuthController realizes controller's methods related to authorization process.
+ *
+ * @author    Bogdan Popovich
+ */
 @Controller
 public class AuthController {
     private ICourseService courseService;

@@ -19,6 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class CourseDAO realizes data-access methods related to working with table Course.
+ *
+ * @author    Maxim Tytskiy
+ */
 @Repository
 @Transactional
 public class CourseDAO extends JdbcDaoSupport implements ICourseDAO {

@@ -11,6 +11,11 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 
+/**
+ * Class AnswerDAO realizes data-access methods related to working with table Answer.
+ *
+ * @author    Natalie Tkachenko
+ */
 @Repository
 @javax.transaction.Transactional
 public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {

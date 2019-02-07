@@ -1,5 +1,10 @@
 package com.squirrel.courses.dataaccess.model;
 
+/**
+ * Class Lesson represents the entity of educational lecture with main information about it.
+ *
+ * @author    Vladislava Prokopenko
+ */
 public class Lesson implements Comparable<Lesson>{
     private int id;
     private int course;

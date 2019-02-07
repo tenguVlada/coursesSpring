@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+/**
+ * Class TestService is a interlayer between controller and data-access classes for working with tests.
+ *
+ * @author    Natalie Tkachenko
+ */
 public class TestService implements ITestService{
 
     private IAnswerDAO answerDAO;

@@ -15,6 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
 
+/**
+ * Class TestController realizes controller's methods working with test.
+ *
+ * @author    Natalie Tkachenko, Maxim Tytskiy
+ */
 @Controller
 public class TestController {
     private ITestService testService;

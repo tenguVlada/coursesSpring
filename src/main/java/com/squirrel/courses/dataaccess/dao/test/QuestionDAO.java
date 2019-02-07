@@ -11,6 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 import java.util.List;
 
+/**
+ * Class QuestionDAO realizes data-access methods related to working with table Question.
+ *
+ * @author    Natalie Tkachenko
+ */
 @Repository
 @Transactional
 public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
