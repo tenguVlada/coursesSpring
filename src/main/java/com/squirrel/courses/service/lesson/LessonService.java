@@ -38,4 +38,11 @@ public class LessonService implements ILessonService{
 
     @Override
     public Lesson getLessonById(int lessonId) {return lessonDAO.getLessonByID(lessonId);}
+
+    @Override
+    public boolean deleteLesson(int id) {
+        return lessonDAO.deleteLesson(id);
+    }
+
+
 }

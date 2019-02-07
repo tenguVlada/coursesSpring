@@ -34,6 +34,11 @@ public class CourseController {
         this.testService = testService;
     }
 
+    /**
+     * Controller method to get access and show information for course page.
+     *
+     * @param edit defines whether the page will be edited or not.
+     */
     @GetMapping(value = {"/course"})
     public String showCourse(Model model, Principal principal, @RequestParam("courseId") int courseId,
                        @RequestParam("edit") Optional<Boolean> edit) {
@@ -57,14 +62,21 @@ public class CourseController {
         return "course";
     }
 
+    /**
+     * Controller method to show page for adding new course.
+     */
     @GetMapping("/addcourse")
     public String addCoursePage(){
         return "addcourse";
     }
 
 
+    /**
+     * Controller method to get access and show information about courses on page allcourses.
+     */
     @RequestMapping({"/", "/allcourses"})
-    public String showAllCourses(Model model, @RequestParam("courseName") Optional<String> courseName, @RequestParam("theme") Optional<String> theme){
+    public String showAllCourses(Model model, @RequestParam("courseName") Optional<String> courseName,
+                                 @RequestParam("theme") Optional<String> theme){
         List<Course> courses;
         if((!courseName.isPresent()) && (!theme.isPresent())) {
             courses = courseService.getAllCourses();
@@ -81,6 +93,9 @@ public class CourseController {
         return "allcourses";
     }
 
+    /**
+     * Controller method to receive and post information from user about new course.
+     */
     @PostMapping({"/postcourse"})
     public ModelAndView postNewCourse(ModelMap model, Principal principal, @RequestParam("courseTitle") String title, @RequestParam("theme") String theme,
                                       @RequestParam("description") String description) {
@@ -95,6 +110,10 @@ public class CourseController {
         return new ModelAndView("redirect:/profile", model);
     }
 
+
+    /**
+     * Controller method to receive and post information from user about changes in edited course.
+     */
     @PostMapping({"/editcourse"})
     public ModelAndView editCourse(ModelMap model, Principal principal, @RequestParam("courseId") int id,
                                    @RequestParam("courseTitle") String title,
@@ -111,6 +130,20 @@ public class CourseController {
         return new ModelAndView("redirect:/course?courseId="+course.getId(), model);
     }
 
+
+    /**
+     * Controller method to receive query from user to delete course.
+     */
+    @PostMapping({"/deletecourse"})
+    public ModelAndView deleteCourse(@RequestParam("courseId") int id){
+        courseService.deleteCourse(id);
+
+        return new ModelAndView("redirect:/profile");
+    }
+
+    /**
+     * Controller method for page "about".
+     */
     @GetMapping({"/about"})
     public String showAboutPage(){
         return "aboutPage";

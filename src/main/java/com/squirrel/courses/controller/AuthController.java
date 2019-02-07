@@ -32,11 +32,18 @@ public class AuthController {
         this.courseService = courseService;
     }
 
+    /**
+     * Controller method to show login page.
+     */
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
 
+
+    /**
+     * Controller method which redirects user to different pages according to user's role.
+     */
     @GetMapping({"/profile"})
     public String profilePage(Model model, Principal principal){
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
@@ -57,6 +64,9 @@ public class AuthController {
         return null;
     }
 
+    /**
+     * Controller method to show user's information if he's lecturer.
+     */
     public String showLecturerInfo(Model model, Principal principal){
         List<Course> courses = courseService.getLecturerCourses(principal.getName());
         List<String> lecturerThemes = courseService.getLecturerCourseThemes(principal.getName());

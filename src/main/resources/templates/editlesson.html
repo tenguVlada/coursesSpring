@@ -25,6 +25,7 @@
 </div>
 <form method="post" id="data_send" th:action="@{/postlesson}">
     <input type="hidden" id="course_title_form" name="courseId" th:attr="value=${course.getId()}">
+    <input type="hidden" id="lecture_id_form" name="lessId" th:attr="value=${lesson.getId()}">
     <input type="hidden" id="lecture_title_form" name="lessName">
     <input type="hidden" id="description_form" name="description">
     <input type="hidden" id="text_form" name="material">

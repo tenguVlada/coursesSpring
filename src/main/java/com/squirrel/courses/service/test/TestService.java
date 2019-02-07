@@ -7,6 +7,7 @@ import com.squirrel.courses.dataaccess.model.Answer;
 import com.squirrel.courses.dataaccess.model.Question;
 import com.squirrel.courses.dataaccess.model.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  *
  * @author    Natalie Tkachenko
  */
+@Service
 public class TestService implements ITestService{
 
     private IAnswerDAO answerDAO;
