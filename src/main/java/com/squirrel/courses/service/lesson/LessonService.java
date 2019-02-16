@@ -2,9 +2,6 @@ package com.squirrel.courses.service.lesson;
 
 import com.squirrel.courses.dataaccess.dao.lesson.ILessonDAO;
 import com.squirrel.courses.dataaccess.model.Lesson;
-import com.squirrel.courses.dataaccess.dao.course.ICourseDAO;
-import com.squirrel.courses.dataaccess.model.Course;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -18,12 +15,10 @@ import java.util.List;
 public class LessonService implements ILessonService{
 
     private ILessonDAO lessonDAO;
-    private ICourseDAO courseDAO;
 
     @Autowired
-    public void setLessonDAO(ILessonDAO lessonDAO, ICourseDAO courseDAO) {
+    public void setLessonDAO(ILessonDAO lessonDAO) {
         this.lessonDAO = lessonDAO;
-        this.courseDAO = courseDAO;
     }
 
     @Override

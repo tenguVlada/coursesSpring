@@ -2,10 +2,13 @@ package com.squirrel.courses.utils;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-
 import java.util.Collection;
 
 public class WebUtils {
+
+    private WebUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     public static String toString(User user) {
         StringBuilder sb = new StringBuilder();

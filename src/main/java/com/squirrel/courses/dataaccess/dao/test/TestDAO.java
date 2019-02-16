@@ -32,8 +32,7 @@ public class TestDAO extends JdbcDaoSupport implements ITestDAO{
         TestMapper mapper = new TestMapper();
 
         try {
-            Test test = getJdbcTemplate().queryForObject(sql, params, mapper);                                //возможно неправильно
-            return test;
+            return getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -47,8 +46,7 @@ public class TestDAO extends JdbcDaoSupport implements ITestDAO{
         TestMapper mapper = new TestMapper();
 
         try {
-            Test test = getJdbcTemplate().queryForObject(sql, params, mapper);                                //возможно неправильно
-            return test;
+            return getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -62,8 +60,7 @@ public class TestDAO extends JdbcDaoSupport implements ITestDAO{
         TestMapper mapper = new TestMapper();
 
         try {
-            Test test = getJdbcTemplate().queryForObject(sql, params, mapper);                                //возможно неправильно
-            return test;
+            return getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -100,8 +97,7 @@ public class TestDAO extends JdbcDaoSupport implements ITestDAO{
         String sql = "SELECT MAX(id) as testId FROM test";
 
         try {
-            int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
-            return testId;
+            return this.getJdbcTemplate().queryForObject(sql, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             return -1;
         }

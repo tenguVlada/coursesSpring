@@ -23,6 +23,8 @@ import java.util.*;
  */
 @Controller
 public class CourseController {
+    private static final String MESSAGE = "message";
+
     private ICourseService courseService;
     private ILessonService lessonService;
     private ITestService testService;
@@ -88,9 +90,9 @@ public class CourseController {
         boolean success = courseService.addCourse(new Course(principal.getName(), title, theme, description));
 
         if (success)
-            model.addAttribute("message", "Course is added!");
+            model.addAttribute(MESSAGE, "Course is added!");
         else
-            model.addAttribute("message", "Course adding failed!");
+            model.addAttribute(MESSAGE, "Course adding failed!");
 
         return new ModelAndView("redirect:/profile", model);
     }
@@ -104,9 +106,9 @@ public class CourseController {
         boolean success = courseService.editCourse(course);
 
         if (success)
-            model.addAttribute("message", "Course is edited!");
+            model.addAttribute(MESSAGE, "Course is edited!");
         else
-            model.addAttribute("message", "Course editing failed!");
+            model.addAttribute(MESSAGE, "Course editing failed!");
 
         return new ModelAndView("redirect:/course?courseId="+course.getId(), model);
     }

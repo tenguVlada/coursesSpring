@@ -45,8 +45,7 @@ public class UserDAO extends JdbcDaoSupport implements IUserDAO {
         Object[] params = new Object[]{login};
         UserMapper mapper = new UserMapper();
         try {
-            AppUser appUser = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return appUser;
+            return this.getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

@@ -22,6 +22,10 @@ import java.util.*;
  */
 @Controller
 public class TestController {
+    private static final String LESSON = "lesson";
+    private static final String COURSE = "course";
+    private static final String IS_EXAM = "isExam";
+
     private ITestService testService;
     private ILessonService lessonService;
     private ICourseService courseService;
@@ -46,9 +50,9 @@ public class TestController {
         }
 
         model.addAttribute("id", test.getId());
-        model.addAttribute("course", lessonId);
+        model.addAttribute(COURSE, lessonId);
         model.addAttribute("evaluation", test.getEvaluation());
-        model.addAttribute("isExam", isExam);
+        model.addAttribute(IS_EXAM, isExam);
 
         quests = testService.findQuestionsByTest(test.getId());
         model.addAttribute("questions", quests);
@@ -57,7 +61,7 @@ public class TestController {
             if(quest.getIsOpen() == 0) {
                 List<Answer> ans = testService.findAnswersByQuestion(quest.getId());
 
-                if(ans.size() > 0 && ans != null){                        //если ответы есть, то добавляются
+                if(!ans.isEmpty()){                        //если ответы есть, то добавляются
                     answers.addAll(ans);
                 }
             }
@@ -83,9 +87,9 @@ public class TestController {
         }
         Course course = courseService.getCourseById(courseId);
 
-        model.addAttribute("isExam", isExam);
-        model.addAttribute("course", course);
-        model.addAttribute("lesson", lesson);
+        model.addAttribute(IS_EXAM, isExam);
+        model.addAttribute(COURSE, course);
+        model.addAttribute(LESSON, lesson);
 
         return "addtest";
     }
@@ -108,10 +112,10 @@ public class TestController {
             questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
         }
 
-        model.addAttribute("isExam", test.getIsExam());
+        model.addAttribute(IS_EXAM, test.getIsExam());
         model.addAttribute("testId", test.getId());
-        model.addAttribute("course", course);
-        model.addAttribute("lesson", lesson);
+        model.addAttribute(COURSE, course);
+        model.addAttribute(LESSON, lesson);
         model.addAttribute("questionMap", questionMap);
 
         return "edittest";

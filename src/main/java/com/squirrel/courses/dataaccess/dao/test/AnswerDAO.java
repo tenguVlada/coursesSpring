@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,10 +34,9 @@ public class AnswerDAO extends JdbcDaoSupport implements IAnswerDAO {
         AnswerMapper mapper = new AnswerMapper();
 
         try {
-            List<Answer> answers = getJdbcTemplate().query(sql, params, mapper);
-            return answers;
+            return getJdbcTemplate().query(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
-            return null;
+            return Collections.emptyList();
         }
     }
 
