@@ -14,6 +14,7 @@ import java.sql.SQLException;
  */
 public class LessonMapper implements RowMapper<Lesson> {
     public static final String BASE_SQL = "SELECT id, course, less_name, description, material FROM lesson";
+    public static final String ID_SQL = "SELECT id, course, less_name, description, material FROM lesson WHERE id = ?";
     public static final String INSERT_SQL = "INSERT INTO lesson (id, course, less_name, description, material)";
     public static final String DELETE_SQL = "DELETE FROM lesson";
 

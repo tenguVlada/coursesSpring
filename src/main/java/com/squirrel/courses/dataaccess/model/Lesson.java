@@ -47,10 +47,6 @@ public class Lesson implements Comparable<Lesson>{
         return lessName;
     }
 
-    public void setLessName(String lessName) {
-        this.lessName = lessName;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -63,20 +59,24 @@ public class Lesson implements Comparable<Lesson>{
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
+    @Override
+    public int compareTo(Lesson lesson) {
+        return Integer.compare(this.id, lesson.id);
     }
 
     @Override
-    public int compareTo(Lesson lesson) {
-        if (this.id < lesson.id) {
-            return -1;
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
         }
-        else if (this.id == lesson.id){
-            return 0;
+        if (obj == this) {
+            return true;
         }
-        else {
-            return 1;
+        if (!(obj instanceof Lesson)) {
+            return false;
         }
+
+        Lesson lesson = (Lesson)obj;
+        return (this.id == lesson.id);
     }
 }

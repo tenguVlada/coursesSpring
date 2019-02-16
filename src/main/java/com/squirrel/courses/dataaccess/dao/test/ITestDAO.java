@@ -2,8 +2,6 @@ package com.squirrel.courses.dataaccess.dao.test;
 
 import com.squirrel.courses.dataaccess.model.Test;
 
-import java.util.List;
-
 /**
  * Interface ITestDAO assigns data-access methods related to working with table Test.
  *

@@ -46,15 +46,7 @@ public class Answer {
         return ansText;
     }
 
-    public void setAnsText(String ansText) {
-        this.ansText = ansText;
-    }
-
     public double getCoef() {
         return coef;
-    }
-
-    public void setCoef(double coef) {
-        this.coef = coef;
     }
 }

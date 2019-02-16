@@ -27,35 +27,18 @@ public class UserDetailsServiceImpl implements UserDetailsService, IUserService 
     private IUserDAO userDAO;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String login) {
 
         AppUser appUser = this.userDAO.findByLogin(login);
 
         if (appUser == null) {
-            System.out.println("AppUser not found! " + login);
             throw new UsernameNotFoundException("AppUser " + login + " was not found in the database");
         }
 
-        System.out.println("Found AppUser: " + appUser);
-
-        // [ROLE_USER, ROLE_ADMIN,..]
-        /*List<String> roleNames = this.appRoleDAO.getRoleNames(appUser.getUserId());
-
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
-        if (roleNames != null) {
-            for (String role : roleNames) {
-                // ROLE_USER, ROLE_ADMIN,..
-                GrantedAuthority authority = new SimpleGrantedAuthority(role);
-                grantList.add(authority);
-            }
-        }*/
-
-        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> grantList = new ArrayList<>();
         grantList.add(new SimpleGrantedAuthority(appUser.getRole()));
 
-        UserDetails userDetails = (UserDetails) new User(appUser.getLogin(), appUser.getHashPass(), grantList);
-
-        return userDetails;
+        return new User(appUser.getLogin(), appUser.getHashPass(), grantList);
     }
 
     @Override

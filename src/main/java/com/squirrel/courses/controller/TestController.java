@@ -22,6 +22,10 @@ import java.util.*;
  */
 @Controller
 public class TestController {
+    private static final String LESSON = "lesson";
+    private static final String COURSE = "course";
+    private static final String IS_EXAM = "isExam";
+
     private ITestService testService;
     private ILessonService lessonService;
     private ICourseService courseService;
@@ -33,34 +37,31 @@ public class TestController {
         this.courseService = courseService;
     }
 
-    /**
-     * Controller method to get access and show information for test.
-     */
     @GetMapping({"/test"})
     public String showTestInfo(Model model, @RequestParam("lessonId") int lessonId, @RequestParam("isExam") byte isExam){
         Test test;
         List<Question> quests;
         List<Answer> answers = new ArrayList();
 
-        if(isExam == 0) {                                               //if test isn't exam
+        if(isExam == 0) {
             test = testService.findTestByLesson(lessonId);
         } else {
             test = testService.findExamByCourse(lessonId);
         }
 
         model.addAttribute("id", test.getId());
-        model.addAttribute("course", lessonId);
+        model.addAttribute(COURSE, lessonId);
         model.addAttribute("evaluation", test.getEvaluation());
-        model.addAttribute("isExam", isExam);
+        model.addAttribute(IS_EXAM, isExam);
 
         quests = testService.findQuestionsByTest(test.getId());
         model.addAttribute("questions", quests);
 
-        for (Question quest: quests) {                                  //loop for adding answers to close questions
+        for (Question quest: quests) {                  //добавление ответов ко всем закрытым вопросам
             if(quest.getIsOpen() == 0) {
                 List<Answer> ans = testService.findAnswersByQuestion(quest.getId());
 
-                if(ans.size() > 0 && ans != null){                      //if question contains answers, then add it
+                if(!ans.isEmpty()){                        //если ответы есть, то добавляются
                     answers.addAll(ans);
                 }
             }
@@ -71,10 +72,6 @@ public class TestController {
         return "test";
     }
 
-
-    /**
-     * Controller method to get access and show information for test.
-     */
     @GetMapping("/addtest")
     public String showNewTest(Model model, @RequestParam("courseId") int courseId,
                               @RequestParam("lessonId") Optional<Integer> lessonId)
@@ -82,7 +79,7 @@ public class TestController {
         byte isExam;
         Lesson lesson = null;
 
-        if (lessonId.isPresent()) {                                     //if test isn't exam
+        if (lessonId.isPresent()) {
             isExam = 0;
             lesson = lessonService.getLessonById(lessonId.get());
         }else{
@@ -90,16 +87,13 @@ public class TestController {
         }
         Course course = courseService.getCourseById(courseId);
 
-        model.addAttribute("isExam", isExam);
-        model.addAttribute("course", course);
-        model.addAttribute("lesson", lesson);
+        model.addAttribute(IS_EXAM, isExam);
+        model.addAttribute(COURSE, course);
+        model.addAttribute(LESSON, lesson);
 
         return "addtest";
     }
 
-    /**
-     * Controller method to get access and show information for test.
-     */
     @GetMapping("/edittest")
     public String showTest(Model model, @RequestParam("courseId") int courseId,
                            @RequestParam("testId") int testId)
@@ -108,30 +102,25 @@ public class TestController {
         Test test = testService.findTestById(testId);
         Lesson lesson = null;
 
-        if (test.getIsExam() == 0)                                      //if test isn't exam
+        if (test.getIsExam() == 0)
             lesson = lessonService.getLessonById(test.getLesson());
 
         List<Question> questions = testService.findQuestionsByTest(testId);
-        Map<Question, List<Answer>> questionMap = new TreeMap<>();      //Collection of questions and lists of answers for every question
+        Map<Question, List<Answer>> questionMap = new TreeMap<>();
 
         for(Question question: questions){
             questionMap.put(question, testService.findAnswersByQuestion(question.getId()));
         }
 
-        model.addAttribute("isExam", test.getIsExam());
+        model.addAttribute(IS_EXAM, test.getIsExam());
         model.addAttribute("testId", test.getId());
-        model.addAttribute("course", course);
-        model.addAttribute("lesson", lesson);
+        model.addAttribute(COURSE, course);
+        model.addAttribute(LESSON, lesson);
         model.addAttribute("questionMap", questionMap);
 
         return "edittest";
     }
 
-    /**
-     * Controller method to receive query from user to delete course.
-     *
-     * @param params contains all parameters for adding new test from page addtest or edittest.
-     */
     @RequestMapping({"/posttest"})
     public ModelAndView addTest(ModelMap model, @RequestParam Map<String, String> params)
     {
@@ -140,7 +129,7 @@ public class TestController {
         int lessonId;
         byte isExam;
 
-        if ((params.get("lessonId").equals("null"))){                   //if test is exam
+        if ((params.get("lessonId").equals("null"))){
             isExam = 1;
             lessonId=courseId;
         }
@@ -150,20 +139,20 @@ public class TestController {
         }
 
         if (testId != null){
-            testService.deleteTest(Integer.parseInt(testId));           //if test already exists, delete it and create new one (editing old test).
+            testService.deleteTest(Integer.parseInt(testId));
         }
 
         String questCount = params.get("questCount");
-        String questText;                                               //questText - var for text of question
-        String ansCount;                                                //ansCount - var for number of answers on question
-        int points;                                                     //points - var for grade for question
-        String ansText;                                                 //ansText - var for text of answer
-        double ansCoef;                                                 //ansCoef - var for coefficient of answer
+        String questText;//"quest" + q_num
+        String ansCount; //"ans_cnt" + q_num
+        int points; //"mark" + q_num //баллы за вопрос
+        String ansText;  //i + "ans" + q_num
+        double ansCoef;  //i + "coef" + q_num
 
-        int evaluation = 0;                                             //evaluation - var for total grade of test
+        int evaluation = 0;
 
         int i = 0;
-        while (i < Integer.parseInt(questCount)){                       //loop for calculating evaluation
+        while (i < Integer.parseInt(questCount)){
              String grade = params.get("mark"+i);
              if (grade != null){
                  evaluation += Integer.parseInt(grade);
@@ -174,10 +163,10 @@ public class TestController {
         testService.addTest(new Test(lessonId, evaluation, isExam));
 
         int addedTestId = testService.getLastTest();
-        byte questType;                                                 //var questType - type of question (1 - open, 0 - close)
+        byte questType;
 
         i = 0;
-        while (i < Integer.parseInt(questCount))                        //loop for adding questions to test
+        while (i < Integer.parseInt(questCount))
         {
             questText = params.get("quest" + i);
             if (questText != null)
@@ -185,7 +174,7 @@ public class TestController {
                 points = Integer.parseInt(params.get("mark" + i));
                 ansCount = params.get("ans_cnt" + i);
 
-                if (ansCount == null) {                                 //if no param with number of answer is presented - it's open question
+                if (ansCount == null) {
                     questType = 1;
                 } else {
                     questType = 0;
@@ -193,8 +182,8 @@ public class TestController {
 
                 testService.addQuestion(new Question(addedTestId, questText, points, questType));
 
-                if(questType == 0){                                                 //if question is close (with answers)
-                    for (int j = 0; j < Integer.parseInt(ansCount); j++) {          //loop for adding answers
+                if(questType == 0){
+                    for (int j = 0; j < Integer.parseInt(ansCount); j++) {
                         ansText = params.get(j + "ans" + i);
                         ansCoef = Double.parseDouble(params.get(j + "coef" + i));
 

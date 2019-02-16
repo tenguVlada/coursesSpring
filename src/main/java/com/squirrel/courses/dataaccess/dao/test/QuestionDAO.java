@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,10 +34,9 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
         QuestionMapper mapper = new QuestionMapper();
 
         try {
-            List<Question> quests = getJdbcTemplate().query(sql, params, mapper);                                //возможно неправильно
-            return quests;
+            return getJdbcTemplate().query(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -59,8 +59,7 @@ public class QuestionDAO extends JdbcDaoSupport implements IQuestionDAO{
         String sql = "SELECT MAX(id) as questId FROM question";
 
         try {
-            int testId = this.getJdbcTemplate().queryForObject(sql, Integer.class);        //возможно неправильно
-            return testId;
+            return this.getJdbcTemplate().queryForObject(sql, Integer.class);
         } catch (EmptyResultDataAccessException e) {
             return -1;
         }

@@ -22,6 +22,10 @@ import java.util.Optional;
  */
 @Controller
 public class LessonController {
+    private static final String LESSON = "lesson";
+    private static final String COURSE = "course";
+    private static final String MESSAGE = "message";
+
     private ILessonService lessonService;
     private ICourseService courseService;
 
@@ -38,8 +42,8 @@ public class LessonController {
     public String test(Model model, @RequestParam("lessonId") int id) {
 
         Lesson lesson = lessonService.getLessonById(id);
-        model.addAttribute("lesson", lesson);
-        return "lesson";
+        model.addAttribute(LESSON, lesson);
+        return LESSON;
     }
 
     /**
@@ -48,7 +52,7 @@ public class LessonController {
     @GetMapping({"/addlesson"})
     public String addlesson(Model model, @RequestParam("courseId") int courseId) {
         Course course = courseService.getCourseById(courseId);
-        model.addAttribute("course", course);
+        model.addAttribute(COURSE, course);
         return "addlesson";
     }
 
@@ -61,8 +65,8 @@ public class LessonController {
     {
         Course course = courseService.getCourseById(courseId);
 
-        model.addAttribute("course", course);
-        model.addAttribute("lesson", lessonService.getLessonById(lessonId));
+        model.addAttribute(COURSE, course);
+        model.addAttribute(LESSON, lessonService.getLessonById(lessonId));
         return "editlesson";
     }
 
@@ -83,9 +87,9 @@ public class LessonController {
         boolean success = lessonService.addLesson(lesson);
 
         if (success)
-            model.addAttribute("message", "Lesson is added!");
+            model.addAttribute(MESSAGE, "Lesson is added!");
         else
-            model.addAttribute("message", "Lesson adding failed!");
+            model.addAttribute(MESSAGE, "Lesson adding failed!");
 
         return new ModelAndView("redirect:/course?courseId=" + courseId, model);
     }

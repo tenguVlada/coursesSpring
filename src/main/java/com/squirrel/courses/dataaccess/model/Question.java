@@ -54,16 +54,8 @@ public class Question implements Comparable<Question>{
         return questText;
     }
 
-    public void setQuestText(String questText) {
-        this.questText = questText;
-    }
-
     public int getPoints() {
         return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public byte getIsOpen() {
@@ -76,14 +68,22 @@ public class Question implements Comparable<Question>{
 
     @Override
     public int compareTo(Question question) {
-        if (this.id < question.getId()) {
-            return -1;
+        return Integer.compare(this.id, question.getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
         }
-        else if (this.id == question.getId()){
-            return 0;
+        if (obj == this) {
+            return true;
         }
-        else {
-            return 1;
+        if (!(obj instanceof Question)) {
+            return false;
         }
+
+        Question question = (Question) obj;
+        return (this.id == question.id);
     }
 }

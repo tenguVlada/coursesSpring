@@ -54,15 +54,7 @@ public class Test {
         return evaluation;
     }
 
-    public void setEvaluation(int evaluation) {
-        this.evaluation = evaluation;
-    }
-
     public byte getIsExam() {
         return isExam;
-    }
-
-    public void setIsExam(byte isExam) {
-        this.isExam = isExam;
     }
 }

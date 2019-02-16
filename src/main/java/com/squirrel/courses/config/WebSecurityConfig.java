@@ -10,11 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/**
- * Class for security configurations
- *
- * @author  Bogdan Popovich
- */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -24,48 +19,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
-    /**
-     * Configure password encoder
-     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    /**
-     * Configure roles and permissions to access diff pages
-     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/about", "/allcourses").permitAll();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
-        http.authorizeRequests().antMatchers("/profile").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')"); //access for authorized user
+        http.authorizeRequests().antMatchers("/profile").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
 
-        http.authorizeRequests()
-                .antMatchers("/course", "/lesson", "/test")
-                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
-
-        http.authorizeRequests()
-                .antMatchers("/addcourse", "/editcourse", "/postcourse",
-                        "/addtest", "/edittest", "/posttest",
-                        "/addlesson", "/editlesson", "/postlesson")
-                .access("hasAnyRole('ROLE_LECTURER')");
-
-
-        // For ADMIN only.
-        //http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-        //http.authorizeRequests().antMatchers("/admin").hasRole("admin");
-
-        // For ROLE only.
-        //http.authorizeRequests().antMatchers("/mockPage").access("hasRole('ROLE_STUDENT')");
+        http.authorizeRequests().antMatchers("/course").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
 
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
@@ -74,7 +44,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/allcourses"); // log in/out config
-
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/allcourses");
     }
 }
