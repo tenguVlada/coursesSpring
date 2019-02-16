@@ -35,9 +35,14 @@ function closePopUpLessC(){
     popUp.style.display = "none";
 };
 
-function openPopUpLessL(){
+function openPopUpLessL(but){
     var backPopUp = document.getElementById("popupconflessl");
     var popUp = document.getElementById("popuplessl");
+
+    var id = but.parentElement.childNodes.item(1).value;
+
+    document.getElementById("deleteLess").value = id;
+
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 };
@@ -68,7 +73,8 @@ function deleteCourse() {
 }
 
 function deleteLesson() {
-    document.getElementById("deleteLessonForm").submit();
+    var id = document.getElementById("deleteLess").value;
+    document.getElementById("deleteLessonForm" + id).submit();
 }
 
 function deleteTest() {
