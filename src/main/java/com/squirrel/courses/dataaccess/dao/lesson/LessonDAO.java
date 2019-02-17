@@ -11,15 +11,15 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Class LessonDAO realizes data-access methods related to working with table Lesson.
+ *
+ * @author    Vladislava Prokopenko
+ */
 @Repository
 @Transactional
 public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
@@ -38,22 +38,21 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
         LessonMapper mapper = new LessonMapper();
 
         try {
-            List<Lesson> lessons = getJdbcTemplate().query(sql, params, mapper);                       //
-            return lessons;
+            return getJdbcTemplate().query(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
-            return null;
+            return Collections.emptyList();
         }
     }
 
     @Override
     public String getCourseName(int id) {
-        String sql = CourseMapper.BASE_SQL + " WHERE id = ?";
+        String sql = CourseMapper.ID_SQL;
 
         Object[] params = new Object[]{id};
         CourseMapper mapper = new CourseMapper();
 
         try {
-            Course course = getJdbcTemplate().queryForObject(sql, params, mapper);                        //возможно неправильно
+            Course course = getJdbcTemplate().queryForObject(sql, params, mapper);
             return course.getCourseName();
         } catch (EmptyResultDataAccessException e){
             return null;
@@ -62,14 +61,13 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
 
     @Override
     public String getLessonName(int id){
-        String sql = LessonMapper.BASE_SQL + " WHERE id = ?";
+        String sql = LessonMapper.ID_SQL;
 
         Object[] params = new Object[]{id};
         LessonMapper mapper = new LessonMapper();
 
         try {
-            String lessonName = getJdbcTemplate().queryForObject(sql, params, mapper).getLessName();                        //возможно неправильно
-            return lessonName;
+            return getJdbcTemplate().queryForObject(sql, params, mapper).getLessName();
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -78,14 +76,13 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
 
     @Override
     public Lesson getLessonByID(int id) {
-        String sql = LessonMapper.BASE_SQL + " WHERE id = ?";
+        String sql = LessonMapper.ID_SQL;
 
         Object[] params = new Object[]{id};
         LessonMapper mapper = new LessonMapper();
 
         try {
-            Lesson lesson = getJdbcTemplate().queryForObject(sql, params, mapper);                        //возможно неправильно
-            return lesson;
+            return getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
             return null;
         }
@@ -99,10 +96,9 @@ public class LessonDAO extends JdbcDaoSupport implements ILessonDAO {
         LessonMapper mapper = new LessonMapper();
 
         try {
-            List<Lesson> lessons = getJdbcTemplate().query(sql, params, mapper);                       //
-            return lessons;
+            return getJdbcTemplate().query(sql, params, mapper);
         } catch (EmptyResultDataAccessException e){
-            return null;
+            return Collections.emptyList();
         }
     }
 

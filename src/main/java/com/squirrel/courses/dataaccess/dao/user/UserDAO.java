@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.sql.DataSource;
 
+/**
+ * Class UserDAO realizes data-access methods related to working with table User.
+ *
+ * @author    Bogdan Popovich
+ */
 @Repository
 @Transactional
 public class UserDAO extends JdbcDaoSupport implements IUserDAO {
@@ -40,8 +45,7 @@ public class UserDAO extends JdbcDaoSupport implements IUserDAO {
         Object[] params = new Object[]{login};
         UserMapper mapper = new UserMapper();
         try {
-            AppUser appUser = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return appUser;
+            return this.getJdbcTemplate().queryForObject(sql, params, mapper);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }

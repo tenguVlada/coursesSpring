@@ -1,4 +1,4 @@
-package com.squirrel.courses.service.course;
+package com.squirrel.courses.service.test;
 
 import com.squirrel.courses.dataaccess.model.Answer;
 import com.squirrel.courses.dataaccess.model.Question;

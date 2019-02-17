@@ -4,11 +4,14 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Class CourseErrorController realizes controller's methods of handling errors.
+ *
+ * @author    Bogdan Popovich
+ */
 @Controller
 public class CourseErrorController implements ErrorController {
 
@@ -17,6 +20,9 @@ public class CourseErrorController implements ErrorController {
         return "/error";
     }
 
+    /**
+     * Controller method to show error page.
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request){
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
@@ -24,10 +30,10 @@ public class CourseErrorController implements ErrorController {
         if (status != null){
             Integer statusCode = Integer.valueOf(status.toString());
 
-            if (statusCode == HttpStatus.FORBIDDEN.value()){
+            if (statusCode == HttpStatus.FORBIDDEN.value()){ //error handler for 403
                 return "error/errorPage403";
             }
         }
-        return "error/errorPage";
+        return "error/errorPage"; // error handler for rest errors
     }
 }

@@ -19,34 +19,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable();
 
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
 
         http.authorizeRequests().antMatchers("/profile").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
 
-        //http.authorizeRequests().antMatchers("/userInfo").hasAnyRole("admin", "lecturer", "student");
         http.authorizeRequests().antMatchers("/course").access("hasAnyRole('ROLE_ADMIN', 'ROLE_LECTURER', 'ROLE_STUDENT')");
-
-        // For ADMIN only.
-        //http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
-        //http.authorizeRequests().antMatchers("/admin").hasRole("admin");
-
-        // For ROLE only.
-        //http.authorizeRequests().antMatchers("/mockPage").access("hasRole('ROLE_STUDENT')");
 
         http.authorizeRequests().and().formLogin()
                 .loginProcessingUrl("/j_spring_security_check")
@@ -56,6 +45,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/allcourses");
-
     }
 }

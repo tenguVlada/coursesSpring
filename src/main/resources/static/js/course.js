@@ -1,87 +1,82 @@
-var less= "";
-function closePopUp(){
-    var backPopUp = document.getElementById("popupcont");
-    var popUp = document.getElementById("popup");
+function openPopUpLessC(){
+    var backPopUp = document.getElementById("popupconflessc");
+    var popUp = document.getElementById("popuplessc");
+    backPopUp.style.display = "inline";
+    popUp.style.display = "inline";
+};
+
+function updateCourse(){
+    document.getElementById("courseTitle").setAttribute("value",
+        document.getElementById("courseInfoTitle").innerHTML
+            .replace("'", "|"));
+    document.getElementById("courseTheme").setAttribute("value",
+        document.getElementById("themeOfCourse").innerHTML
+            .replace("'", "|"));
+    document.getElementById("courseDescription").setAttribute("value",
+        document.getElementById("courseDesc").innerHTML
+            .replace("'", "|"));
+    document.getElementById("data_send1").submit();
+};
+
+function save_course(){
+    document.getElementById("course_title_form").setAttribute("value",
+             document.getElementById("edit_input_title_id").innerHTML.replace("'", "|"));
+    document.getElementById("theme_form").setAttribute("value",
+        document.getElementById("edit_input_text").innerHTML.replace("'", "|"));
+    document.getElementById("description_form").setAttribute("value",
+        document.getElementById("edit_description_id").innerHTML.replace("'", "|"));
+    document.getElementById("data_send").submit();
+}
+
+function closePopUpLessC(){
+    var backPopUp = document.getElementById("popupconflessc");
+    var popUp = document.getElementById("popuplessc");
     backPopUp.style.display = "none";
     popUp.style.display = "none";
 };
 
-function openPopUp(){
-    var backPopUp = document.getElementById("popupcont");
-    var popUp = document.getElementById("popup");
+function openPopUpLessL(but){
+    var backPopUp = document.getElementById("popupconflessl");
+    var popUp = document.getElementById("popuplessl");
+
+    var id = but.parentElement.childNodes.item(1).value;
+
+    document.getElementById("deleteLess").value = id;
+
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 };
 
-function pageRedirect(ref){
-    window.location.href = ref;
-};
-
-function pageRedirectLecture(ref){
-    window.location.href = ref+less;
-};
-
-function doSubmit() {
-    window.transer("editsavecourse.jsp");
-};
-
-function getValue(id){
-    return document.getElementById(id);
-};
-
-function call(course_id, edit){
-    if (edit.localeCompare("true") == 0) {
-        var course_lecturer = document.getElementById("lecturerOfCourse").innerHTML;
-        var course_name = document.getElementById("courseInfoTitle").innerHTML;
-        var course_theme = document.getElementById("themeOfCourse").innerHTML;
-        var course_description = document.getElementById("lorem").innerHTML;
-        window.location.href = 'editsavecourse.jsp?course_id=' + course_id + '&edit=' + edit + '&course_lecturer=' + course_lecturer + '&course_name=' + course_name + '&course_theme=' + course_theme + '&course_description=' + course_description;
-    }
-    else
-        window.location.href = 'editsavecourse.jsp?course_id=' + course_id + '&edit=' + edit;
-};
-
-function closePopUpConf(){
-    var backPopUp = document.getElementById("popupconfcont");
-    var popUp = document.getElementById("popupconf");
+function closePopUpLessL(){
+    var backPopUp = document.getElementById("popupconflessl");
+    var popUp = document.getElementById("popuplessl");
     backPopUp.style.display = "none";
     popUp.style.display = "none";
 };
 
-function openPopUpLess(id){
-    less = id;
-    var backPopUp = document.getElementById("popupconfless");
-    var popUp = document.getElementById("popupless");
+function openPopUpLessT(){
+    var backPopUp = document.getElementById("popupconflesst");
+    var popUp = document.getElementById("popuplesst");
     backPopUp.style.display = "inline";
     popUp.style.display = "inline";
 };
 
-function openPopUpLessEx(){
-    var backPopUp = document.getElementById('popupconfless');
-    var popUp = document.getElementById('popupless');
-    backPopUp.style.display = "inline";
-    popUp.style.display = "inline";
-};
-
-function closePopUpLess(){
-    var backPopUp = document.getElementById("popupconfless");
-    var popUp = document.getElementById("popupless");
+function closePopUpLessT(){
+    var backPopUp = document.getElementById("popupconflesst");
+    var popUp = document.getElementById("popuplesst");
     backPopUp.style.display = "none";
     popUp.style.display = "none";
 };
 
-function openPopUpConf(){
-    var backPopUp = document.getElementById("popupconfcont");
-    var popUp = document.getElementById("popupconf");
-    backPopUp.style.display = "inline";
-    popUp.style.display = "inline";
-};
+function deleteCourse() {
+    document.getElementById("deleteCourseForm").submit();
+}
 
-function statusPressed(button){
-    if (button == "confirm"){
-        return true;
-    }
-    else{
-        return false;
-    }
-};
+function deleteLesson() {
+    var id = document.getElementById("deleteLess").value;
+    document.getElementById("deleteLessonForm" + id).submit();
+}
+
+function deleteTest() {
+    document.getElementById("deleteTestForm").submit();
+}

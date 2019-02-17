@@ -6,8 +6,15 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class CourseMapper realizes RowMapper method to convert query result to object Course.
+ * Also it contains basic queries as constants.
+ *
+ * @author    Maxim Tytskiy
+ */
 public class CourseMapper implements RowMapper<Course> {
     public static final String BASE_SQL = "SELECT id, lecturer, course_name, theme, description FROM course";
+    public static final String ID_SQL = "SELECT id, lecturer, course_name, theme, description FROM course WHERE id = ?";
     public static final String INSERT_SQL = "INSERT INTO course (lecturer, course_name, theme, description)";
     public static final String DELETE_SQL = "DELETE FROM course";
     public static final String THEME_SQL = "SELECT DISTINCT theme FROM course";

@@ -23,7 +23,7 @@
             <div class="material_title" data-medium-editor-element="true">Description</div>
             <div class="edit_description" id = "edit_description_id" name="editable_desc" contenteditable="true" data-placeholder="Enter description..." spellcheck="true"
                  data-medium-editor-element="true" role="textbox" aria-multiline="true"></div>
-            <button class="button" id="buttonMain" onclick="save_course();">Save course</button>
+            <button class="button" id="buttonMain" onclick="openPopUpLess();">Save course</button>
         </div>
     </div>
     <form method="post" id="data_send" th:action="@{/postcourse}">
@@ -31,5 +31,14 @@
         <input hidden="true" id="theme_form" name="theme" value="">
         <input hidden="true" id="description_form" name="description" value="">
     </form>
+    <div class="popupconfless" id="popupconfless">
+        <div class="popupless" id="popupless">
+            <div class="operstatus">Course will be added. Continue?</div>
+            <div class="popUpButtons">
+                <button id="confirm" onclick="save_course()">OK</button>
+                <button id="cancel" onclick="closePopUpLess()">Cancel</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

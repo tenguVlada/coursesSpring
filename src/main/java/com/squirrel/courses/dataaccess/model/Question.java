@@ -1,10 +1,22 @@
 package com.squirrel.courses.dataaccess.model;
 
+/**
+ * Class Question represents the entity of question from test with main information about it.
+ *
+ * @author    Natalie Tkachenko
+ */
 public class Question implements Comparable<Question>{
     private int id;
     private int test;
     private String questText;
+
+    /** Var points defines maximal count of points which user can earn for answering this question. */
     private int points;
+
+    /** Var isOpen defines the format of question.
+     * Value 0 for close format with ready-made answer options.
+     * Value 1 for open format.
+     */
     private byte isOpen;
 
     public Question(int id, int test, String questText, int points, byte isOpen) {
@@ -42,16 +54,8 @@ public class Question implements Comparable<Question>{
         return questText;
     }
 
-    public void setQuestText(String questText) {
-        this.questText = questText;
-    }
-
     public int getPoints() {
         return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public byte getIsOpen() {
@@ -64,14 +68,22 @@ public class Question implements Comparable<Question>{
 
     @Override
     public int compareTo(Question question) {
-        if (this.id < question.getId()) {
-            return -1;
+        return Integer.compare(this.id, question.getId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
         }
-        else if (this.id == question.getId()){
-            return 0;
+        if (obj == this) {
+            return true;
         }
-        else {
-            return 1;
+        if (!(obj instanceof Question)) {
+            return false;
         }
+
+        Question question = (Question) obj;
+        return (this.id == question.id);
     }
 }

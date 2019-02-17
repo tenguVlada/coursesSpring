@@ -21,6 +21,7 @@ a:hover:after, a:visited:hover:after {
 
 /*header*/
 header {
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
