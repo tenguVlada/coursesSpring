@@ -14,5 +14,5 @@ public interface ICourseService {
     List<String> getLecturerCourseThemes(String lecturer);
     List<Course> getCoursesByName(String name);
     List<Course> getCoursesByTheme(String theme);
-    List<Course> getCoursesByLecturer(String lecturer);
+    //List<Course> getCoursesByLecturer(String lecturer);
 }
